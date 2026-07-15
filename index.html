@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proctor // Assessment — 50 Questions</title>
-<meta name="description" content="A comprehensive 50-question assessment covering Quantitative Aptitude, Verbal Ability, CS Fundamentals, Programming & Web Technologies, and Situational Judgment.">
+<title>Proctor // Assessment — 230 Questions</title>
+<meta name="description" content="A comprehensive 230-question assessment covering Quantitative Aptitude, Verbal Ability, CS Fundamentals, Programming & Web Technologies, and Situational Judgment.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
@@ -25,6 +25,10 @@
     --accent-4: #e74f7a;
     --accent-5: #3ecf8e;
 
+    --oop: #7c6aef;
+    --dbms: #56b4f9;
+    --cn: #f59e42;
+    --dsa: #e74f7a;
     --quant: #56b4f9;
     --verbal: #f59e42;
     --cs: #7c6aef;
@@ -865,8 +869,8 @@
 
   <div class="hero">
     <div class="hero-badge">📋 Comprehensive Evaluation</div>
-    <h1>Technical, Quant & Verbal Assessment</h1>
-    <p>50 questions across 5 sections — MCQ & MSQ format. Your answers are revealed upon submission.</p>
+    <h1>Comprehensive Computer Science Assessment</h1>
+    <p>230 questions across 10 sections. Covers fundamental and advanced concepts to evaluate your technical and analytical proficiency.</p>
   </div>
 
   <div class="layout-columns">
@@ -877,7 +881,7 @@
     <div class="main-column">
       <div class="progress-wrap">
         <div class="progress-top">
-          <span class="progress-label"><strong id="answeredCount">0</strong> of 50 answered</span>
+          <span class="progress-label"><strong id="answeredCount">0</strong> of 230 answered</span>
           <span class="progress-label" id="progressPct">0%</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -905,7 +909,7 @@
             </div>
           </div>
           <h2 id="scoreHeadline">Calculating…</h2>
-          <p class="results-sub" id="scoreSub">0 of 50 correct</p>
+          <p class="results-sub" id="scoreSub">0 of 230 correct</p>
         </div>
         <div class="section-scores-grid" id="sectionScores"></div>
         <div class="omr-section">
@@ -944,797 +948,244 @@
 // QUESTION DATA — 50 QUESTIONS
 // ===========================
 const DATA = [
-// ═══════════════ SECTION 1: QUANTITATIVE APTITUDE & LOGICAL REASONING ═══════════════
-{sec:"quant", type:"mcq",
- q:"If Person A can complete a project in 15 days and Person B can complete it in 10 days, how long will it take them working together?",
- opts:["5 days","6 days","8 days","12.5 days"],
- correct:["B"],
- explanation:"Person A completes 1/15 of the project per day. Person B completes 1/10 per day. Together: 1/15 + 1/10 = 2/30 + 3/30 = 5/30 = 1/6 of the project per day. Thus, it takes them 6 days."},
-
-{sec:"quant", type:"mcq",
- q:"A 150-meter-long train crosses a pole in 15 seconds. What is the speed of the train in km/hr?",
- opts:["10 km/hr","36 km/hr","45 km/hr","54 km/hr"],
- correct:["B"],
- explanation:"Speed = Distance / Time = 150m / 15s = 10 m/s. To convert to km/hr, multiply by 18/5. 10 * (18/5) = 36 km/hr."},
-
-{sec:"quant", type:"mcq",
- q:'A vendor sells software licenses at a 20% profit. If the cost price increases by 10% and the selling price remains the same, what is the new profit percentage?',
- opts:["9.09%","10%","15%","18.18%"],
- correct:["A"],
- explanation:"Assume original cost price (CP) is 100. Selling price (SP) is 120. New CP is 110. SP is still 120. Profit = 120 - 110 = 10. Profit percentage = (10 / 110) * 100 ≈ 9.09%."},
-
-{sec:"quant", type:"mcq",
- q:"In a technical test, 40% of the students failed in logic, 30% failed in coding, and 10% failed in both. What percentage of students passed in both?",
- opts:["30%","40%","50%","60%"],
- correct:["B"],
- explanation:"Total failed in at least one subject = 40% + 30% - 10% (intersection) = 60%. Therefore, students who passed in both = 100% - 60% = 40%."},
-
-{sec:"quant", type:"mcq",
- q:"What is the probability of drawing an Ace or a King from a standard deck of 52 cards?",
- opts:["1/13","2/13","1/26","4/13"],
- correct:["B"],
- explanation:"There are 4 Aces and 4 Kings in a deck of 52 cards. Total favorable outcomes = 8. Probability = 8/52 = 2/13."},
-
-{sec:"quant", type:"mcq",
- q:"What is the next number in the sequence: 2, 6, 12, 20, 30, __?",
- opts:["40","42","44","48"],
- correct:["B"],
- explanation:"The differences between consecutive numbers are 4, 6, 8, 10. The next difference is 12. 30 + 12 = 42."},
-
-{sec:"quant", type:"mcq",
- q:'If the word "DEVELOP" is coded as "EFWFMPQ", how would you code "SYSTEM"?',
- opts:["TZTUFN","RXRSDL","UZUVGO","TYSVEN"],
- correct:["A"],
- explanation:"Each letter is shifted forward by one position in the alphabet (D->E, E->F, etc.). Applying this to SYSTEM: S->T, Y->Z, S->T, T->U, E->F, M->N. Result: TZTUFN."},
-
-{sec:"quant", type:"mcq",
- q:'Pointing to a photograph, a man says, "She is the daughter of my grandfather\'s only son." How is the woman related to the man?',
- opts:["Aunt","Mother","Sister","Cousin"],
- correct:["C"],
- explanation:"The grandfather's only son is the man's father. The daughter of the man's father is his sister."},
-
-{sec:"quant", type:"mcq",
- q:"A developer walks 10 km North, turns right and walks 5 km, turns right again and walks 10 km. How far and in which direction is he from the starting point?",
- opts:["5 km East","5 km West","10 km South","15 km North"],
- correct:["A"],
- explanation:"He walks 10 km North, then 5 km East (right), then 10 km South (right). He ends up exactly 5 km East of his starting point."},
-
-{sec:"quant", type:"msq",
- q:'Statements: Some algorithms are complex. All complex things are slow. Conclusion: Some algorithms are slow. Select all valid conclusions.',
- opts:["The conclusion is logically true.","The conclusion is logically false.","All algorithms are slow.","Some slow things are algorithms."],
- correct:["A","D"],
- explanation:"Since some algorithms are complex, and all complex things are slow, those specific complex algorithms must be slow (A is true). Because they are slow algorithms, it also means some slow things are algorithms (D is true)."},
-
-// ═══════════════ SECTION 2: VERBAL ABILITY ═══════════════
-{sec:"verbal", type:"mcq",
- q:'Identify the grammatical error in the sentence: "The list of items were placed on the desk."',
- opts:['"The list"','"of items"','"were placed"','"on the desk"'],
- correct:["C"],
- explanation:"The subject of the sentence is 'The list' (singular), not 'items'. Therefore, the verb should be singular 'was placed' instead of 'were placed'."},
-
-{sec:"verbal", type:"mcq",
- q:'Fill in the blank: "The application is completely independent ______ the legacy system."',
- opts:["from","of","with","on"],
- correct:["B"],
- explanation:"The correct preposition to use after the adjective 'independent' in this context is 'of'."},
-
-{sec:"verbal", type:"mcq",
- q:"Choose the most accurate synonym for the word: Mitigate.",
- opts:["Worsen","Alleviate","Instigate","Aggravate"],
- correct:["B"],
- explanation:"To mitigate means to make something less severe, harmful, or painful, which is synonymous with 'Alleviate'."},
-
-{sec:"verbal", type:"mcq",
- q:"Choose the most accurate antonym for the word: Frugal.",
- opts:["Thrifty","Extravagant","Careful","Stingy"],
- correct:["B"],
- explanation:"Frugal means economical or sparing with money. Its direct opposite is Extravagant (lacking restraint in spending)."},
-
-{sec:"verbal", type:"mcq",
- q:'Convert to passive voice: "The system administrator rebooted the server."',
- opts:["The server is rebooted by the system administrator.","The server was being rebooted by the system administrator.","The server has been rebooted by the system administrator.","The server was rebooted by the system administrator."],
- correct:["D"],
- explanation:"The original sentence is in the simple past tense. The passive equivalent is 'was rebooted'."},
-
-{sec:"verbal", type:"mcq",
- q:'Correct the sentence: "He did not wrote the deployment script."',
- opts:["He did not writes the deployment script.","He did not written the deployment script.","He did not write the deployment script.","He do not wrote the deployment script."],
- correct:["C"],
- explanation:"When using 'did not' (auxiliary verb 'do' in past tense), the main verb must be in its base form ('write'), not past tense ('wrote')."},
-
-{sec:"verbal", type:"mcq",
- q:"Complete the Verbal Analogy: RAM : Volatile :: Hard Drive : _______",
- opts:["Virtual","Temporary","Non-volatile","Processing"],
- correct:["C"],
- explanation:"RAM is a type of volatile memory (loses data when powered off), whereas a Hard Drive is non-volatile memory (retains data permanently)."},
-
-{sec:"verbal", type:"mcq",
- q:'What is the meaning of the idiom "To bite the bullet"?',
- opts:["To physically defend oneself.","To face a difficult or unpleasant situation with courage.","To make a severe mistake in a project.","To speak angrily to a colleague."],
- correct:["B"],
- explanation:"'To bite the bullet' means to endure a painful, difficult, or unavoidable situation bravely."},
-
-{sec:"verbal", type:"mcq",
- q:"What is the one-word substitution for a piece of code that propagates by copying itself?",
- opts:["Malware","Phishing","Virus","Firewall"],
- correct:["C"],
- explanation:"A computer virus is a specific type of malicious code designed to propagate by copying itself and infecting other files."},
-
-{sec:"verbal", type:"msq",
- q:'"Agile methodologies prioritize working software and customer collaboration over extensive documentation." Based on this, which inferences are correct?',
- opts:["Agile entirely eliminates the need for documentation.","Agile values customer feedback during the development process.","Working software is considered a primary measure of progress.","Agile strictly follows sequential, unchanging phases."],
- correct:["B","C"],
- explanation:"Agile 'prioritizes' these aspects but does not eliminate documentation entirely. It heavily relies on iterative customer feedback and values working software over rigid phases."},
-
-// ═══════════════ SECTION 3: COMPUTER SCIENCE FUNDAMENTALS ═══════════════
-{sec:"cs", type:"msq",
- q:"What are the core differences between an Array and a Linked List?",
- opts:["Arrays require contiguous memory allocation; Linked Lists do not.","Linked Lists allow for O(1) random access to elements using an index.","Inserting an element at the beginning of an Array is an O(n) operation.","Arrays typically have a fixed size upon initialization, while Linked Lists are dynamic."],
- correct:["A","C","D"],
- explanation:"Arrays allocate memory contiguously, allow O(1) index access, but require O(n) shifts for front insertions. Linked lists are dynamic and non-contiguous, but lack O(1) random access."},
-
-{sec:"cs", type:"msq",
- q:"Which of the following statements about Binary Search are TRUE?",
- opts:["It operates with a time complexity of O(log n).","It can be applied directly to unsorted data structures.","It follows a divide-and-conquer algorithmic paradigm.","It is typically implemented iteratively or recursively."],
- correct:["A","C","D"],
- explanation:"Binary search requires a sorted dataset to function. It operates in O(log n) time by continuously halving the search space (divide-and-conquer)."},
-
-{sec:"cs", type:"mcq",
- q:"How does a Hash Map typically handle collisions internally (in languages like Java)?",
- opts:["By throwing an IndexOutOfBounds exception.","By overwriting the existing key-value pair automatically.","Using chaining (Linked Lists) or open addressing (probing).","By resizing the array down to a smaller prime number."],
- correct:["C"],
- explanation:"When two keys hash to the same bucket, Hash Maps resolve the collision primarily using Chaining (storing colliding items in a Linked List) or Open Addressing (finding the next empty slot)."},
-
-{sec:"cs", type:"msq",
- q:"Which of the following correctly describes Stacks and Queues?",
- opts:["A Stack follows Last-In-First-Out (LIFO).","A Queue follows First-In-First-Out (FIFO).",'The "Undo" mechanism in text editors is a standard use case for a Queue.',"Task scheduling in an Operating System is a standard use case for a Queue."],
- correct:["A","B","D"],
- explanation:"Stacks are LIFO (used for Undo mechanisms). Queues are FIFO (used for scheduling, buffering, and message queues)."},
-
-{sec:"cs", type:"msq",
- q:"What is the exact difference between Method Overloading and Method Overriding?",
- opts:["Overloading occurs within the same class; Overriding requires a parent-child inheritance relationship.","Overloading uses the exact same method signature; Overriding requires different parameters.","Overloading is resolved at compile-time (static polymorphism).","Overriding is resolved at runtime (dynamic polymorphism)."],
- correct:["A","C","D"],
- explanation:"Overloading involves multiple methods with the same name but different parameters (resolved at compile-time). Overriding replaces a parent class's method with the exact same signature (resolved at runtime)."},
-
-{sec:"cs", type:"mcq",
- q:"When would you choose to implement an Abstract Class instead of an Interface?",
- opts:["When you need to support multiple inheritance in Java/C#.","When you want to provide shared state (member variables) and common base logic alongside abstract methods.","When you only need to define a contract of method signatures without any implementation details.","When you want to prevent any child class from inheriting the base class."],
- correct:["B"],
- explanation:"Abstract classes allow you to define base, reusable logic and state variables, whereas Interfaces are strictly contracts for method signatures (though some modern languages allow default interface methods)."},
-
-{sec:"cs", type:"msq",
- q:"Which of the following represent the ACID properties in database transaction management?",
- opts:["Atomicity","Concurrency","Isolation","Durability"],
- correct:["A","C","D"],
- explanation:"ACID stands for Atomicity, Consistency, Isolation, and Durability. Concurrency is related but not one of the ACID properties."},
-
-{sec:"cs", type:"msq",
- q:"Regarding SQL Constraints, what is the difference between DELETE, TRUNCATE, and DROP?",
- opts:["DELETE is a DML command and can be rolled back.","TRUNCATE removes all rows from a table but keeps the structure, and cannot be easily rolled back.","DROP removes the entire table structure and data from the database.","DELETE is faster than TRUNCATE for emptying large tables."],
- correct:["A","B","C"],
- explanation:"DELETE removes specific rows (slower, log-heavy, rollbackable). TRUNCATE empties a table quickly (DDL, usually non-rollbackable). DROP deletes the table entirely."},
-
-{sec:"cs", type:"mcq",
- q:"What is the difference between an INNER JOIN and a LEFT JOIN?",
- opts:["INNER JOIN returns only matching rows; LEFT JOIN returns all rows from the left table and matched rows from the right table.","INNER JOIN returns all rows from both tables; LEFT JOIN returns only matching rows.","LEFT JOIN requires a third linking table to function.","There is no functional difference; they are aliases."],
- correct:["A"],
- explanation:"INNER JOIN strictly filters for records that exist in both tables. LEFT JOIN guarantees every record from the primary (left) table is returned, with NULLs for unmatched right-table columns."},
-
-{sec:"cs", type:"msq",
- q:"Which of the following are necessary conditions for a Deadlock to occur in an Operating System?",
- opts:["Mutual Exclusion","Hold and Wait","Preemption allowed","Circular Wait"],
- correct:["A","B","D"],
- explanation:"Coffman's conditions for deadlock are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If preemption is allowed, deadlocks can be broken."},
-
-// ═══════════════ SECTION 4: PROGRAMMING & MODERN WEB TECHNOLOGIES ═══════════════
-{sec:"prog", type:"msq",
- q:"What is the difference between String, StringBuilder, and StringBuffer in Java?",
- opts:["String objects are immutable.","StringBuilder is mutable but not thread-safe.","StringBuffer is mutable and thread-safe (synchronized).","StringBuilder is significantly slower than StringBuffer in single-threaded environments."],
- correct:["A","B","C"],
- explanation:"Strings cannot be changed once created. StringBuilder allows fast mutations but lacks synchronization. StringBuffer provides synchronized thread safety at the cost of performance."},
-
-{sec:"prog", type:"msq",
- q:"How can memory leaks occur in a language with Garbage Collection (like Java or C#)?",
- opts:["By leaving unclosed database connections or file streams.","By maintaining static collections (like HashMaps) that grow indefinitely.","Garbage Collectors perfectly prevent all forms of memory leaks.","By having objects that reference each other, even if the main application no longer uses them."],
- correct:["A","B"],
- explanation:"Logical leaks occur when developers keep references to objects (like in static lists or unclosed streams) that are no longer needed, preventing cleanup. Note that option D is false: modern tracing GCs in Java/C# easily detect and clean up isolated circular references!"},
-
-{sec:"prog", type:"mcq",
- q:"What is the core difference between a List and a Tuple in Python?",
- opts:["Lists are ordered; Tuples are unordered.","Lists can store mixed data types; Tuples can only store strings.","Lists are mutable (can be changed); Tuples are immutable (cannot be changed).","Lists use parentheses (); Tuples use square brackets []."],
- correct:["C"],
- explanation:"The defining difference is mutability. Lists [] can be appended, modified, or truncated. Tuples () are fixed upon creation."},
-
-{sec:"prog", type:"mcq",
- q:"In Python, what is the primary purpose of a Decorator?",
- opts:["To physically alter the source code of a function permanently.","To modify or extend the behavior of a function or class without permanently modifying it.","To create a completely new instance of a class.","To enforce strict type-checking on function parameters."],
- correct:["B"],
- explanation:"Decorators are higher-order functions that wrap another function, allowing you to execute code before or after the wrapped function runs, effectively extending its behavior dynamically."},
-
-{sec:"prog", type:"msq",
- q:"In C++, what are the key differences between Pointers and References?",
- opts:["A pointer can be reassigned to point to a different memory address; a reference cannot.","A pointer can be assigned a null value; a reference must refer to an existing object.","A reference has its own independent memory address distinct from the variable it references.","Pointers require dereferencing (*) to access the value; references do not."],
- correct:["A","B","D"],
- explanation:"References act as immutable aliases to an existing object and cannot be null or reassigned. Pointers are separate variables that hold memory addresses, requiring explicit dereferencing."},
-
-{sec:"prog", type:"mcq",
- q:"In JavaScript, how does the Event Loop handle asynchronous operations?",
- opts:["By spawning a new system thread for every asynchronous callback.","By blocking the main execution thread until the asynchronous task completes.","By pushing callbacks to a task queue and moving them to the call stack only when the stack is empty.","By executing asynchronous tasks immediately before synchronous code."],
- correct:["C"],
- explanation:"JavaScript is single-threaded. Async operations are handled by browser/Node APIs, and their callbacks are queued. The Event Loop pushes them to the execution stack only when the stack is entirely clear."},
-
-{sec:"prog", type:"msq",
- q:'What are the differences between <code>var</code>, <code>let</code>, and <code>const</code> in JavaScript?',
- opts:["var is function-scoped.","let and const are block-scoped.","Variables declared with let can be re-declared within the same scope.","The value assigned to a const primitive cannot be reassigned."],
- correct:["A","B","D"],
- explanation:"'let' and 'const' were introduced in ES6 to provide strict block scoping and prevent accidental re-declarations (unlike 'var'). 'const' prevents reassignment, though objects remain mutable."},
-
-{sec:"prog", type:"msq",
- q:"How do Promises differ from traditional Callbacks in JavaScript?",
- opts:['Promises allow for method chaining (e.g., .then().catch()), preventing "Callback Hell".','Promises can be in one of three states: pending, fulfilled, or rejected.',"Callbacks are inherently faster than Promises at the CPU level.","Promises make it easier to handle multiple asynchronous operations simultaneously (e.g., Promise.all)."],
- correct:["A","B","D"],
- explanation:"Promises provide a cleaner, chainable syntax to handle async flows, represent state natively, and offer utilities like Promise.all to manage multiple tasks concurrently, avoiding deeply nested callbacks."},
-
-{sec:"prog", type:"mcq",
- q:"What is the Virtual DOM in React, and how does it optimize rendering performance?",
- opts:["It directly manipulates the browser's DOM on every state change.","It is a lightweight, in-memory representation of the Real DOM used to batch and diff updates efficiently before applying them.","It is a server-side rendering tool that replaces the browser completely.","It is a secondary browser window used strictly for debugging React components."],
- correct:["B"],
- explanation:"React compares the Virtual DOM with a previous snapshot (diffing) to calculate the minimum number of actual DOM operations required, drastically improving rendering efficiency."},
-
-{sec:"prog", type:"msq",
- q:"Which of the following scenarios correctly describe the use of React Hooks?",
- opts:["useState is used to add local state variables to functional components.","useEffect can be used to fetch data from an API when a component mounts.","Hooks can be used inside standard JavaScript classes.","useEffect runs after the component renders to the screen."],
- correct:["A","B","D"],
- explanation:"Hooks were introduced to give functional components access to state and lifecycle methods. They cannot be used inside Class components."},
-
-{sec:"prog", type:"mcq",
- q:"How does the Node.js runtime handle thousands of concurrent connections despite being single-threaded?",
- opts:["It uses a multi-threading library internally for every request.","It relies on an asynchronous, non-blocking I/O model powered by the event loop.","It allocates multiple instances of the V8 engine per request.","It actually blocks concurrent connections until the previous one finishes."],
- correct:["B"],
- explanation:"By delegating I/O tasks (like database queries or file reads) to the OS and using non-blocking callbacks via the Event Loop, Node.js can handle vast numbers of connections concurrently on a single thread."},
-
-{sec:"prog", type:"msq",
- q:"In Express.js, what is the role of Middleware and the next() function?",
- opts:["Middleware functions can execute code, modify request/response objects, and end the request-response cycle.","The next() function passes control to the next middleware function in the stack.","If a middleware function does not call next(), the request is left hanging unless a response is sent.","Middleware is strictly used only for database connections."],
- correct:["A","B","C"],
- explanation:"Middleware intercepts HTTP requests. It must either terminate the request (e.g., res.send()) or pass control forward by invoking next(), otherwise the client request times out."},
-
-{sec:"prog", type:"msq",
- q:"How does a NoSQL database structure (like MongoDB) conceptually differ from a relational database (like MySQL)?",
- opts:["MongoDB stores data in flexible, JSON-like BSON documents instead of rigid tables and rows.","MongoDB enforces strict schemas by default on all collections.","MySQL relies on explicit relationships (Foreign Keys) to link tables.","NoSQL databases generally scale horizontally across servers easier than traditional SQL databases."],
- correct:["A","C","D"],
- explanation:"MongoDB allows varied document structures within the same collection (no rigid schema). Relational DBs use strict tables and joins. NoSQL is famously designed for easier horizontal sharding and scaling."},
-
-{sec:"prog", type:"msq",
- q:"In MongoDB Data Modeling, when would you choose to embed a document versus referencing one?",
- opts:["Embed documents for data that is frequently read together (e.g., a user and their address).","Reference documents when dealing with large, unbound hierarchical data arrays (to avoid exceeding the 16MB document limit).","Always embed everything to completely eliminate the need for JOIN-like $lookup operations.","Reference documents for many-to-many relationships where data needs to be accessed independently."],
- correct:["A","B","D"],
- explanation:"Embedding is ideal for contained, one-to-few relationships accessed together. Referencing is essential for massive datasets, independent entity lifecycles, and avoiding the 16MB document size limit."},
-
-{sec:"prog", type:"msq",
- q:"Which of the following are standard HTTP methods used in a RESTful API and their intended purposes?",
- opts:["GET — Retrieve a resource.","POST — Create a new resource.","PUT — Partially update a resource (modify only specific fields).","DELETE — Remove a resource."],
- correct:["A","B","D"],
- explanation:"GET retrieves, POST creates, and DELETE removes. PUT is meant to completely replace a resource. PATCH is the method intended for partial updates."},
-
-// ═══════════════ SECTION 5: SITUATIONAL JUDGMENT & BEHAVIORAL (HR) ═══════════════
-{sec:"hr", type:"mcq",
- q:'In an interview, when asked to "Tell me about yourself," what is the most professional and effective structure?',
- opts:["Reciting your entire resume chronologically from high school onwards.","Discussing your personal hobbies, family background, and weekend plans.","Providing a brief summary of your education, highlighting 1-2 major technical projects, and explaining how your skills align with the role.","Giving a one-sentence answer stating your name and college major."],
- correct:["C"],
- explanation:"Interviewers want a concise professional pitch (Present, Past, Future framework) that highlights relevant skills and demonstrates exactly why you are a good fit for the specific role."},
-
-{sec:"hr", type:"msq",
- q:"If an interviewer asks you to describe a time you faced a major technical challenge, which of the following approaches demonstrate a strong problem-solving mindset?",
- opts:["Explaining the specific bug/challenge clearly without getting bogged down in irrelevant code syntax.","Blaming a teammate for writing bad code that you had to fix.","Detailing the step-by-step debugging process you used (e.g., checking logs, isolating variables).","Describing the final outcome and what you learned to prevent the issue in the future."],
- correct:["A","C","D"],
- explanation:"Using the STAR method (Situation, Task, Action, Result) focuses on your logical process and learnings. Blaming others demonstrates poor teamwork and lack of accountability."},
-
-{sec:"hr", type:"mcq",
- q:"During a code review simulation, a senior developer bluntly tells you your code is inefficient and needs a complete rewrite. What is the best response?",
- opts:["Defend your code aggressively, stating that it works and efficiency doesn't matter yet.","Politely ask for specific feedback on which parts are inefficient and how they recommend optimizing it.","Agree immediately, delete the code, and ask them to write it for you.","Ignore the feedback and merge the code anyway."],
- correct:["B"],
- explanation:"Demonstrating a willingness to accept feedback, leaving ego at the door, and actively seeking mentorship to improve is a crucial trait of a strong team engineer."},
-
-{sec:"hr", type:"msq",
- q:"An interviewer notes that the company uses Python/Django, but your resume only shows JavaScript/MERN stack. Which responses reflect strong adaptability?",
- opts:['"I understand the core concepts of backend routing and ORMs from Express and Mongoose, so the underlying architecture translates well to Django."','"I am unwilling to learn Python because JavaScript is the superior language."','"I have a proven track record of picking up new syntax quickly, as demonstrated by learning React independently over a weekend."','"I am eager to dive into the documentation and build a small side project in Python before my start date to get up to speed."'],
- correct:["A","C","D"],
-explanation:"Strong engineers emphasize their grasp of foundational software engineering principles that transcend specific languages, backed by a proven eagerness and ability to learn new tools quickly."},
-
-{sec:"hr", type:"mcq",
- q:'"Where do you see yourself in three to five years?" — what is the employer primarily trying to assess?',
- opts:["Whether you want to steal the interviewer's job.","If your career goals align with the growth opportunities available at their specific company.","Your exact timeline for asking for a massive salary increase.","Whether you plan to leave the software engineering field entirely."],
- correct:["B"],
- explanation:"Employers invest time and money into hiring. They want to ensure your long-term ambitions (e.g., senior engineer, tech lead, architecture) align with what the company can offer so you don't leave quickly."},
-
-// ═══════════════ ADDITIONAL TECHNICAL & CODING ═══════════════
-{sec:"prog", type:"mcq",
- q:"Which SQL query correctly finds the 3rd highest salary from an Employee table (assuming MySQL/PostgreSQL)?",
- opts:["SELECT salary FROM Employee ORDER BY salary DESC LIMIT 3, 1;","SELECT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 2;","SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);","SELECT salary FROM Employee ORDER BY salary ASC LIMIT 3;"],
- correct:["B"],
- explanation:"LIMIT 1 OFFSET 2 skips the first two highest salaries and returns the 3rd one. 'LIMIT 2, 1' is also valid in MySQL but OFFSET is standard."},
-
-{sec:"prog", type:"mcq",
- q:"Which SQL clause is best suited to identify and list duplicate email addresses from a Users table?",
- opts:["GROUP BY email HAVING COUNT(email) > 1","WHERE email = COUNT(email) > 1","ORDER BY email DESC LIMIT 2","SELECT DISTINCT email FROM Users WHERE COUNT > 1"],
- correct:["A"],
- explanation:"To find duplicates, we group the rows by the email column and then filter the groups using HAVING COUNT(email) > 1."},
-
-{sec:"prog", type:"msq",
- q:"When finding employees assigned to more than 2 projects using an Employees and Projects table, which of the following SQL elements are absolutely required?",
- opts:["INNER JOIN or LEFT JOIN","GROUP BY employee ID or name","HAVING COUNT(project_id) > 2","WHERE COUNT(project_id) > 2"],
- correct:["A","B","C"],
- explanation:"A JOIN is needed to link employees and projects. GROUP BY is required to aggregate per employee, and HAVING is used to filter aggregated counts. WHERE cannot be used with aggregate functions directly."},
-
-{sec:"prog", type:"mcq",
- q:"How do you fetch only unique department names from an Organization table, sorted in alphabetical order?",
- opts:["SELECT UNIQUE department FROM Organization ORDER BY department ASC;","SELECT DISTINCT department FROM Organization ORDER BY department ASC;","SELECT department FROM Organization SORT BY department DISTINCT;","SELECT DISTINCT department FROM Organization GROUP BY department;"],
- correct:["B"],
- explanation:"The DISTINCT keyword is used in SQL to return only unique distinct values. ORDER BY ASC sorts them alphabetically."},
-
-{sec:"prog", type:"mcq",
- q:"In MongoDB, what is the correct query to find all documents in a products collection where the price is greater than 500 and the status is 'active'?",
- opts:["db.products.find({ price: > 500, status: 'active' })","db.products.filter({ price: { $gt: 500 }, status: 'active' })","db.products.find({ price: { $gt: 500 }, status: 'active' })","db.products.select({ price: { $greater: 500 }, status: 'active' })"],
- correct:["C"],
- explanation:"MongoDB uses the find() method for querying, and the $gt operator represents 'greater than' within a query document."},
-
-{sec:"prog", type:"msq",
- q:"In an Express.js route handler for a POST request (/api/login), what are best practices when email or password are missing from the request body?",
- opts:["Return an HTTP status code 400 (Bad Request).","Return an HTTP status code 200 (OK) with an error message in the payload.","Use res.status(400).json({ error: 'Missing fields' }).","Use res.send(500) to crash the server for security."],
- correct:["A","C"],
- explanation:"Missing client data constitutes a Bad Request (400). You should respond with a 400 status code and a clear JSON error message. Returning 200 for an error is an anti-pattern."},
-
-{sec:"prog", type:"mcq",
- q:"What is the correct syntax to connect a Node.js application to a MongoDB database using Mongoose?",
- opts:["mongoose.connect('mongodb://localhost:27017/mydb');","mongoose.open('mongodb://localhost:27017/mydb');","mongoose.database.connect('mongodb://localhost:27017/mydb');","db.mongoose.connect('localhost:27017/mydb');"],
- correct:["A"],
- explanation:"The correct method provided by the Mongoose library to establish a connection is mongoose.connect() with a valid MongoDB URI."},
-
-{sec:"prog", type:"msq",
- q:"When defining a Mongoose schema for a Product model, which of the following are valid schema configurations?",
- opts:["title: { type: String, required: true }","price: { type: Number, required: true }","stock: { type: Number, default: 0 }","stock: { type: Integer, fallback: 0 }"],
- correct:["A","B","C"],
- explanation:"String and Number are valid schema types in Mongoose. 'required' and 'default' are valid configuration options. 'Integer' is not a base Mongoose schema type (it uses Number)."},
-
-{sec:"prog", type:"mcq",
- q:"When using bcrypt in Node.js to hash a password, which function is typically used to asynchronously hash the plain text?",
- opts:["bcrypt.hashSync(password, 10)","bcrypt.hash(password, 10)","bcrypt.encrypt(password)","bcrypt.salt(password, 10)"],
- correct:["B"],
- explanation:"bcrypt.hash() is the asynchronous method to hash a password, taking the plaintext and the salt rounds (e.g., 10) as arguments."},
-
-{sec:"prog", type:"msq",
- q:"Which of the following statements are TRUE regarding the structural difference between JWTs and standard server-side sessions?",
- opts:["JWTs are stateless; the server does not need to store session records.","Server-side sessions require database or memory lookups (like Redis) on every request.","JWTs securely encrypt the payload so it cannot be read by the client.","The signature in a JWT ensures the token hasn't been altered."],
- correct:["A","B","D"],
- explanation:"JWTs are stateless and signed for integrity (not necessarily encrypted, payloads are often base64url encoded and easily readable). Server-side sessions require state lookups."},
-
-{sec:"prog", type:"mcq",
- q:"In JavaScript, what is the specific operational difference between == and ===?",
- opts:["== checks strictly for type, === checks for value.","== performs type coercion before comparison, === checks both value and type without coercion.","There is no difference; both are used interchangeably.","=== is only used for object comparison."],
- correct:["B"],
- explanation:"The == operator coerces types if they differ before comparing, whereas === (strict equality) ensures both value and type are identical without coercion."},
-
-{sec:"prog", type:"mcq",
- q:"Which native Node.js fs module method is used to read a file asynchronously?",
- opts:["fs.readFileSync()","fs.readFile()","fs.readAsync()","fs.openFile()"],
- correct:["B"],
- explanation:"fs.readFile() reads a file asynchronously and returns the data via a callback (or Promise using fs.promises). fs.readFileSync() is blocking."},
-
-{sec:"prog", type:"msq",
- q:"Which Git commands allow you to safely navigate away from uncommitted local changes without permanently deleting them?",
- opts:["git stash","git reset --hard","git commit -m 'WIP'","git clean -f"],
- correct:["A","C"],
- explanation:"git stash temporarily shelves changes. Creating a temporary 'WIP' commit also saves them. reset --hard and clean -f will permanently delete uncommitted changes."},
-
-{sec:"prog", type:"msq",
- q:"In an Object-Oriented BankAccount class, which of the following enforce the principle of Encapsulation?",
- opts:["Making the balance variable private.","Allowing external classes to directly modify accountNumber.","Providing a public getBalance() method to read the balance.","Making the withdraw() method validate funds before updating the balance."],
- correct:["A","C","D"],
- explanation:"Encapsulation involves hiding the internal state (private balance) and requiring all interactions to occur through safe, validating public methods (getBalance, withdraw)."},
-
-{sec:"prog", type:"mcq",
- q:"What does the virtual keyword signify when applied to a method inside a C# base class?",
- opts:["The method cannot be overridden by derived classes.","The method contains no implementation and must be implemented by derived classes.","The method can be overridden by a derived class using the override keyword.","The method belongs to the class itself, not an instance."],
- correct:["C"],
- explanation:"The 'virtual' keyword in C# allows a method to be overridden in a derived class using the 'override' keyword. Abstract methods contain no implementation, virtual ones do."},
-
-{sec:"prog", type:"mcq",
- q:"In which real-world scenario would you choose an Abstract Class over an Interface?",
- opts:["When you need to support multiple inheritance.","When you want to provide a common base implementation and shared state (fields) alongside abstract methods.","When you only need to define a contract of method signatures without any implementation.","When you want to force completely unrelated classes to implement a specific behavior."],
- correct:["B"],
- explanation:"Abstract classes are perfect when classes share a core implementation and state fields. Interfaces are strictly for defining behavioral contracts across potentially unrelated classes."},
-
-{sec:"prog", type:"msq",
- q:"Which of the following approaches correctly reverse a string in Python or JavaScript without using built-in reverse functions?",
- opts:["Iterating backward through the string and appending to a new variable.","Using string slicing in Python: string[::-1].","Using a Stack: pushing all characters onto the stack, then popping them off.","Sorting the string alphabetically."],
- correct:["A","B","C"],
- explanation:"Iterating backward, slicing (Python), and using a Stack (LIFO) all correctly reverse a sequence. Sorting alphabetically destroys the original sequence order."},
-
-{sec:"prog", type:"mcq",
- q:"Which approach checks if an integer array contains duplicate values in O(n) time complexity?",
- opts:["Using two nested loops to compare each element.","Sorting the array first, then comparing adjacent elements.","Inserting elements into a Hash Set and checking for existing keys.","Reversing the array and comparing it to the original."],
- correct:["C"],
- explanation:"A Hash Set allows O(1) average time insertions and lookups. Traversing the array once and using a Set results in an overall O(n) time complexity."},
-
-{sec:"prog", type:"msq",
- q:"When implementing a Stack from scratch using an array, which of the following logic is correct?",
- opts:["push() adds an element to the end of the array.","pop() removes and returns the first element of the array.","pop() removes and returns the last element of the array.","It operates on a First-In-First-Out (FIFO) principle."],
- correct:["A","C"],
- explanation:"A Stack is Last-In-First-Out (LIFO). Therefore, push() adds to the end, and pop() removes from the end of the array."},
-
-{sec:"prog", type:"mcq",
- q:"In a recursive function to calculate the factorial of n, what is the essential base case?",
- opts:["if (n == 0) return 0;","if (n <= 1) return 1;","if (n < 0) return -1;","if (n == 2) return 2;"],
- correct:["B"],
- explanation:"The factorial of 0 and 1 is 1. Stopping at n <= 1 and returning 1 prevents infinite recursion."},
-
-// ═══════════════ ADDITIONAL QUANTITATIVE APTITUDE ═══════════════
-{sec:"quant", type:"mcq",
- q:"A train running at a uniform speed of 72 km/hr crosses a telegraph pole in exactly 12 seconds. What is the total length of the train in meters?",
- opts:["180 meters","200 meters","240 meters","280 meters"],
- correct:["C"],
- explanation:"72 km/hr = 72 * (5/18) = 20 m/s. Length = Speed * Time = 20 m/s * 12s = 240 meters."},
-
-{sec:"quant", type:"mcq",
- q:"An item is sold for 2400 after allowing a flat discount of 20% on its marked price. What was the original marked price of the item?",
- opts:["2800","2880","3000","3200"],
- correct:["C"],
- explanation:"SP = MP * (1 - 0.20) -> 2400 = 0.8 * MP -> MP = 2400 / 0.8 = 3000."},
-
-{sec:"quant", type:"mcq",
- q:"Worker A can complete a piece of coding work in 12 days, while Worker B takes 24 days to finish the same task. If they collaborate, how many days will it take them to complete the project?",
- opts:["6 days","8 days","9 days","18 days"],
- correct:["B"],
- explanation:"Rate of A = 1/12, Rate of B = 1/24. Combined rate = 1/12 + 1/24 = 3/24 = 1/8. So it takes 8 days together."},
-
-{sec:"quant", type:"mcq",
- q:"The ratio of two numbers is 3:4. If their Least Common Multiple (LCM) is 180, what is the value of the smaller number?",
- opts:["30","45","60","90"],
- correct:["B"],
- explanation:"Let the numbers be 3x and 4x. Their LCM is 12x. 12x = 180, so x = 15. The smaller number is 3x = 45."},
-
-{sec:"quant", type:"mcq",
- q:"A merchant buys a computer component for 1400 and sells it to a client at a net loss of 15%. What is the final selling price of the component?",
- opts:["1150","1190","1210","1250"],
- correct:["B"],
- explanation:"Loss = 15% of 1400 = 210. Selling Price = 1400 - 210 = 1190."},
-
-{sec:"quant", type:"mcq",
- q:"Calculate the total simple interest earned on a principal sum of 5000 at an interest rate of 8% per annum over a duration of 3 years.",
- opts:["1000","1200","1400","1500"],
- correct:["B"],
- explanation:"Simple Interest = (P * R * T) / 100 = (5000 * 8 * 3) / 100 = 1200."},
-
-{sec:"quant", type:"mcq",
- q:"The average age of a class consisting of 20 students is 15 years. If the teacher's age is included, the overall average increases by exactly 1 year. What is the age of the teacher?",
- opts:["35 years","36 years","37 years","40 years"],
- correct:["B"],
- explanation:"Total age of 20 students = 20 * 15 = 300. Average of 21 people = 16. Total age = 21 * 16 = 336. Teacher's age = 336 - 300 = 36."},
-
-{sec:"quant", type:"mcq",
- q:"If the cost price of 15 identical articles is equal to the selling price of 12 of those articles, what is the net gain percentage?",
- opts:["15%","20%","25%","30%"],
- correct:["C"],
- explanation:"Let CP of 1 item be 1. CP of 15 = 15. SP of 12 = 15. SP of 1 item = 15/12 = 1.25. Profit = 0.25 on CP 1, which is 25%."},
-
-{sec:"quant", type:"mcq",
- q:"A vehicle travels at a steady speed of 45 km/hr for the first 2 hours of a journey, and accelerates to 60 km/hr for the next 3 hours. What is its average speed across the entire trip?",
- opts:["52.5 km/hr","54 km/hr","55 km/hr","56 km/hr"],
- correct:["B"],
- explanation:"Total Distance = (45*2) + (60*3) = 90 + 180 = 270 km. Total Time = 5 hours. Average Speed = 270 / 5 = 54 km/hr."},
-
-{sec:"quant", type:"mcq",
- q:"Pipe A can fill a water tank in 20 minutes, while Pipe B can fill the same tank in 30 minutes. If both water pipes are opened simultaneously, how long will it take to fill the empty tank completely?",
- opts:["10 minutes","12 minutes","15 minutes","25 minutes"],
- correct:["B"],
- explanation:"Rate of A = 1/20, Rate of B = 1/30. Combined rate = 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12. Time = 12 minutes."},
-
-// ═══════════════ ADDITIONAL VERBAL & COMMUNICATION ═══════════════
-{sec:"verbal", type:"mcq",
- q:"Identify the specific grammatical error in the following sentence: 'Each of the software engineering students have completed their assignment before the morning deadline.'",
- opts:["'software engineering students' should be singular.","'have completed' should be 'has completed'.","'before the morning deadline' is grammatically incorrect.","There is no error in the sentence."],
- correct:["B"],
- explanation:"'Each' is a singular subject. Therefore, the verb must be singular ('has completed' instead of 'have completed')."},
-
-{sec:"verbal", type:"mcq",
- q:"Fill in the blank with the most appropriate preposition: 'The development team was completely independent ______ external funding for their open-source web project.'",
- opts:["from","of","with","on"],
- correct:["B"],
- explanation:"The correct preposition to follow the adjective 'independent' in this context is 'of'."},
-
-{sec:"verbal", type:"mcq",
- q:"Choose the most accurate synonym for the word: Meticulous.",
- opts:["Careless","Detailed","Swift","Sloppy"],
- correct:["B"],
- explanation:"Meticulous means showing great attention to detail, making 'Detailed' the closest synonym."},
-
-{sec:"verbal", type:"mcq",
- q:"Choose the most accurate antonym for the word: Ambiguous.",
- opts:["Obscure","Precise","Vague","Complex"],
- correct:["B"],
- explanation:"Ambiguous means open to multiple interpretations or unclear. Precise is its direct opposite."},
-
-{sec:"verbal", type:"mcq",
- q:"Select the correct passive voice version of: 'The lead software engineer fixed the critical database bug.'",
- opts:["The critical database bug is fixed by the lead software engineer.","The critical database bug was fixed by the lead software engineer.","The critical database bug has been fixed by the lead software engineer.","The lead software engineer was fixing the critical database bug."],
- correct:["B"],
- explanation:"The original sentence is simple past tense ('fixed'). The passive voice conversion is 'was fixed'."},
-
-{sec:"verbal", type:"mcq",
- q:"Fill in the blank with the correct verb form: 'Neither the project manager nor the backend developers ______ present at the morning sprint meeting yesterday.'",
- opts:["was","were","is","are"],
- correct:["B"],
- explanation:"In 'Neither/Nor' constructions, the verb agrees with the subject closest to it. 'developers' is plural, and the context is past tense, so 'were' is correct."},
-
-{sec:"verbal", type:"mcq",
- q:"Identify which of the following choices represents the correct spelling:",
- opts:["Accommodate","Accomodate","Acommodate","Acomodate"],
- correct:["A"],
- explanation:"The correct spelling requires double 'c' and double 'm': Accommodate."},
-
-{sec:"verbal", type:"mcq",
- q:"Complete the verbal analogy: Compiler : Machine Code :: Translator : _______",
- opts:["Novel","Target Language","Hardware","Logic"],
- correct:["B"],
- explanation:"A compiler outputs Machine Code. A translator outputs a Target Language. This creates a perfect Agent : Output analogy."},
-
-{sec:"verbal", type:"msq",
- q:"Read the following statement and select the most logical inferences: 'Company X noticed a sharp 40% drop in daily website traffic immediately after changing its primary user interface design.'",
- opts:["The new website layout successfully optimized user workflows.","Users preferred the older interface.","The new navigation was potentially confusing to existing users.","Server maintenance costs decreased due to the layout change."],
- correct:["B","C"],
- explanation:"A sharp drop in traffic following a UI change logically implies the new UI negatively impacted user experience, making B and C sound inferences. Maintenance costs are unrelated to frontend UI changes."},
-
-{sec:"verbal", type:"mcq",
- q:"Select the correct meaning for the common business idiom 'to touch base':",
- opts:["To physically return to the office.","To briefly make contact or update someone.","To hit a baseline performance metric.","To terminate a contract prematurely."],
- correct:["B"],
- explanation:"'Touching base' is a common idiom meaning to briefly check in, make contact, or update someone on a situation."},
-
-// ═══════════════ ADDITIONAL JAVASCRIPT (BEGINNER TO ADVANCED) ═══════════════
-{sec:"js", type:"mcq",
- q:"What is the output of typeof null in JavaScript?",
- opts:['"null"','"undefined"','"object"','"string"'],
- correct:["C"],
- explanation:"In JavaScript, typeof null returns 'object'. This is a well-known historical bug in the language that has been kept for backward compatibility."},
-
-{sec:"js", type:"msq",
- q:"Which of the following values are considered 'falsy' in JavaScript?",
- opts:["0",'"false"',"undefined",'"" (Empty string)'],
- correct:["A","C","D"],
- explanation:"Falsy values in JavaScript include 0, -0, 0n, '', null, undefined, and NaN. The string 'false' is truthy because it is a non-empty string."},
-
-{sec:"js", type:"mcq",
- q:"Which array method is used to remove the first element from an array and return that element?",
- opts:["pop()","shift()","unshift()","splice()"],
- correct:["B"],
- explanation:"shift() removes the first element and returns it. pop() removes the last element. unshift() adds to the beginning."},
-
-{sec:"js", type:"mcq",
- q:"What is the correct syntax for an arrow function that takes one parameter and returns its square?",
- opts:["x => return x * x;","(x) => x * x;","x -> x * x;","function(x) => x * x;"],
- correct:["B"],
- explanation:"(x) => x * x; or x => x * x; implicitly returns the evaluated expression. 'return' can only be used within curly braces {}."},
-
-{sec:"js", type:"mcq",
- q:"What will console.log(typeof NaN) output?",
- opts:['"NaN"','"number"','"undefined"','"error"'],
- correct:["B"],
- explanation:"NaN (Not-a-Number) is technically a numeric data type in JavaScript. Therefore, typeof NaN returns 'number'."},
-
-{sec:"js", type:"msq",
- q:"Which of the following are valid ways to create an object in JavaScript?",
- opts:["const obj = {};","const obj = new Object();","const obj = Object.create(null);","const obj = Object.make();"],
- correct:["A","B","C"],
- explanation:"Object literals {}, new Object(), and Object.create() are all valid object creation patterns. Object.make() does not exist."},
-
-{sec:"js", type:"mcq",
- q:"What is the difference between let and const?",
- opts:["let is function-scoped; const is block-scoped.","Variables declared with let can be reassigned; variables declared with const cannot be reassigned.","const variables are automatically hoisted, while let variables are not.","There is no functional difference."],
- correct:["B"],
- explanation:"Both let and const are block-scoped, but variables declared with const cannot be reassigned after initialization, whereas let variables can."},
-
-{sec:"js", type:"mcq",
- q:"How do you correctly embed a variable name inside a template literal?",
- opts:['"Hello, ${name}"','Hello, ${name}',"'Hello, ${name}'",'`Hello, ${name}`'],
- correct:["D"],
- explanation:"Template literals are enclosed by backticks (` `) and use the ${expression} syntax for string interpolation."},
-
-{sec:"js", type:"mcq",
- q:"What does the isNaN() function check for?",
- opts:["If the given value is an object.","If the given value is undefined.","If the given value is Not-a-Number.","If the given value is negative."],
- correct:["C"],
- explanation:"isNaN() attempts to convert the given value to a number and returns true if the result is NaN (Not-a-Number)."},
-
-{sec:"js", type:"mcq",
- q:"Which operator is used to concatenate strings in JavaScript?",
- opts:["&",".","+","concat"],
- correct:["C"],
- explanation:"The addition operator (+) is used to concatenate strings in JavaScript. The .concat() method also exists but + is the operator."},
-
-{sec:"js", type:"mcq",
- q:"What is the primary difference between the map() and forEach() array methods?",
- opts:["map() modifies the original array; forEach() does not.","map() returns a new array of the same length; forEach() returns undefined.","forEach() can be chained with other methods like filter(); map() cannot.","map() is synchronous, while forEach() is asynchronous."],
- correct:["B"],
- explanation:"map() transforms each element and returns a brand new array. forEach() simply iterates over the array, performing side effects, and returns undefined."},
-
-{sec:"js", type:"msq",
- q:"Which of the following are valid use cases for the spread operator (...)?",
- opts:["Copying an array or object.","Merging two arrays into a new array.","Passing an array of numbers as individual arguments to Math.max().","Forcing synchronous execution of an async function."],
- correct:["A","B","C"],
- explanation:"The spread operator expands iterables into individual elements. It is widely used for copying arrays/objects, merging them, and spreading arguments into functions."},
-
-{sec:"js", type:"mcq",
- q:"Given const user = { name: 'Alice', age: 25 };, how do you extract name and rename it to userName using object destructuring?",
- opts:["const { name: userName } = user;","const { userName = name } = user;","const userName = { name } from user;","const { name as userName } = user;"],
- correct:["A"],
- explanation:"Object destructuring allows aliasing a property using a colon, e.g., const { originalName: newName } = object;."},
-
-{sec:"js", type:"mcq",
- q:"How does the this keyword behave differently in an arrow function compared to a regular function?",
- opts:["Arrow functions do not have their own this; they inherit it from the surrounding lexical scope.","Arrow functions bind this to the global window object unconditionally.","Arrow functions bind this to the object that called the function.","There is no difference; this behaves identically in both."],
- correct:["A"],
- explanation:"Arrow functions use lexical scoping for 'this', meaning they capture the 'this' value of the enclosing execution context, unlike regular functions which dynamically bind 'this' based on how they are called."},
-
-{sec:"js", type:"mcq",
- q:"What is a Closure in JavaScript?",
- opts:["A function that takes another function as an argument.","A function bundled together with its lexical environment, allowing it to remember variables from its outer scope even after the outer function has finished executing.","The process of hiding object properties from the global scope.","A method used to immediately invoke a function expression."],
- correct:["B"],
- explanation:"A closure is created every time a function is defined, granting it access to its lexical scope (variables declared outside of it) indefinitely."},
-
-{sec:"js", type:"msq",
- q:"Which of the following are valid states of a JavaScript Promise?",
- opts:["Pending","Fulfilled","Resolved","Rejected"],
- correct:["A","B","D"],
- explanation:"A Promise is in one of these strictly defined states: pending, fulfilled, or rejected. ('Resolved' is a colloquial term often used to mean fulfilled or settled, but the official spec state is 'fulfilled'.)"},
-
-{sec:"js", type:"mcq",
- q:"What is the difference between || (Logical OR) and ?? (Nullish Coalescing Operator)?",
- opts:["They are identical in functionality.","|| returns the right side for any falsy value (like 0 or ''), while ?? only returns the right side if the left side is null or undefined.","?? returns the right side for any falsy value, while || only checks for null.","?? is used exclusively for evaluating boolean expressions."],
- correct:["B"],
- explanation:"|| treats 0, '', and false as falsy and will fall back to the right operand. ?? specifically targets null or undefined, preserving intentional 0 or '' values."},
-
-{sec:"js", type:"mcq",
- q:"Which built-in method would you use to reduce an array of numbers down to a single sum?",
- opts:["Array.prototype.map()","Array.prototype.filter()","Array.prototype.reduce()","Array.prototype.concat()"],
- correct:["C"],
- explanation:"reduce() executes a reducer callback function on each element of the array, passing in the return value from the calculation on the preceding element, ultimately resulting in a single output value."},
-
-{sec:"js", type:"mcq",
- q:"What does the bind() method do in JavaScript?",
- opts:["It immediately executes a function with a specific this context.","It creates and returns a new function that, when called, has its this keyword set to the provided value.","It merges two objects together into a single instance.","It attaches an event listener to a DOM element."],
- correct:["B"],
- explanation:"bind() returns a new bound function. call() and apply() execute the function immediately."},
-
-{sec:"js", type:"msq",
- q:"Which of the following statements about Variable Hoisting are TRUE?",
- opts:["var declarations are hoisted and initialized with undefined.","let and const declarations are not hoisted at all.","let and const are hoisted but remain in the Temporal Dead Zone (TDZ) until their declaration line is executed.","Function declarations (function myFunc() {}) are fully hoisted along with their definitions."],
- correct:["A","C","D"],
- explanation:"let and const ARE technically hoisted, but they remain uninitialized in the Temporal Dead Zone (TDZ). Function declarations and var are hoisted, but only var is initialized as undefined immediately."},
-
-{sec:"js", type:"mcq",
- q:"What does Promise.all() do?",
- opts:["It resolves as soon as the first promise in an array resolves.","It takes an iterable of promises and resolves only when all of the promises have resolved, returning an array of their results.","It rejects only if all promises in the array are rejected.","It pauses code execution until all promises resolve globally."],
- correct:["B"],
- explanation:"Promise.all() waits for all promises in an iterable to fulfill, or immediately rejects if any single promise rejects."},
-
-{sec:"js", type:"mcq",
- q:"What is the purpose of the Optional Chaining operator (?.)?",
- opts:["It allows reading the value of a property located deep within an object chain without having to explicitly validate that each reference in the chain is valid.","It converts a non-boolean value into a boolean.","It forces an object to become immutable.","It provides a default fallback value for undefined variables."],
- correct:["A"],
- explanation:"Optional chaining (?.) safely attempts to access deep object properties, short-circuiting and returning undefined instead of throwing a TypeError if a reference is nullish."},
-
-{sec:"js", type:"mcq",
- q:"What will console.log(0 == false) and console.log(0 === false) output, respectively?",
- opts:["false, false","true, true","true, false","false, true"],
- correct:["C"],
- explanation:"0 == false is true because of type coercion (both evaluate to 0). 0 === false is false because strict equality checks type, and a number is not a boolean."},
-
-{sec:"js", type:"msq",
- q:"Which of the following methods create a shallow copy of an object or array?",
- opts:["JSON.parse(JSON.stringify(obj))","The Spread Operator (...)","Object.assign()","Array.prototype.slice()"],
- correct:["B","C","D"],
- explanation:"Spread, Object.assign(), and slice() create shallow copies. JSON.parse(JSON.stringify()) creates a deep copy (though it strips functions/symbols)."},
-
-{sec:"js", type:"mcq",
- q:"What is an IIFE (Immediately Invoked Function Expression)?",
- opts:["A function that is executed automatically as soon as it is defined.","A function that is called by a setTimeout method.","A recursive function that calls itself immediately.","A built-in JavaScript engine optimization technique."],
- correct:["A"],
- explanation:"An IIFE is a function wrapped in parentheses and immediately followed by invoking parentheses (e.g., (function() { ... })();), executing immediately upon definition."},
-
-{sec:"js", type:"mcq",
- q:"In DOM manipulation, what is Event Delegation?",
- opts:["Triggering a custom event on a specific element.","Attaching a single event listener to a parent element to manage events triggered by its child elements, leveraging event bubbling.","Preventing an event from bubbling up the DOM tree.","Removing an event listener completely from the DOM."],
- correct:["B"],
- explanation:"Event delegation is a pattern that uses event bubbling to handle events at a higher level in the DOM, reducing the number of total event listeners required."},
-
-{sec:"js", type:"mcq",
- q:"What does Object.freeze() do?",
- opts:["It prevents new properties from being added to an object, but allows modifying existing ones.","It deep freezes an object and all nested child objects permanently.","It prevents new properties from being added, existing properties from being removed, and existing properties from being changed.","It pauses the execution of an object's methods."],
- correct:["C"],
- explanation:"Object.freeze() makes an object entirely immutable at the top level. Nested objects are not automatically frozen (it is a shallow freeze by default)."},
-
-{sec:"js", type:"msq",
- q:"What are the key differences between call() and apply()?",
- opts:["call() takes arguments separately (comma-separated).","apply() takes arguments as an array.","call() binds this permanently, while apply() only binds it temporarily.","Both immediately invoke the function."],
- correct:["A","B","D"],
- explanation:"Both immediately invoke the function with a given 'this'. The only difference is how they accept arguments: call() uses Comma-separated arguments, apply() uses an Array."},
-
-{sec:"js", type:"mcq",
- q:"What does the Rest Parameter (...args) do in a function definition?",
- opts:["It expands an array into individual arguments.","It pauses the function execution for a rest period.","It collects all remaining arguments passed to a function into an array.","It forces the function to ignore extra arguments."],
- correct:["C"],
- explanation:"The Rest parameter syntax allows a function to accept an indefinite number of arguments as a true Array."},
-
-{sec:"js", type:"mcq",
- q:"If you have setTimeout(() => console.log('A'), 0); console.log('B');, what is the output sequence and why?",
- opts:["'A' then 'B', because setTimeout is set to 0 milliseconds.","'B' then 'A', because setTimeout is a Web API and its callback is placed in the task queue, executing only after the main call stack is empty.","It will throw an error.","Both execute exactly simultaneously."],
- correct:["B"],
- explanation:"JavaScript is single-threaded. Synchronous code ('B') runs first on the call stack. The setTimeout callback ('A') goes to the macrotask queue and waits for the stack to clear."},
-
-{sec:"js", type:"mcq",
- q:"In the JavaScript Event Loop, how are Microtasks and Macrotasks prioritized?",
- opts:["Macrotasks (like setTimeout) are executed before Microtasks (like Promise .then() callbacks).","The event loop completely empties the Microtask queue immediately after the current operation and before processing the next Macrotask.","They are executed sequentially in the exact order they were added to the stack, regardless of type.","Microtasks are only processed when the browser is idle."],
- correct:["B"],
- explanation:"Microtasks (Promises, MutationObserver) have higher priority than Macrotasks (setTimeout, setInterval). The microtask queue is fully drained before moving to the next macrotask."},
-
-{sec:"js", type:"msq",
- q:"Which of the following statements about WeakMap are TRUE?",
- opts:["Keys in a WeakMap must be objects (or non-registered Symbols as of ES2023).","WeakMap is highly useful for managing memory and avoiding memory leaks because references to key objects are held 'weakly'.","You can iterate over a WeakMap using forEach or for...of.","If there are no other references to an object acting as a key, it will be garbage collected."],
- correct:["A","B","D"],
- explanation:"WeakMaps prevent memory leaks because their keys do not block garbage collection. Because of this weak referencing, their keys are not enumerable, so you cannot iterate over a WeakMap."},
-
-{sec:"js", type:"mcq",
- q:"What is the primary purpose of the Reflect API in JavaScript?",
- opts:["To create deep copies of highly nested objects.","To provide methods for interceptable JavaScript operations (like property lookup, assignment, enumeration), heavily used alongside Proxy objects.","To analyze code performance at runtime.","To dynamically generate HTML based on state changes."],
- correct:["B"],
- explanation:"Reflect provides static methods corresponding to Proxy handler traps, offering a standardized way to forward operations and handle low-level object manipulations."},
-
-{sec:"js", type:"mcq",
- q:"What is Currying in functional JavaScript?",
- opts:["Converting a function that takes an array of arguments into a function that takes separate arguments.","Transforming a function that takes multiple arguments into a sequence of functions that each take a single argument.","Binding a specific this context to a function globally.","Creating an infinite recursive loop intentionally."],
- correct:["B"],
- explanation:"Currying transforms a function like f(a, b, c) into f(a)(b)(c). It's a foundational functional programming concept for creating specialized functions."},
-
-{sec:"js", type:"msq",
- q:"When dealing with Prototypal Inheritance, which statements are correct?",
- opts:["Every object in JavaScript has a built-in property, often referred to as its prototype (__proto__).","The prototype chain ends when an object's prototype is null.","Class syntax in ES6 introduced a completely new object-oriented inheritance model that replaces the prototype chain.","Modifying Object.prototype is generally considered a bad practice because it affects all objects in the application."],
- correct:["A","B","D"],
- explanation:"ES6 classes are 'syntactic sugar' over the existing prototype-based inheritance model; they do not introduce a new underlying inheritance engine."},
-
-{sec:"js", type:"mcq",
- q:"What is the fundamental difference between Promise.all() and Promise.allSettled()?",
- opts:["Promise.allSettled() rejects immediately if any promise fails; Promise.all() waits for all to fail.","Promise.all() resolves only if all promises resolve and rejects if any promise rejects. Promise.allSettled() waits for all promises to finish (either resolved or rejected) and returns an array describing the outcome of each.","There is no difference; allSettled() is just a deprecated alias.","Promise.allSettled() only works with asynchronous generators."],
- correct:["B"],
- explanation:"Promise.all() 'fails fast' on the first rejection. Promise.allSettled() guarantees execution of all promises regardless of success or failure."},
-
-{sec:"js", type:"mcq",
- q:"What does a JavaScript Generator function (function*) yield when called?",
- opts:["It immediately returns the final value of the function execution.","It returns a Generator Object (an iterator) that can be used to manually step through the function's execution using .next().","It returns a standard Promise that resolves automatically.","It returns the yield keyword itself as a string."],
- correct:["B"],
- explanation:"A generator function does not execute its body immediately. Instead, it returns an iterator (Generator object) allowing you to manually pause and resume execution."},
-
-{sec:"js", type:"msq",
- q:"Which of the following are unique characteristics of the Symbol primitive data type?",
- opts:["Every Symbol value created is guaranteed to be unique.","Symbols are often used to add hidden or private properties to objects without colliding with existing string keys.","Symbols will show up automatically when iterating over an object using a for...in loop.","Symbol.iterator is a well-known symbol used to define custom iterable behavior for objects."],
- correct:["A","B","D"],
- explanation:"Symbols are unique, non-enumerable primitives (they do not show up in for...in loops or Object.keys), often used for defining hidden object properties and customizing iteration."},
-
-{sec:"js", type:"mcq",
- q:"What is the distinction between Object.seal() and Object.freeze()?",
- opts:["Object.seal() allows modification of existing properties but prevents adding/removing properties. Object.freeze() prevents all changes, including modifications.","Object.freeze() allows modification of existing properties, while Object.seal() strictly forbids it.","Object.seal() only applies to arrays, while Object.freeze() applies to standard objects.","Object.seal() makes an object permanently invisible to garbage collection."],
- correct:["A"],
- explanation:"Object.seal() locks the object's structure (no add/delete) but allows value mutations. Object.freeze() locks both the structure and the values."},
-
-{sec:"js", type:"mcq",
- q:"Under the hood, how are async/await functions processed in modern JavaScript?",
- opts:["They spawn separate background OS threads to run code parallel to the main thread.","They are syntactic sugar built on top of standard Promises and Generators, pausing the execution context of the function without blocking the main event loop.","They enforce synchronous execution by forcefully blocking the main thread until the network request completes.","They bypass the Microtask queue entirely and execute instantly."],
- correct:["B"],
- explanation:"async/await simplifies Promise chaining by using generator-like pausing (suspending the function's execution context) while allowing the main Event Loop to continue processing other tasks."}
+  {sec:"oop", type:"mcq", q:"Which OOP principle is demonstrated by hiding the internal implementation details of an object and only exposing safe ways to interact with it?", opts:["Inheritance","Encapsulation","Polymorphism","Abstraction"], correct:["B"], explanation:"Encapsulation is the bundling of data and methods that operate on that data, hiding the internal representation from the outside."},
+  {sec:"oop", type:"mcq", q:"What is the term for a class that cannot be instantiated on its own and is meant to be subclassed?", opts:["Sealed Class","Abstract Class","Static Class","Base Class"], correct:["B"], explanation:"An abstract class is meant to be inherited and cannot be directly instantiated."},
+  {sec:"oop", type:"mcq", q:"Which of the following best describes Method Overriding?", opts:["Creating multiple methods with the same name but different parameters in the same class.","Providing a different implementation of a method in a child class that is already defined in its parent class.","Restricting access to a method using private access modifiers.","Calling a method from a different class without instantiating it."], correct:["B"], explanation:"Method overriding allows a subclass to provide a specific implementation of a method that is already provided by its superclass."},
+  {sec:"oop", type:"mcq", q:"In OOP, what is a Constructor?", opts:["A method used to destroy an object and free up memory.","A special method automatically called when an object is created, used to initialize the object.","A variable shared among all instances of a class.","A keyword used to inherit properties from another class."], correct:["B"], explanation:"A constructor is a special block of code called when an object is instantiated to initialize its state."},
+  {sec:"oop", type:"mcq", q:"What does the super (or base in some languages) keyword refer to?", opts:["The current instance of the class.","The parent class of the current object.","The highest-level abstract class in the program.","A global variable accessible across all classes."], correct:["B"], explanation:"The super keyword refers to the direct superclass (parent) of the current object."},
+  {sec:"oop", type:"mcq", q:"Which type of inheritance is generally not supported by default in classes in languages like Java and C# to avoid the 'Diamond Problem'?", opts:["Single Inheritance","Multilevel Inheritance","Hierarchical Inheritance","Multiple Inheritance"], correct:["D"], explanation:"Multiple inheritance (inheriting from more than one class) is not allowed in Java/C# due to ambiguity, though interfaces can simulate it."},
+  {sec:"oop", type:"mcq", q:"What is a Destructor?", opts:["A tool that permanently deletes the source code of a class.","A method invoked automatically when an object is destroyed or goes out of scope.","A method that clears all static variables.","An access modifier that restricts all access to a class."], correct:["B"], explanation:"A destructor cleans up resources when an object is about to be destroyed or garbage collected."},
+  {sec:"oop", type:"mcq", q:"Which of the following represents 'Compile-time Polymorphism'?", opts:["Method Overriding","Method Overloading","Interfaces","Abstract Classes"], correct:["B"], explanation:"Method overloading is resolved at compile time, hence compile-time (or static) polymorphism."},
+  {sec:"oop", type:"mcq", q:"What is the difference between an Interface and an Abstract Class?", opts:["Abstract classes can only have abstract methods; Interfaces can have implemented methods.","A class can implement multiple interfaces but can only inherit from one abstract class.","Interfaces can have constructors; abstract classes cannot.","There is no difference; they are exact synonyms."], correct:["B"], explanation:"A class can implement multiple interfaces but inherit from only one abstract class."},
+  {sec:"oop", type:"mcq", q:"What does the static keyword indicate about a class member?", opts:["It cannot be changed once initialized.","It belongs to the class itself rather than any specific object instance.","It is only accessible within the exact same file.","It runs asynchronously."], correct:["B"], explanation:"Static members belong to the class, not instance objects, meaning they are shared among all instances."},
+  {sec:"oop", type:"mcq", q:"What happens if a constructor is declared as private?", opts:["The class cannot be compiled.","The class can only be instantiated by its subclasses.","The class cannot be instantiated from outside the class itself.","The object becomes immutable."], correct:["C"], explanation:"A private constructor prevents instantiation of the class from outside, often used in the Singleton pattern."},
+  {sec:"oop", type:"mcq", q:"Which access modifier allows members to be accessed only within the same class and its subclasses?", opts:["Public","Private","Protected","Internal"], correct:["C"], explanation:"Protected members are accessible in the same class and any subclasses (and usually the same package, depending on the language)."},
+  {sec:"oop", type:"mcq", q:"What is the 'Is-A' relationship in OOP?", opts:["Association","Composition","Inheritance","Aggregation"], correct:["C"], explanation:"An Is-A relationship denotes inheritance (e.g., A Dog Is-A Animal)."},
+  {sec:"oop", type:"mcq", q:"Which of the following is an example of a 'Has-A' relationship (Composition)?", opts:["A Car is a Vehicle.","A Dog is an Animal.","A Car has an Engine.","A Manager is an Employee."], correct:["C"], explanation:"'Has-A' denotes composition or aggregation, meaning one object contains another as a part."},
+  {sec:"oop", type:"mcq", q:"Can an interface inherit from another interface?", opts:["Yes, an interface can inherit from one or more interfaces.","Yes, but only from a single interface.","No, interfaces cannot inherit.","No, interfaces can only inherit from abstract classes."], correct:["A"], explanation:"Interfaces can inherit from other interfaces, often using the extends keyword."},
+  {sec:"oop", type:"msq", q:"Which of the following statements about Encapsulation are TRUE?", opts:["It groups data (attributes) and methods that act upon the data into a single unit.","It prevents unauthorized components from directly accessing internal object states.","It is usually achieved using private or protected access modifiers alongside public getters/setters.","It strictly prevents classes from inheriting from one another."], correct:["A","B","C"], explanation:"Encapsulation binds data and functions together, hides state, and controls access using getters/setters."},
+  {sec:"oop", type:"msq", q:"Which of the following features are characteristic of Object-Oriented Programming?", opts:["Data binding","First-class functions as the primary execution model","Message passing between objects","Global state accessibility by default"], correct:["A","C"], explanation:"OOP features data binding (encapsulation) and message passing (method calls). First-class functions are functional programming, and global state is generally avoided."},
+  {sec:"oop", type:"msq", q:"Which of the following correctly describe Method Overloading?", opts:["Methods must have the same name.","Methods must be in the same class.","Methods must have different return types, even if parameters are exactly the same.","Methods must have different parameter lists (type or number of parameters)."], correct:["A","B","D"], explanation:"Method overloading requires methods in the same class to have the same name but different parameters. Changing only the return type is not allowed."},
+  {sec:"oop", type:"msq", q:"What are the benefits of using Polymorphism?", opts:["It allows writing code that can work with objects of multiple types.","It strictly increases the execution speed of the program by eliminating type-checking.","It simplifies code maintenance and extensibility.","It allows the exact method to be executed to be determined at runtime (Dynamic binding)."], correct:["A","C","D"], explanation:"Polymorphism allows dynamic binding, easier maintenance, and generalized code, though it usually adds slight overhead rather than increasing speed."},
+  {sec:"oop", type:"msq", q:"Which of the following are true regarding Abstract Classes?", opts:["They can contain fields and non-abstract methods.","They can be directly instantiated using the new keyword.","Subclasses must implement all abstract methods unless the subclass is also abstract.","They are completely identical to interfaces in all major programming languages."], correct:["A","C"], explanation:"Abstract classes cannot be instantiated, can contain normal fields/methods, and require concrete subclasses to implement all abstract methods."},
+  {sec:"dbms", type:"mcq", q:"What does the 'A' in the ACID properties of a database stand for?", opts:["Accuracy","Atomicity","Availability","Aggregation"], correct:["B"], explanation:"ACID stands for Atomicity, Consistency, Isolation, and Durability."},
+  {sec:"dbms", type:"mcq", q:"Which Normal Form eliminates partial dependency?", opts:["First Normal Form (1NF)","Second Normal Form (2NF)","Third Normal Form (3NF)","Boyce-Codd Normal Form (BCNF)"], correct:["B"], explanation:"Second Normal Form (2NF) ensures no non-prime attribute is partially dependent on any candidate key."},
+  {sec:"dbms", type:"mcq", q:"Which SQL command is considered a Data Definition Language (DDL) command?", opts:["SELECT","UPDATE","GRANT","DROP"], correct:["D"], explanation:"DROP is a DDL command used to delete database structures like tables."},
+  {sec:"dbms", type:"mcq", q:"What is a Primary Key?", opts:["A key that allows null values.","A column or set of columns that uniquely identifies each row in a table.","A key used strictly to link two tables together.","A key that can contain duplicate values across multiple rows."], correct:["B"], explanation:"A primary key uniquely identifies each record in a database table."},
+  {sec:"dbms", type:"mcq", q:"What is the purpose of a Foreign Key?", opts:["To uniquely identify a row in the current table.","To establish a relationship between two tables by pointing to the Primary Key of another table.","To automatically increment an ID field.","To encrypt data being stored in a column."], correct:["B"], explanation:"Foreign keys link tables together by referencing the primary key of another table."},
+  {sec:"dbms", type:"mcq", q:"Which SQL clause is used to filter records after an aggregation (GROUP BY) has been applied?", opts:["WHERE","ORDER BY","HAVING","LIMIT"], correct:["C"], explanation:"HAVING is used to filter aggregated data resulting from a GROUP BY operation."},
+  {sec:"dbms", type:"mcq", q:"What is a View in a database?", opts:["A physical copy of a table stored on a separate disk.","A virtual table based on the result-set of an SQL statement.","An index created to speed up read operations.","A graphical interface for database management."], correct:["B"], explanation:"A View is a virtual table whose contents are defined by an underlying SQL query."},
+  {sec:"dbms", type:"mcq", q:"In a transaction, what does the COMMIT command do?", opts:["Reverts the database to its previous state before the transaction began.","Permanently saves all changes made during the current transaction.","Creates a backup of the entire database.","Locks the table to prevent other users from writing to it."], correct:["B"], explanation:"COMMIT makes all data modifications performed since the start of the transaction permanent."},
+  {sec:"dbms", type:"mcq", q:"What is a database index used for?", opts:["To compress the database size.","To speed up data retrieval operations on a table.","To prevent data duplication.","To automatically delete old records."], correct:["B"], explanation:"Indexes significantly speed up the retrieval of rows from a table or view."},
+  {sec:"dbms", type:"mcq", q:"Which join returns only the rows where there is a match in both tables?", opts:["LEFT JOIN","RIGHT JOIN","FULL OUTER JOIN","INNER JOIN"], correct:["D"], explanation:"INNER JOIN returns rows that have matching values in both tables."},
+  {sec:"dbms", type:"mcq", q:"What is a trigger in DBMS?", opts:["A scheduled background job.","A specialized type of index.","A stored procedure that automatically executes in response to certain events on a particular table.","A mechanism to trigger a database shutdown."], correct:["C"], explanation:"A trigger is a special type of stored procedure automatically run upon an INSERT, UPDATE, or DELETE."},
+  {sec:"dbms", type:"mcq", q:"Which of the following is a characteristic of a NoSQL database (like MongoDB)?", opts:["Data is strictly stored in tables with predefined columns.","It requires a fixed schema before inserting data.","It is designed to scale horizontally across distributed systems.","It uses complex SQL queries with highly nested JOIN operations."], correct:["C"], explanation:"NoSQL databases typically offer flexible schemas and are designed for high scalability via horizontal sharding."},
+  {sec:"dbms", type:"mcq", q:"What is a Candidate Key?", opts:["A key that has been chosen as the primary key.","Any set of attributes that can uniquely identify a tuple, from which the primary key is selected.","A key shared across multiple databases.","A key that is randomly generated by the system."], correct:["B"], explanation:"Candidate keys are minimal superkeys that can uniquely identify a row; one is chosen as the Primary Key."},
+  {sec:"dbms", type:"mcq", q:"What problem does Concurrency Control prevent in a database?", opts:["Unauthorized access.","Hard disk failures.","Data inconsistencies when multiple users access and update the database simultaneously.","Slow execution of simple SELECT queries."], correct:["C"], explanation:"Concurrency control manages simultaneous operations to preserve data integrity and consistency."},
+  {sec:"dbms", type:"mcq", q:"What does TRUNCATE TABLE do?", opts:["Removes the table structure completely from the database.","Deletes specific rows based on a WHERE clause.","Removes all rows from a table quickly without logging individual row deletions.","Removes duplicate rows from a table."], correct:["C"], explanation:"TRUNCATE is a fast DDL operation that deletes all rows in a table by deallocating the pages without logging each deletion."},
+  {sec:"dbms", type:"msq", q:"Which of the following commands belong to Data Manipulation Language (DML)?", opts:["INSERT","UPDATE","CREATE","DELETE"], correct:["A","B","D"], explanation:"INSERT, UPDATE, and DELETE manipulate data. CREATE is a DDL command."},
+  {sec:"dbms", type:"msq", q:"Which of the following statements about normalization are TRUE?", opts:["Normalization reduces data redundancy.","Normalization can sometimes decrease read performance due to the need for multiple joins.","3NF requires that all non-key attributes are fully functionally dependent on the primary key, with no transitive dependencies.","Normalization is only used in NoSQL databases."], correct:["A","B","C"], explanation:"Normalization reduces redundancy and ensures integrity (3NF removes transitive dependencies), but splitting tables can slow down complex read operations via JOINs."},
+  {sec:"dbms", type:"msq", q:"Which properties belong to the ACID framework?", opts:["Consistency","Isolation","Invalidation","Durability"], correct:["A","B","D"], explanation:"ACID = Atomicity, Consistency, Isolation, Durability."},
+  {sec:"dbms", type:"msq", q:"What are valid types of database relationships?", opts:["One-to-One","One-to-Many","Many-to-Many","None-to-None"], correct:["A","B","C"], explanation:"Common relationship types are 1:1, 1:N, and N:M."},
+  {sec:"dbms", type:"msq", q:"Which of the following statements about Foreign Keys are TRUE?", opts:["A table can have multiple foreign keys.","A foreign key can reference a primary key in the same table.","Foreign keys prevent invalid data from being inserted into a column if there is no matching value in the referenced table.","A foreign key must have a unique constraint on it by default."], correct:["A","B","C"], explanation:"Foreign keys enforce referential integrity. A table can have many, and they can self-reference (e.g., manager_id pointing to employee_id). They do not require a unique constraint."},
+  {sec:"cn", type:"mcq", q:"Which layer of the OSI model is responsible for logical addressing and routing?", opts:["Physical Layer","Data Link Layer","Network Layer","Transport Layer"], correct:["C"], explanation:"The Network layer (Layer 3) handles IP addressing and routing packets across networks."},
+  {sec:"cn", type:"mcq", q:"Which protocol operates at the Transport Layer and provides reliable, connection-oriented data delivery?", opts:["UDP","IP","ICMP","TCP"], correct:["D"], explanation:"TCP ensures reliable, ordered, and error-checked delivery of a stream of octets."},
+  {sec:"cn", type:"mcq", q:"What is the standard port number for HTTPS?", opts:["80","21","443","25"], correct:["C"], explanation:"HTTPS natively uses port 443 for encrypted communication."},
+  {sec:"cn", type:"mcq", q:"What does DNS stand for?", opts:["Data Network System","Domain Name System","Digital Name Server","Dynamic Node System"], correct:["B"], explanation:"DNS is the Domain Name System, translating human-readable names to IP addresses."},
+  {sec:"cn", type:"mcq", q:"Which network topology connects all devices to a single central hub or switch?", opts:["Ring Topology","Mesh Topology","Bus Topology","Star Topology"], correct:["D"], explanation:"In a Star topology, all nodes are individually connected to a central connection point."},
+  {sec:"cn", type:"mcq", q:"What is a MAC address?", opts:["A logical address assigned by a DHCP server.","A physical, unique address assigned to a network interface controller (NIC) by the manufacturer.","An address used strictly for routing packets across the internet.","An address used for web hosting."], correct:["B"], explanation:"A MAC address is a unique identifier assigned to network interfaces for communications at the data link layer."},
+  {sec:"cn", type:"mcq", q:"What is the primary purpose of a Router?", opts:["To amplify a Wi-Fi signal.","To connect multiple devices within the same local network.","To forward data packets between different computer networks based on IP addresses.","To block malicious incoming traffic."], correct:["C"], explanation:"Routers connect multiple networks and direct packets based on their logical (IP) addresses."},
+  {sec:"cn", type:"mcq", q:"Which protocol is used to securely transfer files over a network?", opts:["FTP","SFTP","HTTP","SMTP"], correct:["B"], explanation:"SFTP (SSH File Transfer Protocol) provides secure file transfer over SSH."},
+  {sec:"cn", type:"mcq", q:"What does a Subnet Mask do?", opts:["Hides the IP address from the internet.","Divides an IP address into a network address and a host address.","Blocks unauthorized users from the network.","Assigns dynamic IP addresses to devices."], correct:["B"], explanation:"A subnet mask distinguishes the network prefix from the host identifier in an IP address."},
+  {sec:"cn", type:"mcq", q:"Which of the following is an IPv4 address loopback address (localhost)?", opts:["192.168.1.1","10.0.0.1","127.0.0.1","255.255.255.255"], correct:["C"], explanation:"127.0.0.1 is the standard IPv4 loopback address used to test local network software."},
+  {sec:"cn", type:"mcq", q:"In the OSI model, which layer interacts directly with the software application?", opts:["Presentation Layer","Session Layer","Application Layer","Transport Layer"], correct:["C"], explanation:"The Application layer provides protocols and interface methods used by software applications."},
+  {sec:"cn", type:"mcq", q:"What is the function of the ICMP protocol?", opts:["Transmitting video data streams.","Sending error messages and operational information indicating success or failure of communication (e.g., used by 'ping').","Encrypting data packets.","Translating domain names to IP addresses."], correct:["B"], explanation:"ICMP is used by network devices to send error messages and operational info (e.g., ping, traceroute)."},
+  {sec:"cn", type:"mcq", q:"Which of the following describes a Local Area Network (LAN)?", opts:["A network spanning multiple cities or countries.","A network connecting devices within a limited geographical area, like a home or office.","A global system of interconnected networks.","A virtual network used to encrypt remote connections."], correct:["B"], explanation:"LAN spans a small physical area, like a home, school, or office building."},
+  {sec:"cn", type:"mcq", q:"What does DHCP do on a network?", opts:["Automatically assigns IP addresses and network configuration parameters to devices.","Resolves domain names to IP addresses.","Filters out spam emails.","Secures the network with a firewall."], correct:["A"], explanation:"Dynamic Host Configuration Protocol automatically assigns IP addresses and other configs to devices."},
+  {sec:"cn", type:"mcq", q:"Which wireless standard operates on the 2.4GHz frequency exclusively (historically)?", opts:["802.11a","802.11b","802.11ac","802.11ax"], correct:["B"], explanation:"802.11b (and 802.11g) operates in the 2.4 GHz band. 802.11a uses 5 GHz."},
+  {sec:"cn", type:"msq", q:"Which of the following are differences between TCP and UDP?", opts:["TCP is connection-oriented; UDP is connectionless.","TCP guarantees delivery of packets; UDP does not.","UDP is generally faster and has less overhead than TCP.","UDP is used for web browsing (HTTP), while TCP is used for live video streaming."], correct:["A","B","C"], explanation:"TCP provides reliable, ordered delivery. UDP is faster, connectionless, and lacks guarantees. HTTP typically uses TCP, while live video uses UDP."},
+  {sec:"cn", type:"msq", q:"Which of the following protocols operate at the Application Layer of the OSI model?", opts:["HTTP","FTP","IP","SMTP"], correct:["A","B","D"], explanation:"HTTP, FTP, and SMTP are Application Layer protocols. IP operates at the Network Layer."},
+  {sec:"cn", type:"msq", q:"What are the advantages of using IPv6 over IPv4?", opts:["A vastly larger address space (128-bit).","Built-in network security (IPsec is mandatory).","Simpler header format for more efficient routing.","It uses purely numeric decimal addresses for easier human reading."], correct:["A","B","C"], explanation:"IPv6 uses 128-bit hex addresses (not purely decimal) and offers a simplified header, larger address space, and built-in IPsec support."},
+  {sec:"cn", type:"msq", q:"Which of the following statements about Firewalls are TRUE?", opts:["They can be hardware-based or software-based.","They control incoming and outgoing network traffic based on predetermined security rules.","They guarantee absolute protection against phishing emails.","They can be used to block traffic on specific ports."], correct:["A","B","D"], explanation:"Firewalls block unauthorized access based on rules (ports, IPs) but cannot protect against user-level scams like phishing."},
+  {sec:"cn", type:"msq", q:"Which of the following are valid components of a URL?", opts:["Protocol (e.g., https://)","Domain Name (e.g., example.com)","Port (e.g., :8080)","Subnet Mask"], correct:["A","B","C"], explanation:"A URL contains the scheme (protocol), host (domain), and optionally the port, path, and query parameters. Subnet masks are networking constructs."},
+  {sec:"dsa", type:"mcq", q:"What is the time complexity of accessing an element in an array using its index?", opts:["O(1)","O(log n)","O(n)","O(n^2)"], correct:["A"], explanation:"Arrays offer O(1) random access because the memory address can be calculated directly using the index."},
+  {sec:"dsa", type:"mcq", q:"Which data structure uses a Last-In-First-Out (LIFO) principle?", opts:["Queue","Array","Stack","Tree"], correct:["C"], explanation:"A Stack follows the Last-In-First-Out principle."},
+  {sec:"dsa", type:"mcq", q:"In a Singly Linked List, what does a node contain?", opts:["Data only.","Data and a pointer to the previous node.","Data and a pointer to the next node.","Pointers to the root node."], correct:["C"], explanation:"Each node in a singly linked list contains data and a single pointer to the next node."},
+  {sec:"dsa", type:"mcq", q:"Which sorting algorithm operates by repeatedly swapping adjacent elements if they are in the wrong order?", opts:["Merge Sort","Quick Sort","Insertion Sort","Bubble Sort"], correct:["D"], explanation:"Bubble Sort repeatedly steps through the list, compares adjacent elements, and swaps them if needed."},
+  {sec:"dsa", type:"mcq", q:"What is the worst-case time complexity of Quick Sort?", opts:["O(n log n)","O(n^2)","O(n)","O(log n)"], correct:["B"], explanation:"In the worst case (e.g., already sorted array with poor pivot choices), Quick Sort degrades to O(n^2)."},
+  {sec:"dsa", type:"mcq", q:"Which algorithmic approach does Binary Search use?", opts:["Dynamic Programming","Divide and Conquer","Greedy Approach","Backtracking"], correct:["B"], explanation:"Binary search divides the sorted search space in half during each step, a classic divide-and-conquer strategy."},
+  {sec:"dsa", type:"mcq", q:"In a Binary Search Tree (BST), the left child of a node contains a value that is:", opts:["Greater than the parent node.","Equal to the parent node.","Less than the parent node.","Randomly assigned."], correct:["C"], explanation:"BST property: left child < parent, right child > parent."},
+  {sec:"dsa", type:"mcq", q:"What data structure is best suited for implementing a Breadth-First Search (BFS) algorithm on a graph?", opts:["Stack","Queue","Hash Table","Priority Queue"], correct:["B"], explanation:"BFS explores layer-by-layer and uses a Queue (FIFO) to track nodes to visit."},
+  {sec:"dsa", type:"mcq", q:"What happens when two different keys hash to the same index in a Hash Table?", opts:["The table crashes.","A collision occurs, which must be handled via techniques like chaining or open addressing.","The second key overwrites the first key completely.","The table size automatically doubles immediately."], correct:["B"], explanation:"Collisions are inevitable and are managed via chaining (linked lists) or open addressing (probing)."},
+  {sec:"dsa", type:"mcq", q:"Which data structure is primarily used to evaluate mathematical postfix expressions?", opts:["Queue","Linked List","Stack","Graph"], correct:["C"], explanation:"Stacks are used to push operands and apply operators, making them ideal for postfix evaluation."},
+  {sec:"dsa", type:"mcq", q:"What is the core characteristic of a Max Heap?", opts:["The value of the parent node is always strictly less than its children.","The value of the parent node is always greater than or equal to its children.","It is a linear data structure.","It is an unbalanced binary tree."], correct:["B"], explanation:"In a Max Heap, the parent node is always greater than or equal to its children, meaning the max element is at the root."},
+  {sec:"dsa", type:"mcq", q:"Which sorting algorithm guarantees a time complexity of O(n log n) in all cases (worst, average, best)?", opts:["Quick Sort","Bubble Sort","Selection Sort","Merge Sort"], correct:["D"], explanation:"Merge Sort consistently divides the array in half and merges, guaranteeing O(n log n) performance always."},
+  {sec:"dsa", type:"mcq", q:"What is the difference between a Tree and a Graph?", opts:["Trees can have cycles; graphs cannot.","Graphs can have cycles; trees cannot.","Trees are not hierarchical.","There is no difference."], correct:["B"], explanation:"A Tree is a restricted form of a Graph that is connected and contains no cycles."},
+  {sec:"dsa", type:"mcq", q:"Which algorithmic paradigm is used by Dijkstra's algorithm to find the shortest path?", opts:["Dynamic Programming","Greedy Approach","Divide and Conquer","Backtracking"], correct:["B"], explanation:"Dijkstra's continually picks the closest unvisited node, which is a Greedy approach."},
+  {sec:"dsa", type:"mcq", q:"In Graph terminology, what is the 'degree' of a vertex in an undirected graph?", opts:["The total number of edges in the entire graph.","The number of edges connected to that vertex.","The distance from the root node.","The weight of the heaviest edge connected to it."], correct:["B"], explanation:"The degree of a vertex is the number of edges incident to it."},
+  {sec:"dsa", type:"msq", q:"Which of the following operations have an O(1) time complexity?", opts:["Pushing an element onto a Stack.","Inserting an element at the end of an ArrayList (amortized).","Finding an element in an unsorted Array.","Accessing the front element of a Queue."], correct:["A","B","D"], explanation:"Stack push, Queue front, and ArrayList append (amortized) are O(1). Finding an element requires O(n)."},
+  {sec:"dsa", type:"msq", q:"Which of the following are valid collision resolution techniques in Hash Tables?", opts:["Separate Chaining (using Linked Lists).","Linear Probing.","Quadratic Probing.","Double Hashing."], correct:["A","B","C","D"], explanation:"All of these are standard methods to resolve hash table collisions."},
+  {sec:"dsa", type:"msq", q:"Which of the following statements about Dynamic Programming (DP) are TRUE?", opts:["It breaks a problem down into overlapping subproblems.","It stores the results of subproblems to avoid redundant calculations (Memoization/Tabulation).","It is entirely identical to the Divide and Conquer approach.","The Fibonacci sequence is a common problem optimized by DP."], correct:["A","B","D"], explanation:"DP handles overlapping subproblems using memoization. Divide and Conquer deals with non-overlapping subproblems (like Merge Sort)."},
+  {sec:"dsa", type:"msq", q:"Which of the following are types of Tree Traversals?", opts:["In-order","Pre-order","Post-order","Level-order"], correct:["A","B","C","D"], explanation:"All four are standard tree traversal techniques."},
+  {sec:"dsa", type:"msq", q:"Which of the following statements about Linked Lists are TRUE compared to Arrays?", opts:["Linked Lists allow for dynamic memory allocation.","Linked Lists provide O(1) random access to elements via indices.","Inserting an element in the middle of a Linked List requires shifting all subsequent elements in memory.","Linked Lists have a higher memory overhead per element due to storing pointers."], correct:["A","D"], explanation:"Linked lists do not provide O(1) random access and do not require memory shifts upon insertion, but they do have higher memory overhead for pointers."},
+  {sec:"quant", type:"mcq", q:"If Person A can complete a project in 15 days and Person B can complete it in 10 days, how long will it take them working together?", opts:["5 days","6 days","8 days","12.5 days"], correct:["B"], explanation:"Person A completes 1/15 of the project per day. Person B completes 1/10 per day. Together: 1/15 + 1/10 = 2/30 + 3/30 = 5/30 = 1/6 of the project per day. Thus, it takes them 6 days."},
+  {sec:"quant", type:"mcq", q:"A 150-meter-long train crosses a pole in 15 seconds. What is the speed of the train in km/hr?", opts:["10 km/hr","36 km/hr","45 km/hr","54 km/hr"], correct:["B"], explanation:"Speed = Distance / Time = 150m / 15s = 10 m/s. To convert to km/hr, multiply by 18/5. 10 * (18/5) = 36 km/hr."},
+  {sec:"quant", type:"mcq", q:"A vendor sells software licenses at a 20% profit. If the cost price increases by 10% and the selling price remains the same, what is the new profit percentage?", opts:["9.09%","10%","15%","18.18%"], correct:["A"], explanation:"Assume original cost price (CP) is 100. Selling price (SP) is 120. New CP is 110. SP is still 120. Profit = 120 - 110 = 10. Profit percentage = (10 / 110) * 100 ≈ 9.09%."},
+  {sec:"quant", type:"mcq", q:"In a technical test, 40% of the students failed in logic, 30% failed in coding, and 10% failed in both. What percentage of students passed in both?", opts:["30%","40%","50%","60%"], correct:["B"], explanation:"Total failed in at least one subject = 40% + 30% - 10% (intersection) = 60%. Therefore, students who passed in both = 100% - 60% = 40%."},
+  {sec:"quant", type:"mcq", q:"What is the probability of drawing an Ace or a King from a standard deck of 52 cards?", opts:["1/13","2/13","1/26","4/13"], correct:["B"], explanation:"There are 4 Aces and 4 Kings in a deck of 52 cards. Total favorable outcomes = 8. Probability = 8/52 = 2/13."},
+  {sec:"quant", type:"mcq", q:"What is the next number in the sequence: 2, 6, 12, 20, 30, __?", opts:["40","42","44","48"], correct:["B"], explanation:"The differences between consecutive numbers are 4, 6, 8, 10. The next difference is 12. 30 + 12 = 42."},
+  {sec:"quant", type:"mcq", q:"If the word \"DEVELOP\" is coded as \"EFWFMPQ\", how would you code \"SYSTEM\"?", opts:["TZTUFN","RXRSDL","UZUVGO","TYSVEN"], correct:["A"], explanation:"Each letter is shifted forward by one position in the alphabet (D->E, E->F, etc.). Applying this to SYSTEM: S->T, Y->Z, S->T, T->U, E->F, M->N. Result: TZTUFN."},
+  {sec:"quant", type:"mcq", q:"Pointing to a photograph, a man says, \"She is the daughter of my grandfather's only son.\" How is the woman related to the man?", opts:["Aunt","Mother","Sister","Cousin"], correct:["C"], explanation:"The grandfather's only son is the man's father. The daughter of the man's father is his sister."},
+  {sec:"quant", type:"mcq", q:"A developer walks 10 km North, turns right and walks 5 km, turns right again and walks 10 km. How far and in which direction is he from the starting point?", opts:["5 km East","5 km West","10 km South","15 km North"], correct:["A"], explanation:"He walks 10 km North, then 5 km East (right), then 10 km South (right). He ends up exactly 5 km East of his starting point."},
+  {sec:"quant", type:"msq", q:"Statements: Some algorithms are complex. All complex things are slow. Conclusion: Some algorithms are slow. Select all valid conclusions.", opts:["The conclusion is logically true.","The conclusion is logically false.","All algorithms are slow.","Some slow things are algorithms."], correct:["A","D"], explanation:"Since some algorithms are complex, and all complex things are slow, those specific complex algorithms must be slow (A is true). Because they are slow algorithms, it also means some slow things are algorithms (D is true)."},
+  {sec:"quant", type:"mcq", q:"A train running at a uniform speed of 72 km/hr crosses a telegraph pole in exactly 12 seconds. What is the total length of the train in meters?", opts:["180 meters","200 meters","240 meters","280 meters"], correct:["C"], explanation:"72 km/hr = 72 * (5/18) = 20 m/s. Length = Speed * Time = 20 m/s * 12s = 240 meters."},
+  {sec:"quant", type:"mcq", q:"An item is sold for 2400 after allowing a flat discount of 20% on its marked price. What was the original marked price of the item?", opts:["2800","2880","3000","3200"], correct:["C"], explanation:"SP = MP * (1 - 0.20) -> 2400 = 0.8 * MP -> MP = 2400 / 0.8 = 3000."},
+  {sec:"quant", type:"mcq", q:"Worker A can complete a piece of coding work in 12 days, while Worker B takes 24 days to finish the same task. If they collaborate, how many days will it take them to complete the project?", opts:["6 days","8 days","9 days","18 days"], correct:["B"], explanation:"Rate of A = 1/12, Rate of B = 1/24. Combined rate = 1/12 + 1/24 = 3/24 = 1/8. So it takes 8 days together."},
+  {sec:"quant", type:"mcq", q:"The ratio of two numbers is 3:4. If their Least Common Multiple (LCM) is 180, what is the value of the smaller number?", opts:["30","45","60","90"], correct:["B"], explanation:"Let the numbers be 3x and 4x. Their LCM is 12x. 12x = 180, so x = 15. The smaller number is 3x = 45."},
+  {sec:"quant", type:"mcq", q:"A merchant buys a computer component for 1400 and sells it to a client at a net loss of 15%. What is the final selling price of the component?", opts:["1150","1190","1210","1250"], correct:["B"], explanation:"Loss = 15% of 1400 = 210. Selling Price = 1400 - 210 = 1190."},
+  {sec:"quant", type:"mcq", q:"Calculate the total simple interest earned on a principal sum of 5000 at an interest rate of 8% per annum over a duration of 3 years.", opts:["1000","1200","1400","1500"], correct:["B"], explanation:"Simple Interest = (P * R * T) / 100 = (5000 * 8 * 3) / 100 = 1200."},
+  {sec:"quant", type:"mcq", q:"The average age of a class consisting of 20 students is 15 years. If the teacher's age is included, the overall average increases by exactly 1 year. What is the age of the teacher?", opts:["35 years","36 years","37 years","40 years"], correct:["B"], explanation:"Total age of 20 students = 20 * 15 = 300. Average of 21 people = 16. Total age = 21 * 16 = 336. Teacher's age = 336 - 300 = 36."},
+  {sec:"quant", type:"mcq", q:"If the cost price of 15 identical articles is equal to the selling price of 12 of those articles, what is the net gain percentage?", opts:["15%","20%","25%","30%"], correct:["C"], explanation:"Let CP of 1 item be 1. CP of 15 = 15. SP of 12 = 15. SP of 1 item = 15/12 = 1.25. Profit = 0.25 on CP 1, which is 25%."},
+  {sec:"quant", type:"mcq", q:"A vehicle travels at a steady speed of 45 km/hr for the first 2 hours of a journey, and accelerates to 60 km/hr for the next 3 hours. What is its average speed across the entire trip?", opts:["52.5 km/hr","54 km/hr","55 km/hr","56 km/hr"], correct:["B"], explanation:"Total Distance = (45*2) + (60*3) = 90 + 180 = 270 km. Total Time = 5 hours. Average Speed = 270 / 5 = 54 km/hr."},
+  {sec:"quant", type:"mcq", q:"Pipe A can fill a water tank in 20 minutes, while Pipe B can fill the same tank in 30 minutes. If both water pipes are opened simultaneously, how long will it take to fill the empty tank completely?", opts:["10 minutes","12 minutes","15 minutes","25 minutes"], correct:["B"], explanation:"Rate of A = 1/20, Rate of B = 1/30. Combined rate = 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12. Time = 12 minutes."},
+  {sec:"verbal", type:"mcq", q:"Identify the grammatical error in the sentence: \"The list of items were placed on the desk.\"", opts:["\"The list\"","\"of items\"","\"were placed\"","\"on the desk\""], correct:["C"], explanation:"The subject of the sentence is 'The list' (singular), not 'items'. Therefore, the verb should be singular 'was placed' instead of 'were placed'."},
+  {sec:"verbal", type:"mcq", q:"Fill in the blank: \"The application is completely independent ______ the legacy system.\"", opts:["from","of","with","on"], correct:["B"], explanation:"The correct preposition to use after the adjective 'independent' in this context is 'of'."},
+  {sec:"verbal", type:"mcq", q:"Choose the most accurate synonym for the word: Mitigate.", opts:["Worsen","Alleviate","Instigate","Aggravate"], correct:["B"], explanation:"To mitigate means to make something less severe, harmful, or painful, which is synonymous with 'Alleviate'."},
+  {sec:"verbal", type:"mcq", q:"Choose the most accurate antonym for the word: Frugal.", opts:["Thrifty","Extravagant","Careful","Stingy"], correct:["B"], explanation:"Frugal means economical or sparing with money. Its direct opposite is Extravagant (lacking restraint in spending)."},
+  {sec:"verbal", type:"mcq", q:"Convert to passive voice: \"The system administrator rebooted the server.\"", opts:["The server is rebooted by the system administrator.","The server was being rebooted by the system administrator.","The server has been rebooted by the system administrator.","The server was rebooted by the system administrator."], correct:["D"], explanation:"The original sentence is in the simple past tense. The passive equivalent is 'was rebooted'."},
+  {sec:"verbal", type:"mcq", q:"Correct the sentence: \"He did not wrote the deployment script.\"", opts:["He did not writes the deployment script.","He did not written the deployment script.","He did not write the deployment script.","He do not wrote the deployment script."], correct:["C"], explanation:"When using 'did not' (auxiliary verb 'do' in past tense), the main verb must be in its base form ('write'), not past tense ('wrote')."},
+  {sec:"verbal", type:"mcq", q:"Complete the Verbal Analogy: RAM : Volatile :: Hard Drive : _______", opts:["Virtual","Temporary","Non-volatile","Processing"], correct:["C"], explanation:"RAM is a type of volatile memory (loses data when powered off), whereas a Hard Drive is non-volatile memory (retains data permanently)."},
+  {sec:"verbal", type:"mcq", q:"What is the meaning of the idiom \"To bite the bullet\"?", opts:["To physically defend oneself.","To face a difficult or unpleasant situation with courage.","To make a severe mistake in a project.","To speak angrily to a colleague."], correct:["B"], explanation:"'To bite the bullet' means to endure a painful, difficult, or unavoidable situation bravely."},
+  {sec:"verbal", type:"mcq", q:"What is the one-word substitution for a piece of code that propagates by copying itself?", opts:["Malware","Phishing","Virus","Firewall"], correct:["C"], explanation:"A computer virus is a specific type of malicious code designed to propagate by copying itself and infecting other files."},
+  {sec:"verbal", type:"msq", q:"\"Agile methodologies prioritize working software and customer collaboration over extensive documentation.\" Based on this, which inferences are correct?", opts:["Agile entirely eliminates the need for documentation.","Agile values customer feedback during the development process.","Working software is considered a primary measure of progress.","Agile strictly follows sequential, unchanging phases."], correct:["B","C"], explanation:"Agile 'prioritizes' these aspects but does not eliminate documentation entirely. It heavily relies on iterative customer feedback and values working software over rigid phases."},
+  {sec:"verbal", type:"mcq", q:"Identify the specific grammatical error in the following sentence: 'Each of the software engineering students have completed their assignment before the morning deadline.'", opts:["'software engineering students' should be singular.","'have completed' should be 'has completed'.","'before the morning deadline' is grammatically incorrect.","There is no error in the sentence."], correct:["B"], explanation:"'Each' is a singular subject. Therefore, the verb must be singular ('has completed' instead of 'have completed')."},
+  {sec:"verbal", type:"mcq", q:"Fill in the blank with the most appropriate preposition: 'The development team was completely independent ______ external funding for their open-source web project.'", opts:["from","of","with","on"], correct:["B"], explanation:"The correct preposition to follow the adjective 'independent' in this context is 'of'."},
+  {sec:"verbal", type:"mcq", q:"Choose the most accurate synonym for the word: Meticulous.", opts:["Careless","Detailed","Swift","Sloppy"], correct:["B"], explanation:"Meticulous means showing great attention to detail, making 'Detailed' the closest synonym."},
+  {sec:"verbal", type:"mcq", q:"Choose the most accurate antonym for the word: Ambiguous.", opts:["Obscure","Precise","Vague","Complex"], correct:["B"], explanation:"Ambiguous means open to multiple interpretations or unclear. Precise is its direct opposite."},
+  {sec:"verbal", type:"mcq", q:"Select the correct passive voice version of: 'The lead software engineer fixed the critical database bug.'", opts:["The critical database bug is fixed by the lead software engineer.","The critical database bug was fixed by the lead software engineer.","The critical database bug has been fixed by the lead software engineer.","The lead software engineer was fixing the critical database bug."], correct:["B"], explanation:"The original sentence is simple past tense ('fixed'). The passive voice conversion is 'was fixed'."},
+  {sec:"verbal", type:"mcq", q:"Fill in the blank with the correct verb form: 'Neither the project manager nor the backend developers ______ present at the morning sprint meeting yesterday.'", opts:["was","were","is","are"], correct:["B"], explanation:"In 'Neither/Nor' constructions, the verb agrees with the subject closest to it. 'developers' is plural, and the context is past tense, so 'were' is correct."},
+  {sec:"verbal", type:"mcq", q:"Identify which of the following choices represents the correct spelling:", opts:["Accommodate","Accomodate","Acommodate","Acomodate"], correct:["A"], explanation:"The correct spelling requires double 'c' and double 'm': Accommodate."},
+  {sec:"verbal", type:"mcq", q:"Complete the verbal analogy: Compiler : Machine Code :: Translator : _______", opts:["Novel","Target Language","Hardware","Logic"], correct:["B"], explanation:"A compiler outputs Machine Code. A translator outputs a Target Language. This creates a perfect Agent : Output analogy."},
+  {sec:"verbal", type:"msq", q:"Read the following statement and select the most logical inferences: 'Company X noticed a sharp 40% drop in daily website traffic immediately after changing its primary user interface design.'", opts:["The new website layout successfully optimized user workflows.","Users preferred the older interface.","The new navigation was potentially confusing to existing users.","Server maintenance costs decreased due to the layout change."], correct:["B","C"], explanation:"A sharp drop in traffic following a UI change logically implies the new UI negatively impacted user experience, making B and C sound inferences. Maintenance costs are unrelated to frontend UI changes."},
+  {sec:"verbal", type:"mcq", q:"Select the correct meaning for the common business idiom 'to touch base':", opts:["To physically return to the office.","To briefly make contact or update someone.","To hit a baseline performance metric.","To terminate a contract prematurely."], correct:["B"], explanation:"'Touching base' is a common idiom meaning to briefly check in, make contact, or update someone on a situation."},
+  {sec:"cs", type:"msq", q:"What are the core differences between an Array and a Linked List?", opts:["Arrays require contiguous memory allocation; Linked Lists do not.","Linked Lists allow for O(1) random access to elements using an index.","Inserting an element at the beginning of an Array is an O(n) operation.","Arrays typically have a fixed size upon initialization, while Linked Lists are dynamic."], correct:["A","C","D"], explanation:"Arrays allocate memory contiguously, allow O(1) index access, but require O(n) shifts for front insertions. Linked lists are dynamic and non-contiguous, but lack O(1) random access."},
+  {sec:"cs", type:"msq", q:"Which of the following statements about Binary Search are TRUE?", opts:["It operates with a time complexity of O(log n).","It can be applied directly to unsorted data structures.","It follows a divide-and-conquer algorithmic paradigm.","It is typically implemented iteratively or recursively."], correct:["A","C","D"], explanation:"Binary search requires a sorted dataset to function. It operates in O(log n) time by continuously halving the search space (divide-and-conquer)."},
+  {sec:"cs", type:"mcq", q:"How does a Hash Map typically handle collisions internally (in languages like Java)?", opts:["By throwing an IndexOutOfBounds exception.","By overwriting the existing key-value pair automatically.","Using chaining (Linked Lists) or open addressing (probing).","By resizing the array down to a smaller prime number."], correct:["C"], explanation:"When two keys hash to the same bucket, Hash Maps resolve the collision primarily using Chaining (storing colliding items in a Linked List) or Open Addressing (finding the next empty slot)."},
+  {sec:"cs", type:"msq", q:"Which of the following correctly describes Stacks and Queues?", opts:["A Stack follows Last-In-First-Out (LIFO).","A Queue follows First-In-First-Out (FIFO).","The \"Undo\" mechanism in text editors is a standard use case for a Queue.","Task scheduling in an Operating System is a standard use case for a Queue."], correct:["A","B","D"], explanation:"Stacks are LIFO (used for Undo mechanisms). Queues are FIFO (used for scheduling, buffering, and message queues)."},
+  {sec:"cs", type:"msq", q:"What is the exact difference between Method Overloading and Method Overriding?", opts:["Overloading occurs within the same class; Overriding requires a parent-child inheritance relationship.","Overloading uses the exact same method signature; Overriding requires different parameters.","Overloading is resolved at compile-time (static polymorphism).","Overriding is resolved at runtime (dynamic polymorphism)."], correct:["A","C","D"], explanation:"Overloading involves multiple methods with the same name but different parameters (resolved at compile-time). Overriding replaces a parent class's method with the exact same signature (resolved at runtime)."},
+  {sec:"cs", type:"mcq", q:"When would you choose to implement an Abstract Class instead of an Interface?", opts:["When you need to support multiple inheritance in Java/C#.","When you want to provide shared state (member variables) and common base logic alongside abstract methods.","When you only need to define a contract of method signatures without any implementation details.","When you want to prevent any child class from inheriting the base class."], correct:["B"], explanation:"Abstract classes allow you to define base, reusable logic and state variables, whereas Interfaces are strictly contracts for method signatures (though some modern languages allow default interface methods)."},
+  {sec:"cs", type:"msq", q:"Which of the following represent the ACID properties in database transaction management?", opts:["Atomicity","Concurrency","Isolation","Durability"], correct:["A","C","D"], explanation:"ACID stands for Atomicity, Consistency, Isolation, and Durability. Concurrency is related but not one of the ACID properties."},
+  {sec:"cs", type:"msq", q:"Regarding SQL Constraints, what is the difference between DELETE, TRUNCATE, and DROP?", opts:["DELETE is a DML command and can be rolled back.","TRUNCATE removes all rows from a table but keeps the structure, and cannot be easily rolled back.","DROP removes the entire table structure and data from the database.","DELETE is faster than TRUNCATE for emptying large tables."], correct:["A","B","C"], explanation:"DELETE removes specific rows (slower, log-heavy, rollbackable). TRUNCATE empties a table quickly (DDL, usually non-rollbackable). DROP deletes the table entirely."},
+  {sec:"cs", type:"mcq", q:"What is the difference between an INNER JOIN and a LEFT JOIN?", opts:["INNER JOIN returns only matching rows; LEFT JOIN returns all rows from the left table and matched rows from the right table.","INNER JOIN returns all rows from both tables; LEFT JOIN returns only matching rows.","LEFT JOIN requires a third linking table to function.","There is no functional difference; they are aliases."], correct:["A"], explanation:"INNER JOIN strictly filters for records that exist in both tables. LEFT JOIN guarantees every record from the primary (left) table is returned, with NULLs for unmatched right-table columns."},
+  {sec:"cs", type:"msq", q:"Which of the following are necessary conditions for a Deadlock to occur in an Operating System?", opts:["Mutual Exclusion","Hold and Wait","Preemption allowed","Circular Wait"], correct:["A","B","D"], explanation:"Coffman's conditions for deadlock are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If preemption is allowed, deadlocks can be broken."},
+  {sec:"prog", type:"msq", q:"What is the difference between String, StringBuilder, and StringBuffer in Java?", opts:["String objects are immutable.","StringBuilder is mutable but not thread-safe.","StringBuffer is mutable and thread-safe (synchronized).","StringBuilder is significantly slower than StringBuffer in single-threaded environments."], correct:["A","B","C"], explanation:"Strings cannot be changed once created. StringBuilder allows fast mutations but lacks synchronization. StringBuffer provides synchronized thread safety at the cost of performance."},
+  {sec:"prog", type:"msq", q:"How can memory leaks occur in a language with Garbage Collection (like Java or C#)?", opts:["By leaving unclosed database connections or file streams.","By maintaining static collections (like HashMaps) that grow indefinitely.","Garbage Collectors perfectly prevent all forms of memory leaks.","By having objects that reference each other, even if the main application no longer uses them."], correct:["A","B"], explanation:"Logical leaks occur when developers keep references to objects (like in static lists or unclosed streams) that are no longer needed, preventing cleanup. Note that option D is false: modern tracing GCs in Java/C# easily detect and clean up isolated circular references!"},
+  {sec:"prog", type:"mcq", q:"What is the core difference between a List and a Tuple in Python?", opts:["Lists are ordered; Tuples are unordered.","Lists can store mixed data types; Tuples can only store strings.","Lists are mutable (can be changed); Tuples are immutable (cannot be changed).","Lists use parentheses (); Tuples use square brackets []."], correct:["C"], explanation:"The defining difference is mutability. Lists [] can be appended, modified, or truncated. Tuples () are fixed upon creation."},
+  {sec:"prog", type:"mcq", q:"In Python, what is the primary purpose of a Decorator?", opts:["To physically alter the source code of a function permanently.","To modify or extend the behavior of a function or class without permanently modifying it.","To create a completely new instance of a class.","To enforce strict type-checking on function parameters."], correct:["B"], explanation:"Decorators are higher-order functions that wrap another function, allowing you to execute code before or after the wrapped function runs, effectively extending its behavior dynamically."},
+  {sec:"prog", type:"msq", q:"In C++, what are the key differences between Pointers and References?", opts:["A pointer can be reassigned to point to a different memory address; a reference cannot.","A pointer can be assigned a null value; a reference must refer to an existing object.","A reference has its own independent memory address distinct from the variable it references.","Pointers require dereferencing (*) to access the value; references do not."], correct:["A","B","D"], explanation:"References act as immutable aliases to an existing object and cannot be null or reassigned. Pointers are separate variables that hold memory addresses, requiring explicit dereferencing."},
+  {sec:"prog", type:"mcq", q:"In JavaScript, how does the Event Loop handle asynchronous operations?", opts:["By spawning a new system thread for every asynchronous callback.","By blocking the main execution thread until the asynchronous task completes.","By pushing callbacks to a task queue and moving them to the call stack only when the stack is empty.","By executing asynchronous tasks immediately before synchronous code."], correct:["C"], explanation:"JavaScript is single-threaded. Async operations are handled by browser/Node APIs, and their callbacks are queued. The Event Loop pushes them to the execution stack only when the stack is entirely clear."},
+  {sec:"prog", type:"msq", q:"What are the differences between <code>var</code>, <code>let</code>, and <code>const</code> in JavaScript?", opts:["var is function-scoped.","let and const are block-scoped.","Variables declared with let can be re-declared within the same scope.","The value assigned to a const primitive cannot be reassigned."], correct:["A","B","D"], explanation:"'let' and 'const' were introduced in ES6 to provide strict block scoping and prevent accidental re-declarations (unlike 'var'). 'const' prevents reassignment, though objects remain mutable."},
+  {sec:"prog", type:"msq", q:"How do Promises differ from traditional Callbacks in JavaScript?", opts:["Promises allow for method chaining (e.g., .then().catch()), preventing \"Callback Hell\".","Promises can be in one of three states: pending, fulfilled, or rejected.","Callbacks are inherently faster than Promises at the CPU level.","Promises make it easier to handle multiple asynchronous operations simultaneously (e.g., Promise.all)."], correct:["A","B","D"], explanation:"Promises provide a cleaner, chainable syntax to handle async flows, represent state natively, and offer utilities like Promise.all to manage multiple tasks concurrently, avoiding deeply nested callbacks."},
+  {sec:"prog", type:"mcq", q:"What is the Virtual DOM in React, and how does it optimize rendering performance?", opts:["It directly manipulates the browser's DOM on every state change.","It is a lightweight, in-memory representation of the Real DOM used to batch and diff updates efficiently before applying them.","It is a server-side rendering tool that replaces the browser completely.","It is a secondary browser window used strictly for debugging React components."], correct:["B"], explanation:"React compares the Virtual DOM with a previous snapshot (diffing) to calculate the minimum number of actual DOM operations required, drastically improving rendering efficiency."},
+  {sec:"prog", type:"msq", q:"Which of the following scenarios correctly describe the use of React Hooks?", opts:["useState is used to add local state variables to functional components.","useEffect can be used to fetch data from an API when a component mounts.","Hooks can be used inside standard JavaScript classes.","useEffect runs after the component renders to the screen."], correct:["A","B","D"], explanation:"Hooks were introduced to give functional components access to state and lifecycle methods. They cannot be used inside Class components."},
+  {sec:"prog", type:"mcq", q:"How does the Node.js runtime handle thousands of concurrent connections despite being single-threaded?", opts:["It uses a multi-threading library internally for every request.","It relies on an asynchronous, non-blocking I/O model powered by the event loop.","It allocates multiple instances of the V8 engine per request.","It actually blocks concurrent connections until the previous one finishes."], correct:["B"], explanation:"By delegating I/O tasks (like database queries or file reads) to the OS and using non-blocking callbacks via the Event Loop, Node.js can handle vast numbers of connections concurrently on a single thread."},
+  {sec:"prog", type:"msq", q:"In Express.js, what is the role of Middleware and the next() function?", opts:["Middleware functions can execute code, modify request/response objects, and end the request-response cycle.","The next() function passes control to the next middleware function in the stack.","If a middleware function does not call next(), the request is left hanging unless a response is sent.","Middleware is strictly used only for database connections."], correct:["A","B","C"], explanation:"Middleware intercepts HTTP requests. It must either terminate the request (e.g., res.send()) or pass control forward by invoking next(), otherwise the client request times out."},
+  {sec:"prog", type:"msq", q:"How does a NoSQL database structure (like MongoDB) conceptually differ from a relational database (like MySQL)?", opts:["MongoDB stores data in flexible, JSON-like BSON documents instead of rigid tables and rows.","MongoDB enforces strict schemas by default on all collections.","MySQL relies on explicit relationships (Foreign Keys) to link tables.","NoSQL databases generally scale horizontally across servers easier than traditional SQL databases."], correct:["A","C","D"], explanation:"MongoDB allows varied document structures within the same collection (no rigid schema). Relational DBs use strict tables and joins. NoSQL is famously designed for easier horizontal sharding and scaling."},
+  {sec:"prog", type:"msq", q:"In MongoDB Data Modeling, when would you choose to embed a document versus referencing one?", opts:["Embed documents for data that is frequently read together (e.g., a user and their address).","Reference documents when dealing with large, unbound hierarchical data arrays (to avoid exceeding the 16MB document limit).","Always embed everything to completely eliminate the need for JOIN-like $lookup operations.","Reference documents for many-to-many relationships where data needs to be accessed independently."], correct:["A","B","D"], explanation:"Embedding is ideal for contained, one-to-few relationships accessed together. Referencing is essential for massive datasets, independent entity lifecycles, and avoiding the 16MB document size limit."},
+  {sec:"prog", type:"msq", q:"Which of the following are standard HTTP methods used in a RESTful API and their intended purposes?", opts:["GET — Retrieve a resource.","POST — Create a new resource.","PUT — Partially update a resource (modify only specific fields).","DELETE — Remove a resource."], correct:["A","B","D"], explanation:"GET retrieves, POST creates, and DELETE removes. PUT is meant to completely replace a resource. PATCH is the method intended for partial updates."},
+  {sec:"prog", type:"mcq", q:"Which SQL query correctly finds the 3rd highest salary from an Employee table (assuming MySQL/PostgreSQL)?", opts:["SELECT salary FROM Employee ORDER BY salary DESC LIMIT 3, 1;","SELECT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 2;","SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);","SELECT salary FROM Employee ORDER BY salary ASC LIMIT 3;"], correct:["B"], explanation:"LIMIT 1 OFFSET 2 skips the first two highest salaries and returns the 3rd one. 'LIMIT 2, 1' is also valid in MySQL but OFFSET is standard."},
+  {sec:"prog", type:"mcq", q:"Which SQL clause is best suited to identify and list duplicate email addresses from a Users table?", opts:["GROUP BY email HAVING COUNT(email) > 1","WHERE email = COUNT(email) > 1","ORDER BY email DESC LIMIT 2","SELECT DISTINCT email FROM Users WHERE COUNT > 1"], correct:["A"], explanation:"To find duplicates, we group the rows by the email column and then filter the groups using HAVING COUNT(email) > 1."},
+  {sec:"prog", type:"msq", q:"When finding employees assigned to more than 2 projects using an Employees and Projects table, which of the following SQL elements are absolutely required?", opts:["INNER JOIN or LEFT JOIN","GROUP BY employee ID or name","HAVING COUNT(project_id) > 2","WHERE COUNT(project_id) > 2"], correct:["A","B","C"], explanation:"A JOIN is needed to link employees and projects. GROUP BY is required to aggregate per employee, and HAVING is used to filter aggregated counts. WHERE cannot be used with aggregate functions directly."},
+  {sec:"prog", type:"mcq", q:"How do you fetch only unique department names from an Organization table, sorted in alphabetical order?", opts:["SELECT UNIQUE department FROM Organization ORDER BY department ASC;","SELECT DISTINCT department FROM Organization ORDER BY department ASC;","SELECT department FROM Organization SORT BY department DISTINCT;","SELECT DISTINCT department FROM Organization GROUP BY department;"], correct:["B"], explanation:"The DISTINCT keyword is used in SQL to return only unique distinct values. ORDER BY ASC sorts them alphabetically."},
+  {sec:"prog", type:"mcq", q:"In MongoDB, what is the correct query to find all documents in a products collection where the price is greater than 500 and the status is 'active'?", opts:["db.products.find({ price: > 500, status: 'active' })","db.products.filter({ price: { $gt: 500 }, status: 'active' })","db.products.find({ price: { $gt: 500 }, status: 'active' })","db.products.select({ price: { $greater: 500 }, status: 'active' })"], correct:["C"], explanation:"MongoDB uses the find() method for querying, and the $gt operator represents 'greater than' within a query document."},
+  {sec:"prog", type:"msq", q:"In an Express.js route handler for a POST request (/api/login), what are best practices when email or password are missing from the request body?", opts:["Return an HTTP status code 400 (Bad Request).","Return an HTTP status code 200 (OK) with an error message in the payload.","Use res.status(400).json({ error: 'Missing fields' }).","Use res.send(500) to crash the server for security."], correct:["A","C"], explanation:"Missing client data constitutes a Bad Request (400). You should respond with a 400 status code and a clear JSON error message. Returning 200 for an error is an anti-pattern."},
+  {sec:"prog", type:"mcq", q:"What is the correct syntax to connect a Node.js application to a MongoDB database using Mongoose?", opts:["mongoose.connect('mongodb://localhost:27017/mydb');","mongoose.open('mongodb://localhost:27017/mydb');","mongoose.database.connect('mongodb://localhost:27017/mydb');","db.mongoose.connect('localhost:27017/mydb');"], correct:["A"], explanation:"The correct method provided by the Mongoose library to establish a connection is mongoose.connect() with a valid MongoDB URI."},
+  {sec:"prog", type:"msq", q:"When defining a Mongoose schema for a Product model, which of the following are valid schema configurations?", opts:["title: { type: String, required: true }","price: { type: Number, required: true }","stock: { type: Number, default: 0 }","stock: { type: Integer, fallback: 0 }"], correct:["A","B","C"], explanation:"String and Number are valid schema types in Mongoose. 'required' and 'default' are valid configuration options. 'Integer' is not a base Mongoose schema type (it uses Number)."},
+  {sec:"prog", type:"mcq", q:"When using bcrypt in Node.js to hash a password, which function is typically used to asynchronously hash the plain text?", opts:["bcrypt.hashSync(password, 10)","bcrypt.hash(password, 10)","bcrypt.encrypt(password)","bcrypt.salt(password, 10)"], correct:["B"], explanation:"bcrypt.hash() is the asynchronous method to hash a password, taking the plaintext and the salt rounds (e.g., 10) as arguments."},
+  {sec:"prog", type:"msq", q:"Which of the following statements are TRUE regarding the structural difference between JWTs and standard server-side sessions?", opts:["JWTs are stateless; the server does not need to store session records.","Server-side sessions require database or memory lookups (like Redis) on every request.","JWTs securely encrypt the payload so it cannot be read by the client.","The signature in a JWT ensures the token hasn't been altered."], correct:["A","B","D"], explanation:"JWTs are stateless and signed for integrity (not necessarily encrypted, payloads are often base64url encoded and easily readable). Server-side sessions require state lookups."},
+  {sec:"prog", type:"mcq", q:"In JavaScript, what is the specific operational difference between == and ===?", opts:["== checks strictly for type, === checks for value.","== performs type coercion before comparison, === checks both value and type without coercion.","There is no difference; both are used interchangeably.","=== is only used for object comparison."], correct:["B"], explanation:"The == operator coerces types if they differ before comparing, whereas === (strict equality) ensures both value and type are identical without coercion."},
+  {sec:"prog", type:"mcq", q:"Which native Node.js fs module method is used to read a file asynchronously?", opts:["fs.readFileSync()","fs.readFile()","fs.readAsync()","fs.openFile()"], correct:["B"], explanation:"fs.readFile() reads a file asynchronously and returns the data via a callback (or Promise using fs.promises). fs.readFileSync() is blocking."},
+  {sec:"prog", type:"msq", q:"Which Git commands allow you to safely navigate away from uncommitted local changes without permanently deleting them?", opts:["git stash","git reset --hard","git commit -m 'WIP'","git clean -f"], correct:["A","C"], explanation:"git stash temporarily shelves changes. Creating a temporary 'WIP' commit also saves them. reset --hard and clean -f will permanently delete uncommitted changes."},
+  {sec:"prog", type:"msq", q:"In an Object-Oriented BankAccount class, which of the following enforce the principle of Encapsulation?", opts:["Making the balance variable private.","Allowing external classes to directly modify accountNumber.","Providing a public getBalance() method to read the balance.","Making the withdraw() method validate funds before updating the balance."], correct:["A","C","D"], explanation:"Encapsulation involves hiding the internal state (private balance) and requiring all interactions to occur through safe, validating public methods (getBalance, withdraw)."},
+  {sec:"prog", type:"mcq", q:"What does the virtual keyword signify when applied to a method inside a C# base class?", opts:["The method cannot be overridden by derived classes.","The method contains no implementation and must be implemented by derived classes.","The method can be overridden by a derived class using the override keyword.","The method belongs to the class itself, not an instance."], correct:["C"], explanation:"The 'virtual' keyword in C# allows a method to be overridden in a derived class using the 'override' keyword. Abstract methods contain no implementation, virtual ones do."},
+  {sec:"prog", type:"mcq", q:"In which real-world scenario would you choose an Abstract Class over an Interface?", opts:["When you need to support multiple inheritance.","When you want to provide a common base implementation and shared state (fields) alongside abstract methods.","When you only need to define a contract of method signatures without any implementation.","When you want to force completely unrelated classes to implement a specific behavior."], correct:["B"], explanation:"Abstract classes are perfect when classes share a core implementation and state fields. Interfaces are strictly for defining behavioral contracts across potentially unrelated classes."},
+  {sec:"prog", type:"msq", q:"Which of the following approaches correctly reverse a string in Python or JavaScript without using built-in reverse functions?", opts:["Iterating backward through the string and appending to a new variable.","Using string slicing in Python: string[::-1].","Using a Stack: pushing all characters onto the stack, then popping them off.","Sorting the string alphabetically."], correct:["A","B","C"], explanation:"Iterating backward, slicing (Python), and using a Stack (LIFO) all correctly reverse a sequence. Sorting alphabetically destroys the original sequence order."},
+  {sec:"prog", type:"mcq", q:"Which approach checks if an integer array contains duplicate values in O(n) time complexity?", opts:["Using two nested loops to compare each element.","Sorting the array first, then comparing adjacent elements.","Inserting elements into a Hash Set and checking for existing keys.","Reversing the array and comparing it to the original."], correct:["C"], explanation:"A Hash Set allows O(1) average time insertions and lookups. Traversing the array once and using a Set results in an overall O(n) time complexity."},
+  {sec:"prog", type:"msq", q:"When implementing a Stack from scratch using an array, which of the following logic is correct?", opts:["push() adds an element to the end of the array.","pop() removes and returns the first element of the array.","pop() removes and returns the last element of the array.","It operates on a First-In-First-Out (FIFO) principle."], correct:["A","C"], explanation:"A Stack is Last-In-First-Out (LIFO). Therefore, push() adds to the end, and pop() removes from the end of the array."},
+  {sec:"prog", type:"mcq", q:"In a recursive function to calculate the factorial of n, what is the essential base case?", opts:["if (n == 0) return 0;","if (n <= 1) return 1;","if (n < 0) return -1;","if (n == 2) return 2;"], correct:["B"], explanation:"The factorial of 0 and 1 is 1. Stopping at n <= 1 and returning 1 prevents infinite recursion."},
+  {sec:"prog", type:"mcq", q:"What is a variable?", opts:["A mathematical operation.","A named location in memory used to store data.","A permanent hardware instruction.","A type of loop."], correct:["B"], explanation:"A variable acts as a named container for a value stored in system memory."},
+  {sec:"prog", type:"mcq", q:"What does a compiler do?", opts:["It runs code line-by-line in real-time.","It translates high-level source code into machine code (binary) all at once before execution.","It finds and deletes syntax errors automatically.","It converts hardware signals into software inputs."], correct:["B"], explanation:"Compilers translate the entire source code into executable machine code before running it, unlike interpreters which do it line-by-line."},
+  {sec:"prog", type:"mcq", q:"Which loop is guaranteed to execute at least one time, regardless of the condition?", opts:["for loop","while loop","do-while loop","foreach loop"], correct:["C"], explanation:"A do-while loop executes the body before checking the loop condition, guaranteeing at least one execution."},
+  {sec:"prog", type:"mcq", q:"What is an infinite loop?", opts:["A loop that executes a very large but fixed number of times.","A loop that lacks a functioning exit condition and runs continuously.","A loop nested inside another loop.","A loop that terminates immediately on error."], correct:["B"], explanation:"Infinite loops occur when the condition to terminate the loop is never met."},
+  {sec:"prog", type:"mcq", q:"What is recursion in programming?", opts:["When two different functions call each other simultaneously.","When a function calls itself repeatedly until it reaches a base case.","Using a while loop inside a for loop.","Iterating over an array backwards."], correct:["B"], explanation:"Recursion involves a function calling itself to solve a smaller instance of the same problem until reaching a base case."},
+  {sec:"prog", type:"mcq", q:"What is the purpose of the return statement in a function?", opts:["To pause the function execution.","To print a value to the console.","To terminate the function execution and output a value back to the caller.","To restart the function from the beginning."], correct:["C"], explanation:"A return statement stops the function's execution and sends a value back to where the function was called."},
+  {sec:"prog", type:"mcq", q:"In statically typed languages (like Java/C++), what happens if you try to assign a String to an Integer variable?", opts:["The compiler throws a type-mismatch error.","The string is automatically converted to the integer 0.","The program runs perfectly.","The integer variable is converted to a string type dynamically."], correct:["A"], explanation:"Statically typed languages enforce type safety at compile time, rejecting invalid assignments."},
+  {sec:"prog", type:"mcq", q:"What is the difference between = and == in most programming languages?", opts:["= is for assignment; == is for comparison.","= is for comparison; == is for assignment.","Both perform exact identical functions.","= is used for integers; == is used for strings."], correct:["A"], explanation:"A single equals sign assigns a value, while double equals compares two values for equality."},
+  {sec:"prog", type:"mcq", q:"What does 'Scope' refer to in programming?", opts:["The total size of the program in megabytes.","The region of the code where a variable or function is defined and accessible.","The total number of variables in a script.","The time it takes for a program to run."], correct:["B"], explanation:"Scope defines the visibility and lifetime of variables and functions within the code."},
+  {sec:"prog", type:"mcq", q:"Which of the following is a logical operator?", opts:["+","*","&& (AND)","% (Modulus)"], correct:["C"], explanation:"&& (AND) is a logical operator used to evaluate multiple boolean conditions."},
+  {sec:"prog", type:"mcq", q:"What is a syntax error?", opts:["An error that occurs while the program is running, causing it to crash (like dividing by zero).","An error resulting from violating the grammatical rules of the programming language.","A logic error where the program runs but produces the wrong output.","A hardware failure during execution."], correct:["B"], explanation:"Syntax errors occur when the written code violates the specific syntax rules of the programming language (e.g., missing semicolons)."},
+  {sec:"prog", type:"mcq", q:"What is the purpose of comments in code?", opts:["To execute secondary logic.","To increase the performance of the code execution.","To provide human-readable explanations and context for the code.","To declare global variables securely."], correct:["C"], explanation:"Comments are ignored by the compiler/interpreter and exist purely to help humans understand the code."},
+  {sec:"prog", type:"mcq", q:"What does the Modulo operator (%) return?", opts:["The quotient of a division.","The remainder of a division.","The percentage equivalent of a fraction.","The factorial of a number."], correct:["B"], explanation:"Modulo evaluates the remainder when one number is divided by another (e.g., 5 % 2 = 1)."},
+  {sec:"prog", type:"mcq", q:"What is a boolean data type?", opts:["A type that can store very large decimal numbers.","A type that holds a sequence of characters.","A type that can only hold one of two values: true or false.","A type that stores memory addresses."], correct:["C"], explanation:"Booleans represent binary logic, capable of holding only true or false."},
+  {sec:"prog", type:"mcq", q:"What is the concept of 'casting' or 'type conversion'?", opts:["Removing an element from an array.","Converting a variable from one data type to another.","Throwing an error to stop code execution.","Broadcasting a message to all open objects."], correct:["B"], explanation:"Casting converts data from one primitive type to another, such as converting a float to an integer."},
+  {sec:"prog", type:"msq", q:"Which of the following are standard primitive data types in many languages?", opts:["Integer","Boolean","Float","Class"], correct:["A","B","C"], explanation:"Classes are reference (complex) types, while Integer, Boolean, and Float are basic primitive types."},
+  {sec:"prog", type:"msq", q:"Which of the following control structures are used for conditional branching (making decisions)?", opts:["if-else","switch-case","while loop","continue"], correct:["A","B"], explanation:"If-else and switch-case evaluate conditions and branch execution. While and continue relate to looping constructs."},
+  {sec:"prog", type:"msq", q:"What happens if a recursive function is written without a 'base case'?", opts:["It will execute faster.","It will cause an infinite loop of recursive calls.","It will eventually result in a Stack Overflow error.","It will automatically return null."], correct:["B","C"], explanation:"Without a base case, recursion loops infinitely, eventually consuming all call stack memory and causing a Stack Overflow crash."},
+  {sec:"prog", type:"msq", q:"Which of the following represent a 'Logic Error'?", opts:["Forgetting a semicolon at the end of a line (in C++/Java).","Multiplying two variables when you meant to add them, resulting in incorrect financial output.","A loop condition written as i > 0 instead of i < 10, causing the loop to never run.","Trying to access a null pointer, causing a crash during execution."], correct:["B","C"], explanation:"A logic error is a flaw in reasoning that produces incorrect output without crashing or violating syntax rules. (A is a syntax error, D is a runtime error)."},
+  {sec:"prog", type:"msq", q:"What are the benefits of using Functions/Methods in programming?", opts:["Code Reusability (avoiding repetitive code).","Modularity (breaking large problems into smaller, manageable pieces).","Improved readability and maintainability.","They force all variables to remain in the global scope."], correct:["A","B","C"], explanation:"Functions promote code reuse, modularity, and readability. They actually help *avoid* global scope by encapsulating variables locally."},
+  {sec:"js", type:"mcq", q:"What is the output of typeof null in JavaScript?", opts:["\"null\"","\"undefined\"","\"object\"","\"string\""], correct:["C"], explanation:"In JavaScript, typeof null returns 'object'. This is a well-known historical bug in the language that has been kept for backward compatibility."},
+  {sec:"js", type:"msq", q:"Which of the following values are considered 'falsy' in JavaScript?", opts:["0","\"false\"","undefined","\"\" (Empty string)"], correct:["A","C","D"], explanation:"Falsy values in JavaScript include 0, -0, 0n, '', null, undefined, and NaN. The string 'false' is truthy because it is a non-empty string."},
+  {sec:"js", type:"mcq", q:"Which array method is used to remove the first element from an array and return that element?", opts:["pop()","shift()","unshift()","splice()"], correct:["B"], explanation:"shift() removes the first element and returns it. pop() removes the last element. unshift() adds to the beginning."},
+  {sec:"js", type:"mcq", q:"What is the correct syntax for an arrow function that takes one parameter and returns its square?", opts:["x => return x * x;","(x) => x * x;","x -> x * x;","function(x) => x * x;"], correct:["B"], explanation:"(x) => x * x; or x => x * x; implicitly returns the evaluated expression. 'return' can only be used within curly braces {}."},
+  {sec:"js", type:"mcq", q:"What will console.log(typeof NaN) output?", opts:["\"NaN\"","\"number\"","\"undefined\"","\"error\""], correct:["B"], explanation:"NaN (Not-a-Number) is technically a numeric data type in JavaScript. Therefore, typeof NaN returns 'number'."},
+  {sec:"js", type:"msq", q:"Which of the following are valid ways to create an object in JavaScript?", opts:["const obj = {};","const obj = new Object();","const obj = Object.create(null);","const obj = Object.make();"], correct:["A","B","C"], explanation:"Object literals {}, new Object(), and Object.create() are all valid object creation patterns. Object.make() does not exist."},
+  {sec:"js", type:"mcq", q:"What is the difference between let and const?", opts:["let is function-scoped; const is block-scoped.","Variables declared with let can be reassigned; variables declared with const cannot be reassigned.","const variables are automatically hoisted, while let variables are not.","There is no functional difference."], correct:["B"], explanation:"Both let and const are block-scoped, but variables declared with const cannot be reassigned after initialization, whereas let variables can."},
+  {sec:"js", type:"mcq", q:"How do you correctly embed a variable name inside a template literal?", opts:["\"Hello, ${name}\"","Hello, ${name}","'Hello, ${name}'","`Hello, ${name}`"], correct:["D"], explanation:"Template literals are enclosed by backticks (` `) and use the ${expression} syntax for string interpolation."},
+  {sec:"js", type:"mcq", q:"What does the isNaN() function check for?", opts:["If the given value is an object.","If the given value is undefined.","If the given value is Not-a-Number.","If the given value is negative."], correct:["C"], explanation:"isNaN() attempts to convert the given value to a number and returns true if the result is NaN (Not-a-Number)."},
+  {sec:"js", type:"mcq", q:"Which operator is used to concatenate strings in JavaScript?", opts:["&",".","+","concat"], correct:["C"], explanation:"The addition operator (+) is used to concatenate strings in JavaScript. The .concat() method also exists but + is the operator."},
+  {sec:"js", type:"mcq", q:"What is the primary difference between the map() and forEach() array methods?", opts:["map() modifies the original array; forEach() does not.","map() returns a new array of the same length; forEach() returns undefined.","forEach() can be chained with other methods like filter(); map() cannot.","map() is synchronous, while forEach() is asynchronous."], correct:["B"], explanation:"map() transforms each element and returns a brand new array. forEach() simply iterates over the array, performing side effects, and returns undefined."},
+  {sec:"js", type:"msq", q:"Which of the following are valid use cases for the spread operator (...)?", opts:["Copying an array or object.","Merging two arrays into a new array.","Passing an array of numbers as individual arguments to Math.max().","Forcing synchronous execution of an async function."], correct:["A","B","C"], explanation:"The spread operator expands iterables into individual elements. It is widely used for copying arrays/objects, merging them, and spreading arguments into functions."},
+  {sec:"js", type:"mcq", q:"Given const user = { name: 'Alice', age: 25 };, how do you extract name and rename it to userName using object destructuring?", opts:["const { name: userName } = user;","const { userName = name } = user;","const userName = { name } from user;","const { name as userName } = user;"], correct:["A"], explanation:"Object destructuring allows aliasing a property using a colon, e.g., const { originalName: newName } = object;."},
+  {sec:"js", type:"mcq", q:"How does the this keyword behave differently in an arrow function compared to a regular function?", opts:["Arrow functions do not have their own this; they inherit it from the surrounding lexical scope.","Arrow functions bind this to the global window object unconditionally.","Arrow functions bind this to the object that called the function.","There is no difference; this behaves identically in both."], correct:["A"], explanation:"Arrow functions use lexical scoping for 'this', meaning they capture the 'this' value of the enclosing execution context, unlike regular functions which dynamically bind 'this' based on how they are called."},
+  {sec:"js", type:"mcq", q:"What is a Closure in JavaScript?", opts:["A function that takes another function as an argument.","A function bundled together with its lexical environment, allowing it to remember variables from its outer scope even after the outer function has finished executing.","The process of hiding object properties from the global scope.","A method used to immediately invoke a function expression."], correct:["B"], explanation:"A closure is created every time a function is defined, granting it access to its lexical scope (variables declared outside of it) indefinitely."},
+  {sec:"js", type:"msq", q:"Which of the following are valid states of a JavaScript Promise?", opts:["Pending","Fulfilled","Resolved","Rejected"], correct:["A","B","D"], explanation:"A Promise is in one of these strictly defined states: pending, fulfilled, or rejected. ('Resolved' is a colloquial term often used to mean fulfilled or settled, but the official spec state is 'fulfilled'.)"},
+  {sec:"js", type:"mcq", q:"What is the difference between || (Logical OR) and ?? (Nullish Coalescing Operator)?", opts:["They are identical in functionality.","|| returns the right side for any falsy value (like 0 or ''), while ?? only returns the right side if the left side is null or undefined.","?? returns the right side for any falsy value, while || only checks for null.","?? is used exclusively for evaluating boolean expressions."], correct:["B"], explanation:"|| treats 0, '', and false as falsy and will fall back to the right operand. ?? specifically targets null or undefined, preserving intentional 0 or '' values."},
+  {sec:"js", type:"mcq", q:"Which built-in method would you use to reduce an array of numbers down to a single sum?", opts:["Array.prototype.map()","Array.prototype.filter()","Array.prototype.reduce()","Array.prototype.concat()"], correct:["C"], explanation:"reduce() executes a reducer callback function on each element of the array, passing in the return value from the calculation on the preceding element, ultimately resulting in a single output value."},
+  {sec:"js", type:"mcq", q:"What does the bind() method do in JavaScript?", opts:["It immediately executes a function with a specific this context.","It creates and returns a new function that, when called, has its this keyword set to the provided value.","It merges two objects together into a single instance.","It attaches an event listener to a DOM element."], correct:["B"], explanation:"bind() returns a new bound function. call() and apply() execute the function immediately."},
+  {sec:"js", type:"msq", q:"Which of the following statements about Variable Hoisting are TRUE?", opts:["var declarations are hoisted and initialized with undefined.","let and const declarations are not hoisted at all.","let and const are hoisted but remain in the Temporal Dead Zone (TDZ) until their declaration line is executed.","Function declarations (function myFunc() {}) are fully hoisted along with their definitions."], correct:["A","C","D"], explanation:"let and const ARE technically hoisted, but they remain uninitialized in the Temporal Dead Zone (TDZ). Function declarations and var are hoisted, but only var is initialized as undefined immediately."},
+  {sec:"js", type:"mcq", q:"What does Promise.all() do?", opts:["It resolves as soon as the first promise in an array resolves.","It takes an iterable of promises and resolves only when all of the promises have resolved, returning an array of their results.","It rejects only if all promises in the array are rejected.","It pauses code execution until all promises resolve globally."], correct:["B"], explanation:"Promise.all() waits for all promises in an iterable to fulfill, or immediately rejects if any single promise rejects."},
+  {sec:"js", type:"mcq", q:"What is the purpose of the Optional Chaining operator (?.)?", opts:["It allows reading the value of a property located deep within an object chain without having to explicitly validate that each reference in the chain is valid.","It converts a non-boolean value into a boolean.","It forces an object to become immutable.","It provides a default fallback value for undefined variables."], correct:["A"], explanation:"Optional chaining (?.) safely attempts to access deep object properties, short-circuiting and returning undefined instead of throwing a TypeError if a reference is nullish."},
+  {sec:"js", type:"mcq", q:"What will console.log(0 == false) and console.log(0 === false) output, respectively?", opts:["false, false","true, true","true, false","false, true"], correct:["C"], explanation:"0 == false is true because of type coercion (both evaluate to 0). 0 === false is false because strict equality checks type, and a number is not a boolean."},
+  {sec:"js", type:"msq", q:"Which of the following methods create a shallow copy of an object or array?", opts:["JSON.parse(JSON.stringify(obj))","The Spread Operator (...)","Object.assign()","Array.prototype.slice()"], correct:["B","C","D"], explanation:"Spread, Object.assign(), and slice() create shallow copies. JSON.parse(JSON.stringify()) creates a deep copy (though it strips functions/symbols)."},
+  {sec:"js", type:"mcq", q:"What is an IIFE (Immediately Invoked Function Expression)?", opts:["A function that is executed automatically as soon as it is defined.","A function that is called by a setTimeout method.","A recursive function that calls itself immediately.","A built-in JavaScript engine optimization technique."], correct:["A"], explanation:"An IIFE is a function wrapped in parentheses and immediately followed by invoking parentheses (e.g., (function() { ... })();), executing immediately upon definition."},
+  {sec:"js", type:"mcq", q:"In DOM manipulation, what is Event Delegation?", opts:["Triggering a custom event on a specific element.","Attaching a single event listener to a parent element to manage events triggered by its child elements, leveraging event bubbling.","Preventing an event from bubbling up the DOM tree.","Removing an event listener completely from the DOM."], correct:["B"], explanation:"Event delegation is a pattern that uses event bubbling to handle events at a higher level in the DOM, reducing the number of total event listeners required."},
+  {sec:"js", type:"mcq", q:"What does Object.freeze() do?", opts:["It prevents new properties from being added to an object, but allows modifying existing ones.","It deep freezes an object and all nested child objects permanently.","It prevents new properties from being added, existing properties from being removed, and existing properties from being changed.","It pauses the execution of an object's methods."], correct:["C"], explanation:"Object.freeze() makes an object entirely immutable at the top level. Nested objects are not automatically frozen (it is a shallow freeze by default)."},
+  {sec:"js", type:"msq", q:"What are the key differences between call() and apply()?", opts:["call() takes arguments separately (comma-separated).","apply() takes arguments as an array.","call() binds this permanently, while apply() only binds it temporarily.","Both immediately invoke the function."], correct:["A","B","D"], explanation:"Both immediately invoke the function with a given 'this'. The only difference is how they accept arguments: call() uses Comma-separated arguments, apply() uses an Array."},
+  {sec:"js", type:"mcq", q:"What does the Rest Parameter (...args) do in a function definition?", opts:["It expands an array into individual arguments.","It pauses the function execution for a rest period.","It collects all remaining arguments passed to a function into an array.","It forces the function to ignore extra arguments."], correct:["C"], explanation:"The Rest parameter syntax allows a function to accept an indefinite number of arguments as a true Array."},
+  {sec:"js", type:"mcq", q:"If you have setTimeout(() => console.log('A'), 0); console.log('B');, what is the output sequence and why?", opts:["'A' then 'B', because setTimeout is set to 0 milliseconds.","'B' then 'A', because setTimeout is a Web API and its callback is placed in the task queue, executing only after the main call stack is empty.","It will throw an error.","Both execute exactly simultaneously."], correct:["B"], explanation:"JavaScript is single-threaded. Synchronous code ('B') runs first on the call stack. The setTimeout callback ('A') goes to the macrotask queue and waits for the stack to clear."},
+  {sec:"js", type:"mcq", q:"In the JavaScript Event Loop, how are Microtasks and Macrotasks prioritized?", opts:["Macrotasks (like setTimeout) are executed before Microtasks (like Promise .then() callbacks).","The event loop completely empties the Microtask queue immediately after the current operation and before processing the next Macrotask.","They are executed sequentially in the exact order they were added to the stack, regardless of type.","Microtasks are only processed when the browser is idle."], correct:["B"], explanation:"Microtasks (Promises, MutationObserver) have higher priority than Macrotasks (setTimeout, setInterval). The microtask queue is fully drained before moving to the next macrotask."},
+  {sec:"js", type:"msq", q:"Which of the following statements about WeakMap are TRUE?", opts:["Keys in a WeakMap must be objects (or non-registered Symbols as of ES2023).","WeakMap is highly useful for managing memory and avoiding memory leaks because references to key objects are held 'weakly'.","You can iterate over a WeakMap using forEach or for...of.","If there are no other references to an object acting as a key, it will be garbage collected."], correct:["A","B","D"], explanation:"WeakMaps prevent memory leaks because their keys do not block garbage collection. Because of this weak referencing, their keys are not enumerable, so you cannot iterate over a WeakMap."},
+  {sec:"js", type:"mcq", q:"What is the primary purpose of the Reflect API in JavaScript?", opts:["To create deep copies of highly nested objects.","To provide methods for interceptable JavaScript operations (like property lookup, assignment, enumeration), heavily used alongside Proxy objects.","To analyze code performance at runtime.","To dynamically generate HTML based on state changes."], correct:["B"], explanation:"Reflect provides static methods corresponding to Proxy handler traps, offering a standardized way to forward operations and handle low-level object manipulations."},
+  {sec:"js", type:"mcq", q:"What is Currying in functional JavaScript?", opts:["Converting a function that takes an array of arguments into a function that takes separate arguments.","Transforming a function that takes multiple arguments into a sequence of functions that each take a single argument.","Binding a specific this context to a function globally.","Creating an infinite recursive loop intentionally."], correct:["B"], explanation:"Currying transforms a function like f(a, b, c) into f(a)(b)(c). It's a foundational functional programming concept for creating specialized functions."},
+  {sec:"js", type:"msq", q:"When dealing with Prototypal Inheritance, which statements are correct?", opts:["Every object in JavaScript has a built-in property, often referred to as its prototype (__proto__).","The prototype chain ends when an object's prototype is null.","Class syntax in ES6 introduced a completely new object-oriented inheritance model that replaces the prototype chain.","Modifying Object.prototype is generally considered a bad practice because it affects all objects in the application."], correct:["A","B","D"], explanation:"ES6 classes are 'syntactic sugar' over the existing prototype-based inheritance model; they do not introduce a new underlying inheritance engine."},
+  {sec:"js", type:"mcq", q:"What is the fundamental difference between Promise.all() and Promise.allSettled()?", opts:["Promise.allSettled() rejects immediately if any promise fails; Promise.all() waits for all to fail.","Promise.all() resolves only if all promises resolve and rejects if any promise rejects. Promise.allSettled() waits for all promises to finish (either resolved or rejected) and returns an array describing the outcome of each.","There is no difference; allSettled() is just a deprecated alias.","Promise.allSettled() only works with asynchronous generators."], correct:["B"], explanation:"Promise.all() 'fails fast' on the first rejection. Promise.allSettled() guarantees execution of all promises regardless of success or failure."},
+  {sec:"js", type:"mcq", q:"What does a JavaScript Generator function (function*) yield when called?", opts:["It immediately returns the final value of the function execution.","It returns a Generator Object (an iterator) that can be used to manually step through the function's execution using .next().","It returns a standard Promise that resolves automatically.","It returns the yield keyword itself as a string."], correct:["B"], explanation:"A generator function does not execute its body immediately. Instead, it returns an iterator (Generator object) allowing you to manually pause and resume execution."},
+  {sec:"js", type:"msq", q:"Which of the following are unique characteristics of the Symbol primitive data type?", opts:["Every Symbol value created is guaranteed to be unique.","Symbols are often used to add hidden or private properties to objects without colliding with existing string keys.","Symbols will show up automatically when iterating over an object using a for...in loop.","Symbol.iterator is a well-known symbol used to define custom iterable behavior for objects."], correct:["A","B","D"], explanation:"Symbols are unique, non-enumerable primitives (they do not show up in for...in loops or Object.keys), often used for defining hidden object properties and customizing iteration."},
+  {sec:"js", type:"mcq", q:"What is the distinction between Object.seal() and Object.freeze()?", opts:["Object.seal() allows modification of existing properties but prevents adding/removing properties. Object.freeze() prevents all changes, including modifications.","Object.freeze() allows modification of existing properties, while Object.seal() strictly forbids it.","Object.seal() only applies to arrays, while Object.freeze() applies to standard objects.","Object.seal() makes an object permanently invisible to garbage collection."], correct:["A"], explanation:"Object.seal() locks the object's structure (no add/delete) but allows value mutations. Object.freeze() locks both the structure and the values."},
+  {sec:"js", type:"mcq", q:"Under the hood, how are async/await functions processed in modern JavaScript?", opts:["They spawn separate background OS threads to run code parallel to the main thread.","They are syntactic sugar built on top of standard Promises and Generators, pausing the execution context of the function without blocking the main event loop.","They enforce synchronous execution by forcefully blocking the main thread until the network request completes.","They bypass the Microtask queue entirely and execute instantly."], correct:["B"], explanation:"async/await simplifies Promise chaining by using generator-like pausing (suspending the function's execution context) while allowing the main Event Loop to continue processing other tasks."},
+  {sec:"hr", type:"mcq", q:"In an interview, when asked to \"Tell me about yourself,\" what is the most professional and effective structure?", opts:["Reciting your entire resume chronologically from high school onwards.","Discussing your personal hobbies, family background, and weekend plans.","Providing a brief summary of your education, highlighting 1-2 major technical projects, and explaining how your skills align with the role.","Giving a one-sentence answer stating your name and college major."], correct:["C"], explanation:"Interviewers want a concise professional pitch (Present, Past, Future framework) that highlights relevant skills and demonstrates exactly why you are a good fit for the specific role."},
+  {sec:"hr", type:"msq", q:"If an interviewer asks you to describe a time you faced a major technical challenge, which of the following approaches demonstrate a strong problem-solving mindset?", opts:["Explaining the specific bug/challenge clearly without getting bogged down in irrelevant code syntax.","Blaming a teammate for writing bad code that you had to fix.","Detailing the step-by-step debugging process you used (e.g., checking logs, isolating variables).","Describing the final outcome and what you learned to prevent the issue in the future."], correct:["A","C","D"], explanation:"Using the STAR method (Situation, Task, Action, Result) focuses on your logical process and learnings. Blaming others demonstrates poor teamwork and lack of accountability."},
+  {sec:"hr", type:"mcq", q:"During a code review simulation, a senior developer bluntly tells you your code is inefficient and needs a complete rewrite. What is the best response?", opts:["Defend your code aggressively, stating that it works and efficiency doesn't matter yet.","Politely ask for specific feedback on which parts are inefficient and how they recommend optimizing it.","Agree immediately, delete the code, and ask them to write it for you.","Ignore the feedback and merge the code anyway."], correct:["B"], explanation:"Demonstrating a willingness to accept feedback, leaving ego at the door, and actively seeking mentorship to improve is a crucial trait of a strong team engineer."},
+  {sec:"hr", type:"msq", q:"An interviewer notes that the company uses Python/Django, but your resume only shows JavaScript/MERN stack. Which responses reflect strong adaptability?", opts:["\"I understand the core concepts of backend routing and ORMs from Express and Mongoose, so the underlying architecture translates well to Django.\"","\"I am unwilling to learn Python because JavaScript is the superior language.\"","\"I have a proven track record of picking up new syntax quickly, as demonstrated by learning React independently over a weekend.\"","\"I am eager to dive into the documentation and build a small side project in Python before my start date to get up to speed.\""], correct:["A","C","D"], explanation:"Strong engineers emphasize their grasp of foundational software engineering principles that transcend specific languages, backed by a proven eagerness and ability to learn new tools quickly."},
+  {sec:"hr", type:"mcq", q:"\"Where do you see yourself in three to five years?\" — what is the employer primarily trying to assess?", opts:["Whether you want to steal the interviewer's job.","If your career goals align with the growth opportunities available at their specific company.","Your exact timeline for asking for a massive salary increase.","Whether you plan to leave the software engineering field entirely."], correct:["B"], explanation:"Employers invest time and money into hiring. They want to ensure your long-term ambitions (e.g., senior engineer, tech lead, architecture) align with what the company can offer so you don't leave quickly."}
 ];
 
 const SECTIONS = {
+
+  oop:    {label:"Object-Oriented Programming", emoji:"🧩", color:"var(--oop)", short:"OOP"},
+  dbms:   {label:"Database Management Systems", emoji:"🗄️", color:"var(--dbms)", short:"DBMS"},
+  cn:     {label:"Computer Networks", emoji:"🌐", color:"var(--cn)", short:"Networks"},
+  dsa:    {label:"Data Structures & Algorithms", emoji:"🌳", color:"var(--dsa)", short:"DSA"},
   quant:  {label:"Quantitative Aptitude & Logical Reasoning", emoji:"🧮", color:"var(--quant)", short:"Quant & Logic"},
   verbal: {label:"Verbal Ability", emoji:"🗣️", color:"var(--verbal)", short:"Verbal"},
   cs:     {label:"Computer Science Fundamentals", emoji:"💻", color:"var(--cs)", short:"CS Fundamentals"},
@@ -1855,6 +1306,7 @@ const quizMain = document.getElementById("quizMain");
 
 function render() {
   let html = "";
+  const uniqueSections = [...new Set(DATA.map(d => d.sec))];
   let lastSec = null;
   let secQCount = {};
   DATA.forEach((item) => {
@@ -1872,7 +1324,7 @@ function render() {
           <div class="sec-icon">${s.emoji}</div>
           <div class="sec-info">
             <h2 style="color:${s.color}">${s.label}</h2>
-            <span class="sec-meta">${count} question${count>1?'s':''} · ${item.sec === 'quant' ? 'Section 1 of 5' : item.sec === 'verbal' ? 'Section 2 of 5' : item.sec === 'cs' ? 'Section 3 of 5' : item.sec === 'prog' ? 'Section 4 of 5' : 'Section 5 of 5'}</span>
+            <span class="sec-meta">${count} question${count>1?'s':''} · Section ${uniqueSections.indexOf(item.sec) + 1} of ${uniqueSections.length}</span>
           </div>
         </div>`;
       lastSec = item.sec;
@@ -1883,7 +1335,7 @@ function render() {
         <span class="q-num">Q${qi+1}</span>
         <span class="tag ${item.type}">${item.type.toUpperCase()}${item.type==='msq' ? ' · select all' : ''}</span>
       </div>
-      <p class="q-text">${item.q}</p>
+      <p class="q-text">${escapeHtml(item.q)}</p>
       <fieldset class="options" id="opts-${qi}" style="border:none; padding:0; margin:0;">
         <legend class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">Options for Q${qi+1}</legend>
         ${item.opts.map((o, oi) => {
@@ -1909,9 +1361,12 @@ function render() {
 }
 
 function escapeHtml(str) {
-  // Don't escape HTML tags for code elements
-  if (str.includes('<code>')) return str;
-  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  if (!str) return "";
+  return str.replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/&lt;code&gt;/g, "<code>")
+            .replace(/&lt;\/code&gt;/g, "</code>");
 }
 
 function attachHandlers() {
@@ -1982,9 +1437,9 @@ function updateOptionVisuals(qi) {
       const headerHtml = isCorrect 
         ? `<strong style="color:var(--success);">✅ Correct!</strong>` 
         : `<strong style="color:var(--danger);">❌ Incorrect.</strong>`;
-      const expText = item.explanation || "No explanation provided for this question.";
+      const expText = item.explanation ? escapeHtml(item.explanation) : "No explanation provided for this question.";
       verdict.innerHTML = `
-        <div style="margin-bottom:8px;">${headerHtml} <span style="color:var(--text-dim); font-size:12px; margin-left:8px;">Correct Answer: ${item.correct.join(", ")}</span></div>
+        <div style="margin-bottom:8px;">${headerHtml} <span style="color:var(--text-dim); font-size:12px; margin-left:8px;">Correct Answer: ${escapeHtml(item.correct.join(", "))}</span></div>
         <div style="color:var(--text-dim); font-size:13px;">${expText}</div>
       `;
     }
