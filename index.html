@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proctor // Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181F;
+    --ink-2:#1c222b;
+    --paper:#FBF8F2;
+    --paper-line:#e6e0d3;
+    --text:#1C1F26;
+    --text-dim:#6b6f78;
+    --tech:#C9902B;
+    --quant:#3F6C51;
+    --verbal:#A2483A;
+    --good:#3F6C51;
+    --bad:#A2483A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(201,144,43,0.08), transparent 40%),
+      radial-gradient(circle at 85% 92%, rgba(63,108,81,0.10), transparent 45%);
+    color:var(--text);
+    font-family:'Source Serif 4', serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 80px;
+  }
+  .sheet{
+    width:100%;
+    max-width:760px;
+    background:var(--paper);
+    border-radius:2px;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.4);
+    position:relative;
+    overflow:hidden;
+  }
+  .sheet::before{
+    content:"";
+    position:absolute;
+    top:0;left:56px;bottom:0;
+    width:1px;
+    background:repeating-linear-gradient(to bottom, var(--paper-line) 0, var(--paper-line) 1px, transparent 1px, transparent 8px);
+    opacity:0.5;
+    pointer-events:none;
+  }
+  header.top{
+    padding:34px 40px 22px 76px;
+    border-bottom:2px solid var(--text);
+    position:relative;
+  }
+  .kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin:0 0 8px;
+  }
+  h1.title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:32px;
+    margin:0 0 6px;
+    letter-spacing:-0.01em;
+  }
+  .sub{
+    font-size:14px;
+    color:var(--text-dim);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  #progressWrap{
+    padding:14px 40px 14px 76px;
+    border-bottom:1px solid var(--paper-line);
+    background:rgba(0,0,0,0.02);
+  }
+  #progressBar{
+    height:6px;
+    width:100%;
+    background:rgba(0,0,0,0.08);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  #progressFill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg, var(--tech), var(--quant));
+    transition:width .35s ease;
+  }
+  #progressLabel{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--text-dim);
+    margin-top:6px;
+    display:flex;
+    justify-content:space-between;
+  }
+  main{padding:8px 40px 10px 76px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    margin:34px 0 18px;
+  }
+  .section-head .emoji{font-size:20px;}
+  .section-head h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:15px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin:0;
+  }
+  .section-head .rule{
+    flex:1;
+    height:1px;
+    background:var(--paper-line);
+  }
+  .q-block{
+    margin-bottom:30px;
+    padding-bottom:26px;
+    border-bottom:1px dashed var(--paper-line);
+  }
+  .q-block:last-child{border-bottom:none;}
+  .q-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--text-dim);
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tag{
+    font-size:10px;
+    padding:2px 7px;
+    border-radius:10px;
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.04em;
+  }
+  .tag.mcq{background:rgba(63,108,81,0.14); color:var(--quant);}
+  .tag.msq{background:rgba(162,72,58,0.14); color:var(--verbal);}
+  .q-text{
+    font-size:16.5px;
+    line-height:1.5;
+    margin:0 0 14px;
+    color:var(--text);
+  }
+  .q-text code, .q-text .inline-code{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.9em;
+    background:rgba(0,0,0,0.06);
+    padding:1px 5px;
+    border-radius:3px;
+  }
+  .options{display:flex; flex-direction:column; gap:9px;}
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+    padding:10px 13px;
+    border:1px solid var(--paper-line);
+    border-radius:6px;
+    cursor:pointer;
+    background:#fff;
+    transition:border-color .15s, background .15s;
+    font-size:14.5px;
+    line-height:1.45;
+  }
+  .opt:hover{border-color:#c9c2ae; background:#fffdf8;}
+  .opt input{
+    accent-color:var(--ink);
+    margin-top:3px;
+    flex-shrink:0;
+  }
+  .opt .letter{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    color:var(--text-dim);
+    flex-shrink:0;
+  }
+  .opt.selected{
+    border-color:var(--ink);
+    background:#f2efe6;
+  }
+  /* Results states */
+  .opt.correct-answer{
+    border-color:var(--good);
+    background:rgba(63,108,81,0.10);
+  }
+  .opt.correct-answer .letter{color:var(--good);}
+  .opt.wrong-picked{
+    border-color:var(--bad);
+    background:rgba(162,72,58,0.10);
+  }
+  .opt.wrong-picked .letter{color:var(--bad);}
+  .opt.locked{cursor:default;}
+  .verdict{
+    margin-top:12px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .verdict.right{color:var(--good);}
+  .verdict.wrong{color:var(--bad);}
+  .dot{width:7px;height:7px;border-radius:50%; display:inline-block;}
+  .dot.right{background:var(--good);}
+  .dot.wrong{background:var(--bad);}
+ 
+  footer.actions{
+    padding:26px 40px 34px 76px;
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+  }
+  button.primary{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    padding:13px 26px;
+    border-radius:6px;
+    cursor:pointer;
+    letter-spacing:0.01em;
+    transition:transform .12s, background .15s;
+  }
+  button.primary:hover{background:#242c39; transform:translateY(-1px);}
+  button.primary:disabled{opacity:0.35; cursor:not-allowed; transform:none;}
+  button.ghost{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    background:transparent;
+    color:var(--text-dim);
+    border:1px solid var(--paper-line);
+    padding:12px 18px;
+    border-radius:6px;
+    cursor:pointer;
+  }
+  button.ghost:hover{border-color:var(--text-dim); color:var(--text);}
+ 
+  /* ---- Results / OMR scorecard ---- */
+  #resultsPanel{display:none;}
+  .score-hero{
+    padding:36px 40px 20px 76px;
+    border-bottom:2px solid var(--text);
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  .score-ring{
+    width:104px; height:104px; border-radius:50%;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:conic-gradient(var(--ink) calc(var(--pct) * 1%), #e9e3d4 0);
+    position:relative;
+  }
+  .score-ring::before{
+    content:"";
+    position:absolute; inset:9px;
+    border-radius:50%;
+    background:var(--paper);
+  }
+  .score-ring span{
+    position:relative;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:22px;
+  }
+  .score-copy .kicker{margin-bottom:4px;}
+  .score-copy h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:24px;
+    margin:0 0 4px;
+  }
+  .score-copy p{
+    margin:0;
+    color:var(--text-dim);
+    font-size:14px;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .section-scores{
+    display:flex; gap:0;
+    padding:0 40px 0 76px;
+    border-bottom:1px solid var(--paper-line);
+  }
+  .sec-score{
+    flex:1;
+    padding:18px 14px;
+    border-right:1px solid var(--paper-line);
+  }
+  .sec-score:last-child{border-right:none;}
+  .sec-score .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    margin-bottom:6px;
+  }
+  .sec-score .val{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:20px;
+  }
+  .omr-title{
+    padding:26px 40px 4px 76px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  .omr-grid{
+    padding:10px 40px 8px 76px;
+    display:grid;
+    grid-template-columns:repeat(10, 1fr);
+    gap:10px;
+  }
+  .bubble{
+    width:100%;
+    aspect-ratio:1;
+    border-radius:50%;
+    border:2px solid var(--paper-line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    color:var(--text-dim);
+    cursor:pointer;
+    transition:transform .1s;
+  }
+  .bubble:hover{transform:scale(1.08);}
+  .bubble.right{background:var(--good); border-color:var(--good); color:#fff;}
+  .bubble.wrong{background:var(--bad); border-color:var(--bad); color:#fff;}
+ 
+  .jump-hint{
+    padding:6px 40px 20px 76px;
+    font-size:11px;
+    color:var(--text-dim);
+    font-family:'IBM Plex Mono', monospace;
+  }
+ 
+  @media (max-width:600px){
+    header.top, #progressWrap, main, footer.actions, .score-hero, .section-scores, .omr-title, .omr-grid, .jump-hint{
+      padding-left:26px;
+      padding-right:22px;
+    }
+    .sheet::before{left:18px;}
+    .omr-grid{grid-template-columns:repeat(6,1fr);}
+    .score-hero{flex-direction:column; align-items:flex-start; gap:14px;}
+    h1.title{font-size:26px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+ 
+<div class="sheet" id="sheet">
+ 
+  <header class="top">
+    <p class="kicker">Assessment · General Aptitude</p>
+    <h1 class="title">Technical, Quant &amp; Verbal Exam</h1>
+    <p class="sub">40 questions · 3 sections · answers revealed on submit</p>
+  </header>
+ 
+  <div id="progressWrap">
+    <div id="progressBar"><div id="progressFill"></div></div>
+    <div id="progressLabel"><span id="answeredCount">0 / 40 answered</span><span>Section 1 of 3</span></div>
+  </div>
+ 
+  <main id="quizMain"></main>
+ 
+  <footer class="actions">
+    <button class="ghost" id="clearBtn" type="button">Clear all</button>
+    <button class="primary" id="submitBtn" type="button">Submit assessment</button>
+  </footer>
+ 
+  <!-- RESULTS -->
+  <section id="resultsPanel">
+    <div class="score-hero">
+      <div class="score-ring" id="scoreRing" style="--pct:0"><span id="scorePct">0%</span></div>
+      <div class="score-copy">
+        <p class="kicker">Result</p>
+        <h2 id="scoreHeadline">Scored</h2>
+        <p id="scoreSub">0 of 40 correct</p>
+      </div>
+    </div>
+    <div class="section-scores" id="sectionScores"></div>
+    <p class="omr-title">Answer sheet — tap any bubble to jump to that question</p>
+    <div class="omr-grid" id="omrGrid"></div>
+    <p class="jump-hint">Green = correct · Red = incorrect. Scroll up to review full explanations inline with each question.</p>
+    <footer class="actions">
+      <button class="ghost" id="retakeBtn" type="button">Retake assessment</button>
+    </footer>
+  </section>
+ 
+</div>
+ 
+<script>
+const DATA = [
+// ---------------- SECTION 1: TECHNICAL & CODING ----------------
+{sec:"tech", type:"mcq", q:"Which SQL query correctly finds the 3rd highest salary from an Employee table (assuming MySQL/PostgreSQL)?",
+ opts:["SELECT salary FROM Employee ORDER BY salary DESC LIMIT 3, 1;",
+       "SELECT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 2;",
+       "SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);",
+       "SELECT salary FROM Employee ORDER BY salary ASC LIMIT 3;"],
+ correct:["B"]},
+{sec:"tech", type:"mcq", q:"Which SQL clause is best suited to identify and list duplicate email addresses from a Users table?",
+ opts:["GROUP BY email HAVING COUNT(email) > 1","WHERE email = COUNT(email) > 1","ORDER BY email DESC LIMIT 2","SELECT DISTINCT email FROM Users WHERE COUNT > 1"],
+ correct:["A"]},
+{sec:"tech", type:"msq", q:"When finding employees assigned to more than 2 projects using an Employees and Projects table, which of the following SQL elements are absolutely required?",
+ opts:["INNER JOIN or LEFT JOIN","GROUP BY employee ID or name","HAVING COUNT(project_id) > 2","WHERE COUNT(project_id) > 2"],
+ correct:["A","B","C"]},
+{sec:"tech", type:"mcq", q:"How do you fetch only unique department names from an Organization table, sorted in alphabetical order?",
+ opts:["SELECT UNIQUE department FROM Organization ORDER BY department ASC;","SELECT DISTINCT department FROM Organization ORDER BY department ASC;","SELECT department FROM Organization SORT BY department DISTINCT;","SELECT DISTINCT department FROM Organization GROUP BY department;"],
+ correct:["B"]},
+{sec:"tech", type:"mcq", q:'In MongoDB, what is the correct query to find all documents in a products collection where the price is greater than 500 and the status is "active"?',
+ opts:['db.products.find({ price: > 500, status: "active" })','db.products.filter({ price: { $gt: 500 }, status: "active" })','db.products.find({ price: { $gt: 500 }, status: "active" })','db.products.select({ price: { $greater: 500 }, status: "active" })'],
+ correct:["C"]},
+{sec:"tech", type:"msq", q:"In an Express.js route handler for a POST request (/api/login), what are best practices when email or password are missing from the request body?",
+ opts:["Return an HTTP status code 400 (Bad Request).","Return an HTTP status code 200 (OK) with an error message in the payload.","Use res.status(400).json({ error: \"Missing fields\" }).","Use res.send(500) to crash the server for security."],
+ correct:["A","C"]},
+{sec:"tech", type:"mcq", q:"What is the correct syntax to connect a Node.js application to a MongoDB database using Mongoose?",
+ opts:["mongoose.connect('mongodb://localhost:27017/mydb');","mongoose.open('mongodb://localhost:27017/mydb');","mongoose.database.connect('mongodb://localhost:27017/mydb');","db.mongoose.connect('localhost:27017/mydb');"],
+ correct:["A"]},
+{sec:"tech", type:"msq", q:"When defining a Mongoose schema for a Product model, which of the following are valid schema configurations?",
+ opts:["title: { type: String, required: true }","price: { type: Number, required: true }","stock: { type: Number, default: 0 }","stock: { type: Integer, fallback: 0 }"],
+ correct:["A","B","C"]},
+{sec:"tech", type:"mcq", q:"When using bcrypt in Node.js to hash a password, which function is typically used to asynchronously hash the plain text?",
+ opts:["bcrypt.hashSync(password, 10)","bcrypt.hash(password, 10)","bcrypt.encrypt(password)","bcrypt.salt(password, 10)"],
+ correct:["B"]},
+{sec:"tech", type:"msq", q:"Which of the following statements are TRUE regarding the structural difference between JWTs and standard server-side sessions?",
+ opts:["JWTs are stateless; the server does not need to store session records.","Server-side sessions require database or memory lookups (like Redis) on every request.","JWTs securely encrypt the payload so it cannot be read by the client.","The signature in a JWT ensures the token hasn't been altered."],
+ correct:["A","B","D"]},
+{sec:"tech", type:"mcq", q:"In JavaScript, what is the specific operational difference between == and ===?",
+ opts:["== checks strictly for type, === checks for value.","== performs type coercion before comparison, === checks both value and type without coercion.","There is no difference; both are used interchangeably.","=== is only used for object comparison."],
+ correct:["B"]},
+{sec:"tech", type:"mcq", q:"Which native Node.js fs module method is used to read a file asynchronously?",
+ opts:["fs.readFileSync()","fs.readFile()","fs.readAsync()","fs.openFile()"],
+ correct:["B"]},
+{sec:"tech", type:"msq", q:"Which Git commands allow you to safely navigate away from uncommitted local changes without permanently deleting them?",
+ opts:["git stash","git reset --hard","git commit -m \"WIP\"","git clean -f"],
+ correct:["A","C"]},
+{sec:"tech", type:"msq", q:"In an Object-Oriented BankAccount class, which of the following enforce the principle of Encapsulation?",
+ opts:["Making the balance variable private.","Allowing external classes to directly modify accountNumber.","Providing a public getBalance() method to read the balance.","Making the withdraw() method validate funds before updating the balance."],
+ correct:["A","C","D"]},
+{sec:"tech", type:"mcq", q:"What does the virtual keyword signify when applied to a method inside a C# base class?",
+ opts:["The method cannot be overridden by derived classes.","The method contains no implementation and must be implemented by derived classes.","The method can be overridden by a derived class using the override keyword.","The method belongs to the class itself, not an instance."],
+ correct:["C"]},
+{sec:"tech", type:"mcq", q:"In which real-world scenario would you choose an Abstract Class over an Interface?",
+ opts:["When you need to support multiple inheritance.","When you want to provide a common base implementation and shared state (fields) alongside abstract methods.","When you only need to define a contract of method signatures without any implementation.","When you want to force completely unrelated classes to implement a specific behavior."],
+ correct:["B"]},
+{sec:"tech", type:"msq", q:"Which of the following approaches correctly reverse a string in Python or JavaScript without using built-in reverse functions?",
+ opts:["Iterating backward through the string and appending to a new variable.","Using string slicing in Python: string[::-1].","Using a Stack: pushing all characters onto the stack, then popping them off.","Sorting the string alphabetically."],
+ correct:["A","B","C"]},
+{sec:"tech", type:"mcq", q:"Which approach checks if an integer array contains duplicate values in O(n) time complexity?",
+ opts:["Using two nested loops to compare each element.","Sorting the array first, then comparing adjacent elements.","Inserting elements into a Hash Set and checking for existing keys.","Reversing the array and comparing it to the original."],
+ correct:["C"]},
+{sec:"tech", type:"msq", q:"When implementing a Stack from scratch using an array, which of the following logic is correct?",
+ opts:["push() adds an element to the end of the array.","pop() removes and returns the first element of the array.","pop() removes and returns the last element of the array.","It operates on a First-In-First-Out (FIFO) principle."],
+ correct:["A","C"]},
+{sec:"tech", type:"mcq", q:"In a recursive function to calculate the factorial of n, what is the essential base case?",
+ opts:["if (n == 0) return 0;","if (n <= 1) return 1;","if (n < 0) return -1;","if (n == 2) return 2;"],
+ correct:["B"]},
+ 
+// ---------------- SECTION 2: QUANTITATIVE APTITUDE ----------------
+{sec:"quant", type:"mcq", q:"A train running at a uniform speed of 72 km/hr crosses a telegraph pole in exactly 12 seconds. What is the total length of the train in meters?",
+ opts:["180 meters","200 meters","240 meters","280 meters"], correct:["C"]},
+{sec:"quant", type:"mcq", q:"An item is sold for 2400 after allowing a flat discount of 20% on its marked price. What was the original marked price of the item?",
+ opts:["2800","2880","3000","3200"], correct:["C"]},
+{sec:"quant", type:"mcq", q:"Worker A can complete a piece of coding work in 12 days, while Worker B takes 24 days to finish the same task. If they collaborate, how many days will it take them to complete the project?",
+ opts:["6 days","8 days","9 days","18 days"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"The ratio of two numbers is 3:4. If their Least Common Multiple (LCM) is 180, what is the value of the smaller number?",
+ opts:["30","45","60","90"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"A merchant buys a computer component for 1400 and sells it to a client at a net loss of 15%. What is the final selling price of the component?",
+ opts:["1150","1190","1210","1250"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"Calculate the total simple interest earned on a principal sum of 5000 at an interest rate of 8% per annum over a duration of 3 years.",
+ opts:["1000","1200","1400","1500"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"The average age of a class consisting of 20 students is 15 years. If the teacher's age is included, the overall average increases by exactly 1 year. What is the age of the teacher?",
+ opts:["35 years","36 years","37 years","40 years"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"If the cost price of 15 identical articles is equal to the selling price of 12 of those articles, what is the net gain percentage?",
+ opts:["15%","20%","25%","30%"], correct:["C"]},
+{sec:"quant", type:"mcq", q:"A vehicle travels at a steady speed of 45 km/hr for the first 2 hours of a journey, and accelerates to 60 km/hr for the next 3 hours. What is its average speed across the entire trip?",
+ opts:["52.5 km/hr","54 km/hr","55 km/hr","56 km/hr"], correct:["B"]},
+{sec:"quant", type:"mcq", q:"Pipe A can fill a water tank in 20 minutes, while Pipe B can fill the same tank in 30 minutes. If both water pipes are opened simultaneously, how long will it take to fill the empty tank completely?",
+ opts:["10 minutes","12 minutes","15 minutes","25 minutes"], correct:["B"]},
+ 
+// ---------------- SECTION 3: VERBAL & COMMUNICATION ----------------
+{sec:"verbal", type:"mcq", q:'Identify the specific grammatical error in the following sentence: "Each of the software engineering students have completed their assignment before the morning deadline."',
+ opts:['"software engineering students" should be singular.','"have completed" should be "has completed".','"before the morning deadline" is grammatically incorrect.','There is no error in the sentence.'], correct:["B"]},
+{sec:"verbal", type:"mcq", q:'Fill in the blank with the most appropriate preposition: "The development team was completely independent ______ external funding for their open-source web project."',
+ opts:["from","of","with","on"], correct:["B"]},
+{sec:"verbal", type:"mcq", q:"Choose the most accurate synonym for the word: Meticulous.",
+ opts:["Careless","Detailed","Swift","Sloppy"], correct:["B"]},
+{sec:"verbal", type:"mcq", q:"Choose the most accurate antonym for the word: Ambiguous.",
+ opts:["Obscure","Precise","Vague","Complex"], correct:["B"]},
+{sec:"verbal", type:"mcq", q:'Select the correct passive voice version of: "The lead software engineer fixed the critical database bug."',
+ opts:["The critical database bug is fixed by the lead software engineer.","The critical database bug was fixed by the lead software engineer.","The critical database bug has been fixed by the lead software engineer.","The lead software engineer was fixing the critical database bug."], correct:["B"]},
+{sec:"verbal", type:"mcq", q:'Fill in the blank with the correct verb form: "Neither the project manager nor the backend developers ______ present at the morning sprint meeting yesterday."',
+ opts:["was","were","is","are"], correct:["B"]},
+{sec:"verbal", type:"mcq", q:"Identify which of the following choices represents the correct spelling:",
+ opts:["Accommodate","Accomodate","Acommodate","Acomodate"], correct:["A"]},
+{sec:"verbal", type:"mcq", q:"Complete the verbal analogy: Compiler : Source Code :: Translator : _______",
+ opts:["Novel","Target Language","Hardware","Logic"], correct:["B"]},
+{sec:"verbal", type:"msq", q:'Read the following statement and select the most logical inferences: "Company X noticed a sharp 40% drop in daily website traffic immediately after changing its primary user interface design."',
+ opts:["The new website layout successfully optimized user workflows.","Users preferred the older interface.","The new navigation was potentially confusing to existing users.","Server maintenance costs decreased due to the layout change."], correct:["C"]},
+{sec:"verbal", type:"mcq", q:'Select the correct meaning for the common business idiom "to touch base":',
+ opts:["To physically return to the office.","To briefly make contact or update someone.","To hit a baseline performance metric.","To terminate a contract prematurely."], correct:["B"]},
+];
+ 
+const SECTIONS = {
+  tech:   {label:"Technical &amp; Coding", emoji:"💻", color:"var(--tech)"},
+  quant:  {label:"Quantitative Aptitude", emoji:"🧮", color:"var(--quant)"},
+  verbal: {label:"Verbal &amp; Communication", emoji:"🗣️", color:"var(--verbal)"}
+};
+ 
+const LETTERS = ["A","B","C","D"];
+const state = DATA.map(() => new Set()); // selected letters per question
+let submitted = false;
+ 
+const quizMain = document.getElementById("quizMain");
+ 
+function render(){
+  let html = "";
+  let lastSec = null;
+  DATA.forEach((item, qi) => {
+    if(item.sec !== lastSec){
+      const s = SECTIONS[item.sec];
+      html += `<div class="section-head"><span class="emoji">${s.emoji}</span><h2 style="color:${s.color}">${s.label}</h2><div class="rule"></div></div>`;
+      lastSec = item.sec;
+    }
+    html += `<div class="q-block" id="q-${qi}">
+      <div class="q-num">Question ${qi+1} <span class="tag ${item.type}">${item.type.toUpperCase()}${item.type==='msq' ? ' · select all' : ''}</span></div>
+      <p class="q-text">${escapeHtml(item.q)}</p>
+      <div class="options" id="opts-${qi}">
+        ${item.opts.map((o,oi) => {
+          const letter = LETTERS[oi];
+          const inputType = item.type === "msq" ? "checkbox" : "radio";
+          return `<label class="opt" data-qi="${qi}" data-letter="${letter}">
+            <input type="${inputType}" name="q${qi}" value="${letter}">
+            <span class="letter">${letter}.</span>
+            <span class="opt-text">${escapeHtml(o)}</span>
+          </label>`;
+        }).join("")}
+      </div>
+      <div class="verdict" id="verdict-${qi}" style="display:none;"></div>
+    </div>`;
+  });
+  quizMain.innerHTML = html;
+  attachHandlers();
+}
+ 
+function escapeHtml(str){
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+ 
+function attachHandlers(){
+  document.querySelectorAll(".opt").forEach(label => {
+    label.addEventListener("click", (e) => {
+      if(submitted) { e.preventDefault(); return; }
+      const qi = parseInt(label.dataset.qi);
+      const letter = label.dataset.letter;
+      const item = DATA[qi];
+      const sel = state[qi];
+      if(item.type === "mcq"){
+        sel.clear();
+        sel.add(letter);
+      } else {
+        if(sel.has(letter)) sel.delete(letter); else sel.add(letter);
+      }
+      updateOptionVisuals(qi);
+      updateProgress();
+    });
+  });
+}
+ 
+function updateOptionVisuals(qi){
+  const sel = state[qi];
+  document.querySelectorAll(`#opts-${qi} .opt`).forEach(label => {
+    const letter = label.dataset.letter;
+    const input = label.querySelector("input");
+    input.checked = sel.has(letter);
+    label.classList.toggle("selected", sel.has(letter));
+  });
+}
+ 
+function updateProgress(){
+  const answered = state.filter(s => s.size > 0).length;
+  document.getElementById("answeredCount").textContent = `${answered} / ${DATA.length} answered`;
+  document.getElementById("progressFill").style.width = `${(answered / DATA.length) * 100}%`;
+}
+ 
+document.getElementById("clearBtn").addEventListener("click", () => {
+  if(submitted) return;
+  state.forEach(s => s.clear());
+  DATA.forEach((_, qi) => updateOptionVisuals(qi));
+  updateProgress();
+});
+ 
+document.getElementById("submitBtn").addEventListener("click", submitQuiz);
+document.getElementById("retakeBtn").addEventListener("click", () => location.reload());
+ 
+function setsEqual(a, b){
+  if(a.size !== b.size) return false;
+  for(const x of a) if(!b.has(x)) return false;
+  return true;
+}
+ 
+function submitQuiz(){
+  submitted = true;
+  document.getElementById("submitBtn").disabled = true;
+  document.getElementById("clearBtn").disabled = true;
+ 
+  let correctCount = 0;
+  const sectionTally = {tech:{c:0,t:0}, quant:{c:0,t:0}, verbal:{c:0,t:0}};
+  const perQuestionResult = [];
+ 
+  DATA.forEach((item, qi) => {
+    sectionTally[item.sec].t++;
+    const correctSet = new Set(item.correct);
+    const isRight = setsEqual(state[qi], correctSet);
+    if(isRight){ correctCount++; sectionTally[item.sec].c++; }
+    perQuestionResult.push(isRight);
+ 
+    // lock options & reveal answers
+    document.querySelectorAll(`#opts-${qi} .opt`).forEach(label => {
+      label.classList.add("locked");
+      const letter = label.dataset.letter;
+      const wasPicked = state[qi].has(letter);
+      const isCorrectOpt = correctSet.has(letter);
+      if(isCorrectOpt) label.classList.add("correct-answer");
+      if(wasPicked && !isCorrectOpt) label.classList.add("wrong-picked");
+    });
+ 
+    const verdictEl = document.getElementById(`verdict-${qi}`);
+    verdictEl.style.display = "flex";
+    if(isRight){
+      verdictEl.className = "verdict right";
+      verdictEl.innerHTML = `<span class="dot right"></span> Correct — answer: ${item.correct.join(", ")}`;
+    } else {
+      verdictEl.className = "verdict wrong";
+      const yours = state[qi].size ? [...state[qi]].join(", ") : "no answer";
+      verdictEl.innerHTML = `<span class="dot wrong"></span> Incorrect — your answer: ${yours} · correct: ${item.correct.join(", ")}`;
+    }
+  });
+ 
+  // Header/progress
+  document.getElementById("progressLabel").innerHTML = `<span>${correctCount} / ${DATA.length} correct</span><span>Assessment complete</span>`;
+  document.getElementById("progressFill").style.width = "100%";
+ 
+  // Results panel
+  const pct = Math.round((correctCount / DATA.length) * 100);
+  const ring = document.getElementById("scoreRing");
+  ring.style.setProperty("--pct", pct);
+  document.getElementById("scorePct").textContent = `${pct}%`;
+  document.getElementById("scoreSub").textContent = `${correctCount} of ${DATA.length} correct`;
+  document.getElementById("scoreHeadline").textContent = headlineFor(pct);
+ 
+  const sectionScoresEl = document.getElementById("sectionScores");
+  sectionScoresEl.innerHTML = Object.keys(SECTIONS).map(key => {
+    const s = SECTIONS[key];
+    const tally = sectionTally[key];
+    return `<div class="sec-score">
+      <div class="label" style="color:${s.color}">${s.emoji} ${s.label}</div>
+      <div class="val">${tally.c} / ${tally.t}</div>
+    </div>`;
+  }).join("");
+ 
+  const omrGrid = document.getElementById("omrGrid");
+  omrGrid.innerHTML = perQuestionResult.map((isRight, qi) => {
+    return `<div class="bubble ${isRight ? 'right' : 'wrong'}" data-target="q-${qi}">${qi+1}</div>`;
+  }).join("");
+  omrGrid.querySelectorAll(".bubble").forEach(b => {
+    b.addEventListener("click", () => {
+      document.getElementById(b.dataset.target).scrollIntoView({behavior:"smooth", block:"center"});
+    });
+  });
+ 
+  document.getElementById("resultsPanel").style.display = "block";
+  document.querySelector(".score-hero").scrollIntoView({behavior:"smooth", block:"start"});
+}
+ 
+function headlineFor(pct){
+  if(pct >= 90) return "Outstanding";
+  if(pct >= 75) return "Strong performance";
+  if(pct >= 60) return "Solid effort";
+  if(pct >= 40) return "Room to grow";
+  return "Keep practicing";
+}
+ 
+render();
+updateProgress();
+</script>
+ 
+</body>
+</html>
+ 
