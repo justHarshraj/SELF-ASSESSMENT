@@ -3,711 +3,2213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proctor // Assessment</title>
+<title>Proctor // Assessment — 50 Questions</title>
+<meta name="description" content="A comprehensive 50-question assessment covering Quantitative Aptitude, Verbal Ability, CS Fundamentals, Programming & Web Technologies, and Situational Judgment.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#14181F;
-    --ink-2:#1c222b;
-    --paper:#FBF8F2;
-    --paper-line:#e6e0d3;
-    --text:#1C1F26;
-    --text-dim:#6b6f78;
-    --tech:#C9902B;
-    --quant:#3F6C51;
-    --verbal:#A2483A;
-    --good:#3F6C51;
-    --bad:#A2483A;
+  :root {
+    --ink: #0b0f1a;
+    --ink-2: #131825;
+    --ink-card: #161c2e;
+    --ink-card-hover: #1b2238;
+    --border: rgba(255,255,255,0.06);
+    --border-hover: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --text-dim: #6b7394;
+    --text-muted: #3e4562;
+
+    --accent-1: #7c6aef;
+    --accent-2: #56b4f9;
+    --accent-3: #f59e42;
+    --accent-4: #e74f7a;
+    --accent-5: #3ecf8e;
+
+    --quant: #56b4f9;
+    --verbal: #f59e42;
+    --cs: #7c6aef;
+    --prog: #e74f7a;
+    --js: #f4d03f;
+    --hr: #3ecf8e;
+
+    --good: #3ecf8e;
+    --good-bg: rgba(62,207,142,0.12);
+    --bad: #e74f7a;
+    --bad-bg: rgba(231,79,122,0.12);
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 24px -4px rgba(0,0,0,0.5);
+    --shadow-lg: 0 24px 64px -16px rgba(0,0,0,0.7);
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--ink);
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== Animated Background ===== */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-grid::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(124,106,239,0.08), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(86,180,249,0.06), transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(245,158,66,0.04), transparent 60%);
+    animation: bgDrift 20s ease-in-out infinite alternate;
+  }
+  @keyframes bgDrift {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3%, 2%) scale(1.05); }
+  }
+  .bg-grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
     background-image:
-      radial-gradient(circle at 15% 8%, rgba(201,144,43,0.08), transparent 40%),
-      radial-gradient(circle at 85% 92%, rgba(63,108,81,0.10), transparent 45%);
-    color:var(--text);
-    font-family:'Source Serif 4', serif;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    padding:32px 16px 80px;
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
   }
-  .sheet{
-    width:100%;
-    max-width:760px;
-    background:var(--paper);
-    border-radius:2px;
-    box-shadow:0 40px 80px -30px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.4);
-    position:relative;
-    overflow:hidden;
+
+  /* ===== Layout ===== */
+  .app-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 24px 16px 100px;
   }
-  .sheet::before{
-    content:"";
-    position:absolute;
-    top:0;left:56px;bottom:0;
-    width:1px;
-    background:repeating-linear-gradient(to bottom, var(--paper-line) 0, var(--paper-line) 1px, transparent 1px, transparent 8px);
-    opacity:0.5;
-    pointer-events:none;
+
+  /* ===== Top Bar ===== */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    margin-bottom: 8px;
   }
-  header.top{
-    padding:34px 40px 22px 76px;
-    border-bottom:2px solid var(--text);
-    position:relative;
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .kicker{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--text-dim);
-    margin:0 0 8px;
+  .logo-mark {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; color: #fff;
+    box-shadow: 0 0 20px rgba(124,106,239,0.3);
   }
-  h1.title{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:32px;
-    margin:0 0 6px;
-    letter-spacing:-0.01em;
+  .logo-text {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
   }
-  .sub{
-    font-size:14px;
-    color:var(--text-dim);
-    font-family:'IBM Plex Mono', monospace;
+  .logo-text span { color: var(--text-dim); font-weight: 400; }
+
+  .timer-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    transition: border-color 0.3s;
   }
-  #progressWrap{
-    padding:14px 40px 14px 76px;
-    border-bottom:1px solid var(--paper-line);
-    background:rgba(0,0,0,0.02);
+  .timer-pill.warning { border-color: var(--accent-3); color: var(--accent-3); }
+  .timer-pill.danger { border-color: var(--bad); color: var(--bad); animation: timerPulse 1s infinite; }
+  @keyframes timerPulse { 50% { opacity: 0.6; } }
+  .timer-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 8px var(--good);
+    animation: dotPulse 2s ease-in-out infinite;
   }
-  #progressBar{
-    height:6px;
-    width:100%;
-    background:rgba(0,0,0,0.08);
-    border-radius:4px;
-    overflow:hidden;
+  @keyframes dotPulse { 50% { opacity: 0.4; } }
+
+  /* ===== Hero Header ===== */
+  .hero {
+    text-align: center;
+    padding: 40px 20px 36px;
+    margin-bottom: 12px;
   }
-  #progressFill{
-    height:100%;
-    width:0%;
-    background:linear-gradient(90deg, var(--tech), var(--quant));
-    transition:width .35s ease;
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: rgba(124,106,239,0.12);
+    border: 1px solid rgba(124,106,239,0.2);
+    color: var(--accent-1);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace;
   }
-  #progressLabel{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    color:var(--text-dim);
-    margin-top:6px;
-    display:flex;
-    justify-content:space-between;
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  main{padding:8px 40px 10px 76px;}
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    margin:34px 0 18px;
+  .hero p {
+    color: var(--text-dim);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.6;
   }
-  .section-head .emoji{font-size:20px;}
-  .section-head h2{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:15px;
-    letter-spacing:0.06em;
-    text-transform:uppercase;
-    margin:0;
+
+  /* ===== Layout Columns ===== */
+  .layout-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
   }
-  .section-head .rule{
-    flex:1;
-    height:1px;
-    background:var(--paper-line);
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
   }
-  .q-block{
-    margin-bottom:30px;
-    padding-bottom:26px;
-    border-bottom:1px dashed var(--paper-line);
+  .main-column {
+    flex: 1;
+    min-width: 0;
   }
-  .q-block:last-child{border-bottom:none;}
-  .q-num{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    font-weight:600;
-    color:var(--text-dim);
-    margin-bottom:6px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .tag{
-    font-size:10px;
-    padding:2px 7px;
-    border-radius:10px;
-    font-family:'IBM Plex Mono', monospace;
-    letter-spacing:0.04em;
-  }
-  .tag.mcq{background:rgba(63,108,81,0.14); color:var(--quant);}
-  .tag.msq{background:rgba(162,72,58,0.14); color:var(--verbal);}
-  .q-text{
-    font-size:16.5px;
-    line-height:1.5;
-    margin:0 0 14px;
-    color:var(--text);
-  }
-  .q-text code, .q-text .inline-code{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.9em;
-    background:rgba(0,0,0,0.06);
-    padding:1px 5px;
-    border-radius:3px;
-  }
-  .options{display:flex; flex-direction:column; gap:9px;}
-  .opt{
-    display:flex;
-    align-items:flex-start;
-    gap:11px;
-    padding:10px 13px;
-    border:1px solid var(--paper-line);
-    border-radius:6px;
-    cursor:pointer;
-    background:#fff;
-    transition:border-color .15s, background .15s;
-    font-size:14.5px;
-    line-height:1.45;
-  }
-  .opt:hover{border-color:#c9c2ae; background:#fffdf8;}
-  .opt input{
-    accent-color:var(--ink);
-    margin-top:3px;
-    flex-shrink:0;
-  }
-  .opt .letter{
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    color:var(--text-dim);
-    flex-shrink:0;
-  }
-  .opt.selected{
-    border-color:var(--ink);
-    background:#f2efe6;
-  }
-  /* Results states */
-  .opt.correct-answer{
-    border-color:var(--good);
-    background:rgba(63,108,81,0.10);
-  }
-  .opt.correct-answer .letter{color:var(--good);}
-  .opt.wrong-picked{
-    border-color:var(--bad);
-    background:rgba(162,72,58,0.10);
-  }
-  .opt.wrong-picked .letter{color:var(--bad);}
-  .opt.locked{cursor:default;}
-  .verdict{
-    margin-top:12px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .verdict.right{color:var(--good);}
-  .verdict.wrong{color:var(--bad);}
-  .dot{width:7px;height:7px;border-radius:50%; display:inline-block;}
-  .dot.right{background:var(--good);}
-  .dot.wrong{background:var(--bad);}
- 
-  footer.actions{
-    padding:26px 40px 34px 76px;
-    display:flex;
-    justify-content:flex-end;
-    gap:12px;
-  }
-  button.primary{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:600;
-    font-size:15px;
-    background:var(--ink);
-    color:var(--paper);
-    border:none;
-    padding:13px 26px;
-    border-radius:6px;
-    cursor:pointer;
-    letter-spacing:0.01em;
-    transition:transform .12s, background .15s;
-  }
-  button.primary:hover{background:#242c39; transform:translateY(-1px);}
-  button.primary:disabled{opacity:0.35; cursor:not-allowed; transform:none;}
-  button.ghost{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:13px;
-    background:transparent;
-    color:var(--text-dim);
-    border:1px solid var(--paper-line);
-    padding:12px 18px;
-    border-radius:6px;
-    cursor:pointer;
-  }
-  button.ghost:hover{border-color:var(--text-dim); color:var(--text);}
- 
-  /* ---- Results / OMR scorecard ---- */
-  #resultsPanel{display:none;}
-  .score-hero{
-    padding:36px 40px 20px 76px;
-    border-bottom:2px solid var(--text);
-    display:flex;
-    align-items:center;
-    gap:28px;
-  }
-  .score-ring{
-    width:104px; height:104px; border-radius:50%;
-    flex-shrink:0;
-    display:flex; align-items:center; justify-content:center;
-    background:conic-gradient(var(--ink) calc(var(--pct) * 1%), #e9e3d4 0);
-    position:relative;
-  }
-  .score-ring::before{
-    content:"";
-    position:absolute; inset:9px;
-    border-radius:50%;
-    background:var(--paper);
-  }
-  .score-ring span{
-    position:relative;
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:22px;
-  }
-  .score-copy .kicker{margin-bottom:4px;}
-  .score-copy h2{
-    font-family:'Space Grotesk', sans-serif;
-    font-size:24px;
-    margin:0 0 4px;
-  }
-  .score-copy p{
-    margin:0;
-    color:var(--text-dim);
-    font-size:14px;
-    font-family:'IBM Plex Mono', monospace;
-  }
-  .section-scores{
-    display:flex; gap:0;
-    padding:0 40px 0 76px;
-    border-bottom:1px solid var(--paper-line);
-  }
-  .sec-score{
-    flex:1;
-    padding:18px 14px;
-    border-right:1px solid var(--paper-line);
-  }
-  .sec-score:last-child{border-right:none;}
-  .sec-score .label{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:10.5px;
-    letter-spacing:0.05em;
-    text-transform:uppercase;
-    color:var(--text-dim);
-    margin-bottom:6px;
-  }
-  .sec-score .val{
-    font-family:'Space Grotesk', sans-serif;
-    font-weight:700;
-    font-size:20px;
-  }
-  .omr-title{
-    padding:26px 40px 4px 76px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--text-dim);
-  }
-  .omr-grid{
-    padding:10px 40px 8px 76px;
-    display:grid;
-    grid-template-columns:repeat(10, 1fr);
-    gap:10px;
-  }
-  .bubble{
-    width:100%;
-    aspect-ratio:1;
-    border-radius:50%;
-    border:2px solid var(--paper-line);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:11px;
-    font-weight:600;
-    color:var(--text-dim);
-    cursor:pointer;
-    transition:transform .1s;
-  }
-  .bubble:hover{transform:scale(1.08);}
-  .bubble.right{background:var(--good); border-color:var(--good); color:#fff;}
-  .bubble.wrong{background:var(--bad); border-color:var(--bad); color:#fff;}
- 
-  .jump-hint{
-    padding:6px 40px 20px 76px;
-    font-size:11px;
-    color:var(--text-dim);
-    font-family:'IBM Plex Mono', monospace;
-  }
- 
-  @media (max-width:600px){
-    header.top, #progressWrap, main, footer.actions, .score-hero, .section-scores, .omr-title, .omr-grid, .jump-hint{
-      padding-left:26px;
-      padding-right:22px;
+
+  @media (max-width: 900px) {
+    .sidebar { 
+      width: 100%; 
+      position: sticky; 
+      top: 0; 
+      z-index: 50; 
+      padding: 10px 0;
+      background: rgba(11, 15, 26, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      margin-top: -10px;
     }
-    .sheet::before{left:18px;}
-    .omr-grid{grid-template-columns:repeat(6,1fr);}
-    .score-hero{flex-direction:column; align-items:flex-start; gap:14px;}
-    h1.title{font-size:26px;}
+    .layout-columns { gap: 16px; }
+    .section-nav {
+      flex-direction: row;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px;
+      gap: 8px;
+      border-radius: 12px;
+      scrollbar-width: none;
+    }
+    .section-nav::-webkit-scrollbar { display: none; }
+    .nav-pill {
+      width: auto;
+      flex-shrink: 0;
+      padding: 10px 16px;
+    }
   }
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important;}
+
+  /* ===== Section Nav Pills ===== */
+  .section-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 14px;
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .nav-pill {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-pill:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+  .nav-pill.active {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .nav-pill .pill-count {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 1px 6px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(255,255,255,0.06);
+  }
+  .nav-pill.active .pill-count { background: rgba(255,255,255,0.12); }
+
+  /* ===== Progress ===== */
+  .progress-wrap {
+    padding: 16px 20px;
+    border-radius: var(--radius);
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .progress-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .progress-label strong { color: var(--text); font-weight: 600; }
+  .progress-track {
+    height: 6px;
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+  .progress-fill::after {
+    content: "";
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 30px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+    border-radius: 100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .progress-fill[style*="width: 100"]::after,
+  .progress-fill[style*="width:100"]::after { opacity: 0; }
+
+  /* ===== Section Headings ===== */
+  .section-block { margin-bottom: 16px; }
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 20px;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+  }
+  .section-head .sec-icon {
+    font-size: 22px;
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+  .section-head .sec-info h2 {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
+  }
+  .section-head .sec-info .sec-meta {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ===== Question Cards ===== */
+  .q-card {
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .q-card:hover { border-color: var(--border-hover); }
+  .q-card.answered {
+    border-color: rgba(124,106,239,0.2);
+    box-shadow: 0 0 0 1px rgba(124,106,239,0.08);
+  }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tag.mcq { background: rgba(62,207,142,0.12); color: var(--good); }
+  .tag.msq { background: rgba(245,158,66,0.12); color: var(--accent-3); }
+
+  .q-text {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 18px;
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
+  .q-text code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: rgba(255,255,255,0.06);
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: var(--accent-2);
+  }
+
+  /* ===== Options ===== */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: rgba(255,255,255,0.015);
+    transition: all 0.15s ease;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    position: relative;
+    overflow: hidden;
+  }
+  .opt::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,106,239,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .opt:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.03); }
+  .opt:hover::before { opacity: 1; }
+  .opt input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border: 2px solid var(--text-muted);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .opt input[type="checkbox"] { border-radius: 4px; }
+  .opt input:checked {
+    border-color: var(--accent-1);
+    background: var(--accent-1);
+  }
+  .opt input:checked::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  .opt input[type="checkbox"]:checked::after {
+    border-radius: 1px;
+    inset: 3px;
+    background: #fff;
+    clip-path: polygon(20% 50%, 40% 70%, 80% 30%, 85% 35%, 40% 80%, 15% 55%);
+  }
+  .opt .letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    min-width: 20px;
+    transition: color 0.15s;
+  }
+  .opt.selected {
+    border-color: rgba(124,106,239,0.4);
+    background: rgba(124,106,239,0.06);
+  }
+  .opt.selected .letter { color: var(--accent-1); }
+  .opt.selected::before { opacity: 1; }
+
+  /* Results states */
+  .opt.correct-answer {
+    border-color: rgba(62,207,142,0.4) !important;
+    background: var(--good-bg) !important;
+  }
+  .opt.correct-answer .letter { color: var(--good) !important; }
+  .opt.correct-answer::before { opacity: 0 !important; }
+  .opt.wrong-picked {
+    border-color: rgba(231,79,122,0.4) !important;
+    background: var(--bad-bg) !important;
+  }
+  .opt.wrong-picked .letter { color: var(--bad) !important; }
+  .opt.wrong-picked::before { opacity: 0 !important; }
+  .opt.locked { cursor: default; pointer-events: none; }
+
+  .verdict {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .verdict.right {
+    color: var(--good);
+    background: rgba(62,207,142,0.06);
+    border: 1px solid rgba(62,207,142,0.12);
+  }
+  .verdict.wrong {
+    color: var(--bad);
+    background: rgba(231,79,122,0.06);
+    border: 1px solid rgba(231,79,122,0.12);
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .dot.right { background: var(--good); box-shadow: 0 0 6px var(--good); }
+  .dot.wrong { background: var(--bad); box-shadow: 0 0 6px var(--bad); }
+
+  /* ===== Footer Actions ===== */
+  .actions-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(11,15,26,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    transform: translateY(0);
+    transition: transform 0.3s;
+  }
+  .actions-inner {
+    max-width: 860px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .actions-inner .status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .actions-inner .btn-group { display: flex; gap: 10px; }
+
+  button.primary {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px -4px rgba(124,106,239,0.4);
+  }
+  button.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px -4px rgba(124,106,239,0.5); }
+  button.primary:active { transform: translateY(0); }
+  button.primary:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  button.ghost {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  button.ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+  /* ===== Results Panel ===== */
+  #resultsPanel { display: none; }
+
+  .results-hero {
+    text-align: center;
+    padding: 48px 24px 32px;
+    position: relative;
+  }
+  .score-ring-wrap {
+    position: relative;
+    width: 140px; height: 140px;
+    margin: 0 auto 24px;
+  }
+  .score-ring-bg, .score-ring-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+  }
+  .score-ring-svg {
+    width: 140px; height: 140px;
+    transform: rotate(-90deg);
+  }
+  .score-ring-svg circle {
+    fill: none;
+    stroke-width: 8;
+    cx: 70; cy: 70; r: 58;
+  }
+  .ring-bg { stroke: rgba(255,255,255,0.06); }
+  .ring-fill {
+    stroke: url(#scoreGradient);
+    stroke-linecap: round;
+    stroke-dasharray: 364.42;
+    stroke-dashoffset: 364.42;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .score-value {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .score-pct {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .score-pct-label {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .results-hero h2 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .results-hero .results-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .section-scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 0 20px 24px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .sec-score-card {
+    padding: 16px;
+    border-radius: var(--radius);
+    background: var(--ink-card);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .sec-score-card .sec-emoji { font-size: 20px; margin-bottom: 6px; }
+  .sec-score-card .sec-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .sec-score-card .sec-val {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .sec-score-card .sec-bar {
+    margin-top: 8px;
+    height: 4px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+  .sec-score-card .sec-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .omr-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+  }
+  .omr-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .omr-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 8px;
+  }
+  .bubble {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: transform 0.1s, border-color 0.15s;
+    background: rgba(255,255,255,0.02);
+  }
+  .bubble:hover { transform: scale(1.1); }
+  .bubble.right { background: var(--good); border-color: var(--good); color: #fff; box-shadow: 0 0 12px rgba(62,207,142,0.3); }
+  .bubble.wrong { background: var(--bad); border-color: var(--bad); color: #fff; box-shadow: 0 0 12px rgba(231,79,122,0.3); }
+  .bubble.unanswered { border-style: dashed; }
+
+  .omr-legend {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .omr-legend span { display: flex; align-items: center; gap: 5px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-dot.green { background: var(--good); }
+  .legend-dot.red { background: var(--bad); }
+  .legend-dot.gray { background: var(--text-muted); }
+
+  .results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 20px 40px;
+  }
+
+  /* ===== Confetti Canvas ===== */
+  #confettiCanvas {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .app-shell { padding: 12px 10px 120px; }
+    .top-bar { padding: 10px 0; }
+    .logo-mark { width: 32px; height: 32px; font-size: 14px; }
+    .logo-text { font-size: 14px; }
+    .timer-pill { padding: 6px 12px; font-size: 12px; }
+    
+    .hero { padding: 20px 10px 16px; }
+    .hero-badge { font-size: 10px; padding: 5px 12px; margin-bottom: 12px; }
+    .hero h1 { font-size: 24px; margin-bottom: 10px; }
+    .hero p { font-size: 14px; line-height: 1.5; }
+    
+    .section-head { margin: 20px 0 16px; padding: 12px 14px; gap: 10px; }
+    .section-head .sec-icon { width: 36px; height: 36px; font-size: 18px; }
+    .section-head .sec-info h2 { font-size: 14px; margin-bottom: 0; }
+    .section-head .sec-info .sec-meta { font-size: 11px; }
+    
+    .q-card { padding: 16px 14px; margin-bottom: 12px; border-radius: 10px; }
+    .q-header { margin-bottom: 10px; }
+    .q-num { font-size: 11px; }
+    .tag { font-size: 9px; padding: 3px 8px; }
+    .q-text { font-size: 14px; line-height: 1.55; margin-bottom: 14px; }
+    .opt { padding: 10px 12px; gap: 10px; font-size: 13.5px; border-radius: 8px; }
+    .opt input { width: 16px; height: 16px; margin-top: 2px; }
+    .opt .letter { font-size: 12px; min-width: 18px; }
+    .verdict { font-size: 11px; padding: 8px 12px; }
+    
+    .omr-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .bubble { font-size: 10px; }
+    
+    .section-scores-grid { grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 10px 20px; }
+    .sec-score-card { padding: 12px; }
+    .sec-score-card .sec-val { font-size: 18px; }
+    .results-hero { padding: 32px 16px 24px; }
+    .score-ring-wrap { transform: scale(0.85); margin-bottom: 0; }
+    .results-hero h2 { font-size: 24px; }
+    
+    .actions-bar { padding: 12px 14px; background: rgba(11,15,26,0.92); }
+    .actions-inner { flex-direction: column; gap: 10px; }
+    .actions-inner .status-text { width: 100%; text-align: center; }
+    .actions-inner .btn-group { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    button.primary, button.ghost { padding: 12px 4px; font-size: 12.5px; text-align: center; display: flex; align-items: center; justify-content: center; width: 100%; }
+    
+    .progress-wrap { padding: 12px 16px; margin-bottom: 20px; }
+    .nav-pill { padding: 8px 12px; font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  /* ===== Scroll fade-in ===== */
+  .q-card {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: cardIn 0.4s ease forwards;
+  }
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
 </head>
 <body>
- 
-<div class="sheet" id="sheet">
- 
-  <header class="top">
-    <p class="kicker">Assessment · General Aptitude</p>
-    <h1 class="title">Technical, Quant &amp; Verbal Exam</h1>
-    <p class="sub">40 questions · 3 sections · answers revealed on submit</p>
-  </header>
- 
-  <div id="progressWrap">
-    <div id="progressBar"><div id="progressFill"></div></div>
-    <div id="progressLabel"><span id="answeredCount">0 / 40 answered</span><span>Section 1 of 3</span></div>
-  </div>
- 
-  <main id="quizMain"></main>
- 
-  <footer class="actions">
-    <button class="ghost" id="clearBtn" type="button">Clear all</button>
-    <button class="primary" id="submitBtn" type="button">Submit assessment</button>
-  </footer>
- 
-  <!-- RESULTS -->
-  <section id="resultsPanel">
-    <div class="score-hero">
-      <div class="score-ring" id="scoreRing" style="--pct:0"><span id="scorePct">0%</span></div>
-      <div class="score-copy">
-        <p class="kicker">Result</p>
-        <h2 id="scoreHeadline">Scored</h2>
-        <p id="scoreSub">0 of 40 correct</p>
-      </div>
+
+<div class="bg-grid"></div>
+
+<div class="app-shell" id="appShell">
+
+  <div class="top-bar">
+    <div class="logo">
+      <div class="logo-mark">P</div>
+      <div class="logo-text">Proctor <span>// Assessment</span></div>
     </div>
-    <div class="section-scores" id="sectionScores"></div>
-    <p class="omr-title">Answer sheet — tap any bubble to jump to that question</p>
-    <div class="omr-grid" id="omrGrid"></div>
-    <p class="jump-hint">Green = correct · Red = incorrect. Scroll up to review full explanations inline with each question.</p>
-    <footer class="actions">
-      <button class="ghost" id="retakeBtn" type="button">Retake assessment</button>
-    </footer>
-  </section>
- 
+    <div class="timer-pill" id="timerPill">
+      <div class="timer-dot"></div>
+      <span id="timerDisplay">60:00</span>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">📋 Comprehensive Evaluation</div>
+    <h1>Technical, Quant & Verbal Assessment</h1>
+    <p>50 questions across 5 sections — MCQ & MSQ format. Your answers are revealed upon submission.</p>
+  </div>
+
+  <div class="layout-columns">
+    <aside class="sidebar">
+      <nav class="section-nav" id="sectionNav"></nav>
+    </aside>
+
+    <div class="main-column">
+      <div class="progress-wrap">
+        <div class="progress-top">
+          <span class="progress-label"><strong id="answeredCount">0</strong> of 50 answered</span>
+          <span class="progress-label" id="progressPct">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+
+      <main id="quizMain"></main>
+
+      <!-- RESULTS -->
+      <section id="resultsPanel">
+        <div class="results-hero">
+          <div class="score-ring-wrap">
+            <svg class="score-ring-svg" viewBox="0 0 140 140">
+              <defs>
+                <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:var(--accent-1)"/>
+                  <stop offset="100%" style="stop-color:var(--accent-2)"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-bg" />
+              <circle class="ring-fill" id="ringFill" />
+            </svg>
+            <div class="score-value">
+              <div class="score-pct" id="scorePct">0%</div>
+              <div class="score-pct-label">Score</div>
+            </div>
+          </div>
+          <h2 id="scoreHeadline">Calculating…</h2>
+          <p class="results-sub" id="scoreSub">0 of 50 correct</p>
+        </div>
+        <div class="section-scores-grid" id="sectionScores"></div>
+        <div class="omr-section">
+          <p class="omr-title">Answer Sheet — tap any bubble to jump</p>
+          <div class="omr-grid" id="omrGrid"></div>
+          <div class="omr-legend">
+            <span><div class="legend-dot green"></div> Correct</span>
+            <span><div class="legend-dot red"></div> Incorrect</span>
+            <span><div class="legend-dot gray"></div> Unanswered</span>
+          </div>
+        </div>
+        <div class="results-actions">
+          <button class="ghost" id="retakeBtn" type="button">↻ Retake Assessment</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
 </div>
- 
+
+<!-- Sticky bottom bar -->
+<div class="actions-bar" id="actionsBar">
+  <div class="actions-inner">
+    <span class="status-text" id="statusText">Answer questions to enable submission</span>
+    <div class="btn-group">
+      <button class="ghost" id="clearBtn" type="button">Clear All</button>
+      <button class="primary" id="submitBtn" type="button">Finish Assessment →</button>
+    </div>
+  </div>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+
 <script>
+// ===========================
+// QUESTION DATA — 50 QUESTIONS
+// ===========================
 const DATA = [
-// ---------------- SECTION 1: TECHNICAL & CODING ----------------
-{sec:"tech", type:"mcq", q:"Which SQL query correctly finds the 3rd highest salary from an Employee table (assuming MySQL/PostgreSQL)?",
- opts:["SELECT salary FROM Employee ORDER BY salary DESC LIMIT 3, 1;",
-       "SELECT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 2;",
-       "SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);",
-       "SELECT salary FROM Employee ORDER BY salary ASC LIMIT 3;"],
- correct:["B"]},
-{sec:"tech", type:"mcq", q:"Which SQL clause is best suited to identify and list duplicate email addresses from a Users table?",
+// ═══════════════ SECTION 1: QUANTITATIVE APTITUDE & LOGICAL REASONING ═══════════════
+{sec:"quant", type:"mcq",
+ q:"If Person A can complete a project in 15 days and Person B can complete it in 10 days, how long will it take them working together?",
+ opts:["5 days","6 days","8 days","12.5 days"],
+ correct:["B"],
+ explanation:"Person A completes 1/15 of the project per day. Person B completes 1/10 per day. Together: 1/15 + 1/10 = 2/30 + 3/30 = 5/30 = 1/6 of the project per day. Thus, it takes them 6 days."},
+
+{sec:"quant", type:"mcq",
+ q:"A 150-meter-long train crosses a pole in 15 seconds. What is the speed of the train in km/hr?",
+ opts:["10 km/hr","36 km/hr","45 km/hr","54 km/hr"],
+ correct:["B"],
+ explanation:"Speed = Distance / Time = 150m / 15s = 10 m/s. To convert to km/hr, multiply by 18/5. 10 * (18/5) = 36 km/hr."},
+
+{sec:"quant", type:"mcq",
+ q:'A vendor sells software licenses at a 20% profit. If the cost price increases by 10% and the selling price remains the same, what is the new profit percentage?',
+ opts:["9.09%","10%","15%","18.18%"],
+ correct:["A"],
+ explanation:"Assume original cost price (CP) is 100. Selling price (SP) is 120. New CP is 110. SP is still 120. Profit = 120 - 110 = 10. Profit percentage = (10 / 110) * 100 ≈ 9.09%."},
+
+{sec:"quant", type:"mcq",
+ q:"In a technical test, 40% of the students failed in logic, 30% failed in coding, and 10% failed in both. What percentage of students passed in both?",
+ opts:["30%","40%","50%","60%"],
+ correct:["B"],
+ explanation:"Total failed in at least one subject = 40% + 30% - 10% (intersection) = 60%. Therefore, students who passed in both = 100% - 60% = 40%."},
+
+{sec:"quant", type:"mcq",
+ q:"What is the probability of drawing an Ace or a King from a standard deck of 52 cards?",
+ opts:["1/13","2/13","1/26","4/13"],
+ correct:["B"],
+ explanation:"There are 4 Aces and 4 Kings in a deck of 52 cards. Total favorable outcomes = 8. Probability = 8/52 = 2/13."},
+
+{sec:"quant", type:"mcq",
+ q:"What is the next number in the sequence: 2, 6, 12, 20, 30, __?",
+ opts:["40","42","44","48"],
+ correct:["B"],
+ explanation:"The differences between consecutive numbers are 4, 6, 8, 10. The next difference is 12. 30 + 12 = 42."},
+
+{sec:"quant", type:"mcq",
+ q:'If the word "DEVELOP" is coded as "EFWFMPQ", how would you code "SYSTEM"?',
+ opts:["TZTUFN","RXRSDL","UZUVGO","TYSVEN"],
+ correct:["A"],
+ explanation:"Each letter is shifted forward by one position in the alphabet (D->E, E->F, etc.). Applying this to SYSTEM: S->T, Y->Z, S->T, T->U, E->F, M->N. Result: TZTUFN."},
+
+{sec:"quant", type:"mcq",
+ q:'Pointing to a photograph, a man says, "She is the daughter of my grandfather\'s only son." How is the woman related to the man?',
+ opts:["Aunt","Mother","Sister","Cousin"],
+ correct:["C"],
+ explanation:"The grandfather's only son is the man's father. The daughter of the man's father is his sister."},
+
+{sec:"quant", type:"mcq",
+ q:"A developer walks 10 km North, turns right and walks 5 km, turns right again and walks 10 km. How far and in which direction is he from the starting point?",
+ opts:["5 km East","5 km West","10 km South","15 km North"],
+ correct:["A"],
+ explanation:"He walks 10 km North, then 5 km East (right), then 10 km South (right). He ends up exactly 5 km East of his starting point."},
+
+{sec:"quant", type:"msq",
+ q:'Statements: Some algorithms are complex. All complex things are slow. Conclusion: Some algorithms are slow. Select all valid conclusions.',
+ opts:["The conclusion is logically true.","The conclusion is logically false.","All algorithms are slow.","Some slow things are algorithms."],
+ correct:["A","D"],
+ explanation:"Since some algorithms are complex, and all complex things are slow, those specific complex algorithms must be slow (A is true). Because they are slow algorithms, it also means some slow things are algorithms (D is true)."},
+
+// ═══════════════ SECTION 2: VERBAL ABILITY ═══════════════
+{sec:"verbal", type:"mcq",
+ q:'Identify the grammatical error in the sentence: "The list of items were placed on the desk."',
+ opts:['"The list"','"of items"','"were placed"','"on the desk"'],
+ correct:["C"],
+ explanation:"The subject of the sentence is 'The list' (singular), not 'items'. Therefore, the verb should be singular 'was placed' instead of 'were placed'."},
+
+{sec:"verbal", type:"mcq",
+ q:'Fill in the blank: "The application is completely independent ______ the legacy system."',
+ opts:["from","of","with","on"],
+ correct:["B"],
+ explanation:"The correct preposition to use after the adjective 'independent' in this context is 'of'."},
+
+{sec:"verbal", type:"mcq",
+ q:"Choose the most accurate synonym for the word: Mitigate.",
+ opts:["Worsen","Alleviate","Instigate","Aggravate"],
+ correct:["B"],
+ explanation:"To mitigate means to make something less severe, harmful, or painful, which is synonymous with 'Alleviate'."},
+
+{sec:"verbal", type:"mcq",
+ q:"Choose the most accurate antonym for the word: Frugal.",
+ opts:["Thrifty","Extravagant","Careful","Stingy"],
+ correct:["B"],
+ explanation:"Frugal means economical or sparing with money. Its direct opposite is Extravagant (lacking restraint in spending)."},
+
+{sec:"verbal", type:"mcq",
+ q:'Convert to passive voice: "The system administrator rebooted the server."',
+ opts:["The server is rebooted by the system administrator.","The server was being rebooted by the system administrator.","The server has been rebooted by the system administrator.","The server was rebooted by the system administrator."],
+ correct:["D"],
+ explanation:"The original sentence is in the simple past tense. The passive equivalent is 'was rebooted'."},
+
+{sec:"verbal", type:"mcq",
+ q:'Correct the sentence: "He did not wrote the deployment script."',
+ opts:["He did not writes the deployment script.","He did not written the deployment script.","He did not write the deployment script.","He do not wrote the deployment script."],
+ correct:["C"],
+ explanation:"When using 'did not' (auxiliary verb 'do' in past tense), the main verb must be in its base form ('write'), not past tense ('wrote')."},
+
+{sec:"verbal", type:"mcq",
+ q:"Complete the Verbal Analogy: RAM : Volatile :: Hard Drive : _______",
+ opts:["Virtual","Temporary","Non-volatile","Processing"],
+ correct:["C"],
+ explanation:"RAM is a type of volatile memory (loses data when powered off), whereas a Hard Drive is non-volatile memory (retains data permanently)."},
+
+{sec:"verbal", type:"mcq",
+ q:'What is the meaning of the idiom "To bite the bullet"?',
+ opts:["To physically defend oneself.","To face a difficult or unpleasant situation with courage.","To make a severe mistake in a project.","To speak angrily to a colleague."],
+ correct:["B"],
+ explanation:"'To bite the bullet' means to endure a painful, difficult, or unavoidable situation bravely."},
+
+{sec:"verbal", type:"mcq",
+ q:"What is the one-word substitution for a piece of code that propagates by copying itself?",
+ opts:["Malware","Phishing","Virus","Firewall"],
+ correct:["C"],
+ explanation:"A computer virus is a specific type of malicious code designed to propagate by copying itself and infecting other files."},
+
+{sec:"verbal", type:"msq",
+ q:'"Agile methodologies prioritize working software and customer collaboration over extensive documentation." Based on this, which inferences are correct?',
+ opts:["Agile entirely eliminates the need for documentation.","Agile values customer feedback during the development process.","Working software is considered a primary measure of progress.","Agile strictly follows sequential, unchanging phases."],
+ correct:["B","C"],
+ explanation:"Agile 'prioritizes' these aspects but does not eliminate documentation entirely. It heavily relies on iterative customer feedback and values working software over rigid phases."},
+
+// ═══════════════ SECTION 3: COMPUTER SCIENCE FUNDAMENTALS ═══════════════
+{sec:"cs", type:"msq",
+ q:"What are the core differences between an Array and a Linked List?",
+ opts:["Arrays require contiguous memory allocation; Linked Lists do not.","Linked Lists allow for O(1) random access to elements using an index.","Inserting an element at the beginning of an Array is an O(n) operation.","Arrays typically have a fixed size upon initialization, while Linked Lists are dynamic."],
+ correct:["A","C","D"],
+ explanation:"Arrays allocate memory contiguously, allow O(1) index access, but require O(n) shifts for front insertions. Linked lists are dynamic and non-contiguous, but lack O(1) random access."},
+
+{sec:"cs", type:"msq",
+ q:"Which of the following statements about Binary Search are TRUE?",
+ opts:["It operates with a time complexity of O(log n).","It can be applied directly to unsorted data structures.","It follows a divide-and-conquer algorithmic paradigm.","It is typically implemented iteratively or recursively."],
+ correct:["A","C","D"],
+ explanation:"Binary search requires a sorted dataset to function. It operates in O(log n) time by continuously halving the search space (divide-and-conquer)."},
+
+{sec:"cs", type:"mcq",
+ q:"How does a Hash Map typically handle collisions internally (in languages like Java)?",
+ opts:["By throwing an IndexOutOfBounds exception.","By overwriting the existing key-value pair automatically.","Using chaining (Linked Lists) or open addressing (probing).","By resizing the array down to a smaller prime number."],
+ correct:["C"],
+ explanation:"When two keys hash to the same bucket, Hash Maps resolve the collision primarily using Chaining (storing colliding items in a Linked List) or Open Addressing (finding the next empty slot)."},
+
+{sec:"cs", type:"msq",
+ q:"Which of the following correctly describes Stacks and Queues?",
+ opts:["A Stack follows Last-In-First-Out (LIFO).","A Queue follows First-In-First-Out (FIFO).",'The "Undo" mechanism in text editors is a standard use case for a Queue.',"Task scheduling in an Operating System is a standard use case for a Queue."],
+ correct:["A","B","D"],
+ explanation:"Stacks are LIFO (used for Undo mechanisms). Queues are FIFO (used for scheduling, buffering, and message queues)."},
+
+{sec:"cs", type:"msq",
+ q:"What is the exact difference between Method Overloading and Method Overriding?",
+ opts:["Overloading occurs within the same class; Overriding requires a parent-child inheritance relationship.","Overloading uses the exact same method signature; Overriding requires different parameters.","Overloading is resolved at compile-time (static polymorphism).","Overriding is resolved at runtime (dynamic polymorphism)."],
+ correct:["A","C","D"],
+ explanation:"Overloading involves multiple methods with the same name but different parameters (resolved at compile-time). Overriding replaces a parent class's method with the exact same signature (resolved at runtime)."},
+
+{sec:"cs", type:"mcq",
+ q:"When would you choose to implement an Abstract Class instead of an Interface?",
+ opts:["When you need to support multiple inheritance in Java/C#.","When you want to provide shared state (member variables) and common base logic alongside abstract methods.","When you only need to define a contract of method signatures without any implementation details.","When you want to prevent any child class from inheriting the base class."],
+ correct:["B"],
+ explanation:"Abstract classes allow you to define base, reusable logic and state variables, whereas Interfaces are strictly contracts for method signatures (though some modern languages allow default interface methods)."},
+
+{sec:"cs", type:"msq",
+ q:"Which of the following represent the ACID properties in database transaction management?",
+ opts:["Atomicity","Concurrency","Isolation","Durability"],
+ correct:["A","C","D"],
+ explanation:"ACID stands for Atomicity, Consistency, Isolation, and Durability. Concurrency is related but not one of the ACID properties."},
+
+{sec:"cs", type:"msq",
+ q:"Regarding SQL Constraints, what is the difference between DELETE, TRUNCATE, and DROP?",
+ opts:["DELETE is a DML command and can be rolled back.","TRUNCATE removes all rows from a table but keeps the structure, and cannot be easily rolled back.","DROP removes the entire table structure and data from the database.","DELETE is faster than TRUNCATE for emptying large tables."],
+ correct:["A","B","C"],
+ explanation:"DELETE removes specific rows (slower, log-heavy, rollbackable). TRUNCATE empties a table quickly (DDL, usually non-rollbackable). DROP deletes the table entirely."},
+
+{sec:"cs", type:"mcq",
+ q:"What is the difference between an INNER JOIN and a LEFT JOIN?",
+ opts:["INNER JOIN returns only matching rows; LEFT JOIN returns all rows from the left table and matched rows from the right table.","INNER JOIN returns all rows from both tables; LEFT JOIN returns only matching rows.","LEFT JOIN requires a third linking table to function.","There is no functional difference; they are aliases."],
+ correct:["A"],
+ explanation:"INNER JOIN strictly filters for records that exist in both tables. LEFT JOIN guarantees every record from the primary (left) table is returned, with NULLs for unmatched right-table columns."},
+
+{sec:"cs", type:"msq",
+ q:"Which of the following are necessary conditions for a Deadlock to occur in an Operating System?",
+ opts:["Mutual Exclusion","Hold and Wait","Preemption allowed","Circular Wait"],
+ correct:["A","B","D"],
+ explanation:"Coffman's conditions for deadlock are: Mutual Exclusion, Hold and Wait, No Preemption, and Circular Wait. If preemption is allowed, deadlocks can be broken."},
+
+// ═══════════════ SECTION 4: PROGRAMMING & MODERN WEB TECHNOLOGIES ═══════════════
+{sec:"prog", type:"msq",
+ q:"What is the difference between String, StringBuilder, and StringBuffer in Java?",
+ opts:["String objects are immutable.","StringBuilder is mutable but not thread-safe.","StringBuffer is mutable and thread-safe (synchronized).","StringBuilder is significantly slower than StringBuffer in single-threaded environments."],
+ correct:["A","B","C"],
+ explanation:"Strings cannot be changed once created. StringBuilder allows fast mutations but lacks synchronization. StringBuffer provides synchronized thread safety at the cost of performance."},
+
+{sec:"prog", type:"msq",
+ q:"How can memory leaks occur in a language with Garbage Collection (like Java or C#)?",
+ opts:["By leaving unclosed database connections or file streams.","By maintaining static collections (like HashMaps) that grow indefinitely.","Garbage Collectors perfectly prevent all forms of memory leaks.","By having objects that reference each other, even if the main application no longer uses them."],
+ correct:["A","B"],
+ explanation:"Logical leaks occur when developers keep references to objects (like in static lists or unclosed streams) that are no longer needed, preventing cleanup. Note that option D is false: modern tracing GCs in Java/C# easily detect and clean up isolated circular references!"},
+
+{sec:"prog", type:"mcq",
+ q:"What is the core difference between a List and a Tuple in Python?",
+ opts:["Lists are ordered; Tuples are unordered.","Lists can store mixed data types; Tuples can only store strings.","Lists are mutable (can be changed); Tuples are immutable (cannot be changed).","Lists use parentheses (); Tuples use square brackets []."],
+ correct:["C"],
+ explanation:"The defining difference is mutability. Lists [] can be appended, modified, or truncated. Tuples () are fixed upon creation."},
+
+{sec:"prog", type:"mcq",
+ q:"In Python, what is the primary purpose of a Decorator?",
+ opts:["To physically alter the source code of a function permanently.","To modify or extend the behavior of a function or class without permanently modifying it.","To create a completely new instance of a class.","To enforce strict type-checking on function parameters."],
+ correct:["B"],
+ explanation:"Decorators are higher-order functions that wrap another function, allowing you to execute code before or after the wrapped function runs, effectively extending its behavior dynamically."},
+
+{sec:"prog", type:"msq",
+ q:"In C++, what are the key differences between Pointers and References?",
+ opts:["A pointer can be reassigned to point to a different memory address; a reference cannot.","A pointer can be assigned a null value; a reference must refer to an existing object.","A reference has its own independent memory address distinct from the variable it references.","Pointers require dereferencing (*) to access the value; references do not."],
+ correct:["A","B","D"],
+ explanation:"References act as immutable aliases to an existing object and cannot be null or reassigned. Pointers are separate variables that hold memory addresses, requiring explicit dereferencing."},
+
+{sec:"prog", type:"mcq",
+ q:"In JavaScript, how does the Event Loop handle asynchronous operations?",
+ opts:["By spawning a new system thread for every asynchronous callback.","By blocking the main execution thread until the asynchronous task completes.","By pushing callbacks to a task queue and moving them to the call stack only when the stack is empty.","By executing asynchronous tasks immediately before synchronous code."],
+ correct:["C"],
+ explanation:"JavaScript is single-threaded. Async operations are handled by browser/Node APIs, and their callbacks are queued. The Event Loop pushes them to the execution stack only when the stack is entirely clear."},
+
+{sec:"prog", type:"msq",
+ q:'What are the differences between <code>var</code>, <code>let</code>, and <code>const</code> in JavaScript?',
+ opts:["var is function-scoped.","let and const are block-scoped.","Variables declared with let can be re-declared within the same scope.","The value assigned to a const primitive cannot be reassigned."],
+ correct:["A","B","D"],
+ explanation:"'let' and 'const' were introduced in ES6 to provide strict block scoping and prevent accidental re-declarations (unlike 'var'). 'const' prevents reassignment, though objects remain mutable."},
+
+{sec:"prog", type:"msq",
+ q:"How do Promises differ from traditional Callbacks in JavaScript?",
+ opts:['Promises allow for method chaining (e.g., .then().catch()), preventing "Callback Hell".','Promises can be in one of three states: pending, fulfilled, or rejected.',"Callbacks are inherently faster than Promises at the CPU level.","Promises make it easier to handle multiple asynchronous operations simultaneously (e.g., Promise.all)."],
+ correct:["A","B","D"],
+ explanation:"Promises provide a cleaner, chainable syntax to handle async flows, represent state natively, and offer utilities like Promise.all to manage multiple tasks concurrently, avoiding deeply nested callbacks."},
+
+{sec:"prog", type:"mcq",
+ q:"What is the Virtual DOM in React, and how does it optimize rendering performance?",
+ opts:["It directly manipulates the browser's DOM on every state change.","It is a lightweight, in-memory representation of the Real DOM used to batch and diff updates efficiently before applying them.","It is a server-side rendering tool that replaces the browser completely.","It is a secondary browser window used strictly for debugging React components."],
+ correct:["B"],
+ explanation:"React compares the Virtual DOM with a previous snapshot (diffing) to calculate the minimum number of actual DOM operations required, drastically improving rendering efficiency."},
+
+{sec:"prog", type:"msq",
+ q:"Which of the following scenarios correctly describe the use of React Hooks?",
+ opts:["useState is used to add local state variables to functional components.","useEffect can be used to fetch data from an API when a component mounts.","Hooks can be used inside standard JavaScript classes.","useEffect runs after the component renders to the screen."],
+ correct:["A","B","D"],
+ explanation:"Hooks were introduced to give functional components access to state and lifecycle methods. They cannot be used inside Class components."},
+
+{sec:"prog", type:"mcq",
+ q:"How does the Node.js runtime handle thousands of concurrent connections despite being single-threaded?",
+ opts:["It uses a multi-threading library internally for every request.","It relies on an asynchronous, non-blocking I/O model powered by the event loop.","It allocates multiple instances of the V8 engine per request.","It actually blocks concurrent connections until the previous one finishes."],
+ correct:["B"],
+ explanation:"By delegating I/O tasks (like database queries or file reads) to the OS and using non-blocking callbacks via the Event Loop, Node.js can handle vast numbers of connections concurrently on a single thread."},
+
+{sec:"prog", type:"msq",
+ q:"In Express.js, what is the role of Middleware and the next() function?",
+ opts:["Middleware functions can execute code, modify request/response objects, and end the request-response cycle.","The next() function passes control to the next middleware function in the stack.","If a middleware function does not call next(), the request is left hanging unless a response is sent.","Middleware is strictly used only for database connections."],
+ correct:["A","B","C"],
+ explanation:"Middleware intercepts HTTP requests. It must either terminate the request (e.g., res.send()) or pass control forward by invoking next(), otherwise the client request times out."},
+
+{sec:"prog", type:"msq",
+ q:"How does a NoSQL database structure (like MongoDB) conceptually differ from a relational database (like MySQL)?",
+ opts:["MongoDB stores data in flexible, JSON-like BSON documents instead of rigid tables and rows.","MongoDB enforces strict schemas by default on all collections.","MySQL relies on explicit relationships (Foreign Keys) to link tables.","NoSQL databases generally scale horizontally across servers easier than traditional SQL databases."],
+ correct:["A","C","D"],
+ explanation:"MongoDB allows varied document structures within the same collection (no rigid schema). Relational DBs use strict tables and joins. NoSQL is famously designed for easier horizontal sharding and scaling."},
+
+{sec:"prog", type:"msq",
+ q:"In MongoDB Data Modeling, when would you choose to embed a document versus referencing one?",
+ opts:["Embed documents for data that is frequently read together (e.g., a user and their address).","Reference documents when dealing with large, unbound hierarchical data arrays (to avoid exceeding the 16MB document limit).","Always embed everything to completely eliminate the need for JOIN-like $lookup operations.","Reference documents for many-to-many relationships where data needs to be accessed independently."],
+ correct:["A","B","D"],
+ explanation:"Embedding is ideal for contained, one-to-few relationships accessed together. Referencing is essential for massive datasets, independent entity lifecycles, and avoiding the 16MB document size limit."},
+
+{sec:"prog", type:"msq",
+ q:"Which of the following are standard HTTP methods used in a RESTful API and their intended purposes?",
+ opts:["GET — Retrieve a resource.","POST — Create a new resource.","PUT — Partially update a resource (modify only specific fields).","DELETE — Remove a resource."],
+ correct:["A","B","D"],
+ explanation:"GET retrieves, POST creates, and DELETE removes. PUT is meant to completely replace a resource. PATCH is the method intended for partial updates."},
+
+// ═══════════════ SECTION 5: SITUATIONAL JUDGMENT & BEHAVIORAL (HR) ═══════════════
+{sec:"hr", type:"mcq",
+ q:'In an interview, when asked to "Tell me about yourself," what is the most professional and effective structure?',
+ opts:["Reciting your entire resume chronologically from high school onwards.","Discussing your personal hobbies, family background, and weekend plans.","Providing a brief summary of your education, highlighting 1-2 major technical projects, and explaining how your skills align with the role.","Giving a one-sentence answer stating your name and college major."],
+ correct:["C"],
+ explanation:"Interviewers want a concise professional pitch (Present, Past, Future framework) that highlights relevant skills and demonstrates exactly why you are a good fit for the specific role."},
+
+{sec:"hr", type:"msq",
+ q:"If an interviewer asks you to describe a time you faced a major technical challenge, which of the following approaches demonstrate a strong problem-solving mindset?",
+ opts:["Explaining the specific bug/challenge clearly without getting bogged down in irrelevant code syntax.","Blaming a teammate for writing bad code that you had to fix.","Detailing the step-by-step debugging process you used (e.g., checking logs, isolating variables).","Describing the final outcome and what you learned to prevent the issue in the future."],
+ correct:["A","C","D"],
+ explanation:"Using the STAR method (Situation, Task, Action, Result) focuses on your logical process and learnings. Blaming others demonstrates poor teamwork and lack of accountability."},
+
+{sec:"hr", type:"mcq",
+ q:"During a code review simulation, a senior developer bluntly tells you your code is inefficient and needs a complete rewrite. What is the best response?",
+ opts:["Defend your code aggressively, stating that it works and efficiency doesn't matter yet.","Politely ask for specific feedback on which parts are inefficient and how they recommend optimizing it.","Agree immediately, delete the code, and ask them to write it for you.","Ignore the feedback and merge the code anyway."],
+ correct:["B"],
+ explanation:"Demonstrating a willingness to accept feedback, leaving ego at the door, and actively seeking mentorship to improve is a crucial trait of a strong team engineer."},
+
+{sec:"hr", type:"msq",
+ q:"An interviewer notes that the company uses Python/Django, but your resume only shows JavaScript/MERN stack. Which responses reflect strong adaptability?",
+ opts:['"I understand the core concepts of backend routing and ORMs from Express and Mongoose, so the underlying architecture translates well to Django."','"I am unwilling to learn Python because JavaScript is the superior language."','"I have a proven track record of picking up new syntax quickly, as demonstrated by learning React independently over a weekend."','"I am eager to dive into the documentation and build a small side project in Python before my start date to get up to speed."'],
+ correct:["A","C","D"],
+explanation:"Strong engineers emphasize their grasp of foundational software engineering principles that transcend specific languages, backed by a proven eagerness and ability to learn new tools quickly."},
+
+{sec:"hr", type:"mcq",
+ q:'"Where do you see yourself in three to five years?" — what is the employer primarily trying to assess?',
+ opts:["Whether you want to steal the interviewer's job.","If your career goals align with the growth opportunities available at their specific company.","Your exact timeline for asking for a massive salary increase.","Whether you plan to leave the software engineering field entirely."],
+ correct:["B"],
+ explanation:"Employers invest time and money into hiring. They want to ensure your long-term ambitions (e.g., senior engineer, tech lead, architecture) align with what the company can offer so you don't leave quickly."},
+
+// ═══════════════ ADDITIONAL TECHNICAL & CODING ═══════════════
+{sec:"prog", type:"mcq",
+ q:"Which SQL query correctly finds the 3rd highest salary from an Employee table (assuming MySQL/PostgreSQL)?",
+ opts:["SELECT salary FROM Employee ORDER BY salary DESC LIMIT 3, 1;","SELECT salary FROM Employee ORDER BY salary DESC LIMIT 1 OFFSET 2;","SELECT MAX(salary) FROM Employee WHERE salary < (SELECT MAX(salary) FROM Employee);","SELECT salary FROM Employee ORDER BY salary ASC LIMIT 3;"],
+ correct:["B"],
+ explanation:"LIMIT 1 OFFSET 2 skips the first two highest salaries and returns the 3rd one. 'LIMIT 2, 1' is also valid in MySQL but OFFSET is standard."},
+
+{sec:"prog", type:"mcq",
+ q:"Which SQL clause is best suited to identify and list duplicate email addresses from a Users table?",
  opts:["GROUP BY email HAVING COUNT(email) > 1","WHERE email = COUNT(email) > 1","ORDER BY email DESC LIMIT 2","SELECT DISTINCT email FROM Users WHERE COUNT > 1"],
- correct:["A"]},
-{sec:"tech", type:"msq", q:"When finding employees assigned to more than 2 projects using an Employees and Projects table, which of the following SQL elements are absolutely required?",
+ correct:["A"],
+ explanation:"To find duplicates, we group the rows by the email column and then filter the groups using HAVING COUNT(email) > 1."},
+
+{sec:"prog", type:"msq",
+ q:"When finding employees assigned to more than 2 projects using an Employees and Projects table, which of the following SQL elements are absolutely required?",
  opts:["INNER JOIN or LEFT JOIN","GROUP BY employee ID or name","HAVING COUNT(project_id) > 2","WHERE COUNT(project_id) > 2"],
- correct:["A","B","C"]},
-{sec:"tech", type:"mcq", q:"How do you fetch only unique department names from an Organization table, sorted in alphabetical order?",
+ correct:["A","B","C"],
+ explanation:"A JOIN is needed to link employees and projects. GROUP BY is required to aggregate per employee, and HAVING is used to filter aggregated counts. WHERE cannot be used with aggregate functions directly."},
+
+{sec:"prog", type:"mcq",
+ q:"How do you fetch only unique department names from an Organization table, sorted in alphabetical order?",
  opts:["SELECT UNIQUE department FROM Organization ORDER BY department ASC;","SELECT DISTINCT department FROM Organization ORDER BY department ASC;","SELECT department FROM Organization SORT BY department DISTINCT;","SELECT DISTINCT department FROM Organization GROUP BY department;"],
- correct:["B"]},
-{sec:"tech", type:"mcq", q:'In MongoDB, what is the correct query to find all documents in a products collection where the price is greater than 500 and the status is "active"?',
- opts:['db.products.find({ price: > 500, status: "active" })','db.products.filter({ price: { $gt: 500 }, status: "active" })','db.products.find({ price: { $gt: 500 }, status: "active" })','db.products.select({ price: { $greater: 500 }, status: "active" })'],
- correct:["C"]},
-{sec:"tech", type:"msq", q:"In an Express.js route handler for a POST request (/api/login), what are best practices when email or password are missing from the request body?",
- opts:["Return an HTTP status code 400 (Bad Request).","Return an HTTP status code 200 (OK) with an error message in the payload.","Use res.status(400).json({ error: \"Missing fields\" }).","Use res.send(500) to crash the server for security."],
- correct:["A","C"]},
-{sec:"tech", type:"mcq", q:"What is the correct syntax to connect a Node.js application to a MongoDB database using Mongoose?",
+ correct:["B"],
+ explanation:"The DISTINCT keyword is used in SQL to return only unique distinct values. ORDER BY ASC sorts them alphabetically."},
+
+{sec:"prog", type:"mcq",
+ q:"In MongoDB, what is the correct query to find all documents in a products collection where the price is greater than 500 and the status is 'active'?",
+ opts:["db.products.find({ price: > 500, status: 'active' })","db.products.filter({ price: { $gt: 500 }, status: 'active' })","db.products.find({ price: { $gt: 500 }, status: 'active' })","db.products.select({ price: { $greater: 500 }, status: 'active' })"],
+ correct:["C"],
+ explanation:"MongoDB uses the find() method for querying, and the $gt operator represents 'greater than' within a query document."},
+
+{sec:"prog", type:"msq",
+ q:"In an Express.js route handler for a POST request (/api/login), what are best practices when email or password are missing from the request body?",
+ opts:["Return an HTTP status code 400 (Bad Request).","Return an HTTP status code 200 (OK) with an error message in the payload.","Use res.status(400).json({ error: 'Missing fields' }).","Use res.send(500) to crash the server for security."],
+ correct:["A","C"],
+ explanation:"Missing client data constitutes a Bad Request (400). You should respond with a 400 status code and a clear JSON error message. Returning 200 for an error is an anti-pattern."},
+
+{sec:"prog", type:"mcq",
+ q:"What is the correct syntax to connect a Node.js application to a MongoDB database using Mongoose?",
  opts:["mongoose.connect('mongodb://localhost:27017/mydb');","mongoose.open('mongodb://localhost:27017/mydb');","mongoose.database.connect('mongodb://localhost:27017/mydb');","db.mongoose.connect('localhost:27017/mydb');"],
- correct:["A"]},
-{sec:"tech", type:"msq", q:"When defining a Mongoose schema for a Product model, which of the following are valid schema configurations?",
+ correct:["A"],
+ explanation:"The correct method provided by the Mongoose library to establish a connection is mongoose.connect() with a valid MongoDB URI."},
+
+{sec:"prog", type:"msq",
+ q:"When defining a Mongoose schema for a Product model, which of the following are valid schema configurations?",
  opts:["title: { type: String, required: true }","price: { type: Number, required: true }","stock: { type: Number, default: 0 }","stock: { type: Integer, fallback: 0 }"],
- correct:["A","B","C"]},
-{sec:"tech", type:"mcq", q:"When using bcrypt in Node.js to hash a password, which function is typically used to asynchronously hash the plain text?",
+ correct:["A","B","C"],
+ explanation:"String and Number are valid schema types in Mongoose. 'required' and 'default' are valid configuration options. 'Integer' is not a base Mongoose schema type (it uses Number)."},
+
+{sec:"prog", type:"mcq",
+ q:"When using bcrypt in Node.js to hash a password, which function is typically used to asynchronously hash the plain text?",
  opts:["bcrypt.hashSync(password, 10)","bcrypt.hash(password, 10)","bcrypt.encrypt(password)","bcrypt.salt(password, 10)"],
- correct:["B"]},
-{sec:"tech", type:"msq", q:"Which of the following statements are TRUE regarding the structural difference between JWTs and standard server-side sessions?",
+ correct:["B"],
+ explanation:"bcrypt.hash() is the asynchronous method to hash a password, taking the plaintext and the salt rounds (e.g., 10) as arguments."},
+
+{sec:"prog", type:"msq",
+ q:"Which of the following statements are TRUE regarding the structural difference between JWTs and standard server-side sessions?",
  opts:["JWTs are stateless; the server does not need to store session records.","Server-side sessions require database or memory lookups (like Redis) on every request.","JWTs securely encrypt the payload so it cannot be read by the client.","The signature in a JWT ensures the token hasn't been altered."],
- correct:["A","B","D"]},
-{sec:"tech", type:"mcq", q:"In JavaScript, what is the specific operational difference between == and ===?",
+ correct:["A","B","D"],
+ explanation:"JWTs are stateless and signed for integrity (not necessarily encrypted, payloads are often base64url encoded and easily readable). Server-side sessions require state lookups."},
+
+{sec:"prog", type:"mcq",
+ q:"In JavaScript, what is the specific operational difference between == and ===?",
  opts:["== checks strictly for type, === checks for value.","== performs type coercion before comparison, === checks both value and type without coercion.","There is no difference; both are used interchangeably.","=== is only used for object comparison."],
- correct:["B"]},
-{sec:"tech", type:"mcq", q:"Which native Node.js fs module method is used to read a file asynchronously?",
+ correct:["B"],
+ explanation:"The == operator coerces types if they differ before comparing, whereas === (strict equality) ensures both value and type are identical without coercion."},
+
+{sec:"prog", type:"mcq",
+ q:"Which native Node.js fs module method is used to read a file asynchronously?",
  opts:["fs.readFileSync()","fs.readFile()","fs.readAsync()","fs.openFile()"],
- correct:["B"]},
-{sec:"tech", type:"msq", q:"Which Git commands allow you to safely navigate away from uncommitted local changes without permanently deleting them?",
- opts:["git stash","git reset --hard","git commit -m \"WIP\"","git clean -f"],
- correct:["A","C"]},
-{sec:"tech", type:"msq", q:"In an Object-Oriented BankAccount class, which of the following enforce the principle of Encapsulation?",
+ correct:["B"],
+ explanation:"fs.readFile() reads a file asynchronously and returns the data via a callback (or Promise using fs.promises). fs.readFileSync() is blocking."},
+
+{sec:"prog", type:"msq",
+ q:"Which Git commands allow you to safely navigate away from uncommitted local changes without permanently deleting them?",
+ opts:["git stash","git reset --hard","git commit -m 'WIP'","git clean -f"],
+ correct:["A","C"],
+ explanation:"git stash temporarily shelves changes. Creating a temporary 'WIP' commit also saves them. reset --hard and clean -f will permanently delete uncommitted changes."},
+
+{sec:"prog", type:"msq",
+ q:"In an Object-Oriented BankAccount class, which of the following enforce the principle of Encapsulation?",
  opts:["Making the balance variable private.","Allowing external classes to directly modify accountNumber.","Providing a public getBalance() method to read the balance.","Making the withdraw() method validate funds before updating the balance."],
- correct:["A","C","D"]},
-{sec:"tech", type:"mcq", q:"What does the virtual keyword signify when applied to a method inside a C# base class?",
+ correct:["A","C","D"],
+ explanation:"Encapsulation involves hiding the internal state (private balance) and requiring all interactions to occur through safe, validating public methods (getBalance, withdraw)."},
+
+{sec:"prog", type:"mcq",
+ q:"What does the virtual keyword signify when applied to a method inside a C# base class?",
  opts:["The method cannot be overridden by derived classes.","The method contains no implementation and must be implemented by derived classes.","The method can be overridden by a derived class using the override keyword.","The method belongs to the class itself, not an instance."],
- correct:["C"]},
-{sec:"tech", type:"mcq", q:"In which real-world scenario would you choose an Abstract Class over an Interface?",
+ correct:["C"],
+ explanation:"The 'virtual' keyword in C# allows a method to be overridden in a derived class using the 'override' keyword. Abstract methods contain no implementation, virtual ones do."},
+
+{sec:"prog", type:"mcq",
+ q:"In which real-world scenario would you choose an Abstract Class over an Interface?",
  opts:["When you need to support multiple inheritance.","When you want to provide a common base implementation and shared state (fields) alongside abstract methods.","When you only need to define a contract of method signatures without any implementation.","When you want to force completely unrelated classes to implement a specific behavior."],
- correct:["B"]},
-{sec:"tech", type:"msq", q:"Which of the following approaches correctly reverse a string in Python or JavaScript without using built-in reverse functions?",
+ correct:["B"],
+ explanation:"Abstract classes are perfect when classes share a core implementation and state fields. Interfaces are strictly for defining behavioral contracts across potentially unrelated classes."},
+
+{sec:"prog", type:"msq",
+ q:"Which of the following approaches correctly reverse a string in Python or JavaScript without using built-in reverse functions?",
  opts:["Iterating backward through the string and appending to a new variable.","Using string slicing in Python: string[::-1].","Using a Stack: pushing all characters onto the stack, then popping them off.","Sorting the string alphabetically."],
- correct:["A","B","C"]},
-{sec:"tech", type:"mcq", q:"Which approach checks if an integer array contains duplicate values in O(n) time complexity?",
+ correct:["A","B","C"],
+ explanation:"Iterating backward, slicing (Python), and using a Stack (LIFO) all correctly reverse a sequence. Sorting alphabetically destroys the original sequence order."},
+
+{sec:"prog", type:"mcq",
+ q:"Which approach checks if an integer array contains duplicate values in O(n) time complexity?",
  opts:["Using two nested loops to compare each element.","Sorting the array first, then comparing adjacent elements.","Inserting elements into a Hash Set and checking for existing keys.","Reversing the array and comparing it to the original."],
- correct:["C"]},
-{sec:"tech", type:"msq", q:"When implementing a Stack from scratch using an array, which of the following logic is correct?",
+ correct:["C"],
+ explanation:"A Hash Set allows O(1) average time insertions and lookups. Traversing the array once and using a Set results in an overall O(n) time complexity."},
+
+{sec:"prog", type:"msq",
+ q:"When implementing a Stack from scratch using an array, which of the following logic is correct?",
  opts:["push() adds an element to the end of the array.","pop() removes and returns the first element of the array.","pop() removes and returns the last element of the array.","It operates on a First-In-First-Out (FIFO) principle."],
- correct:["A","C"]},
-{sec:"tech", type:"mcq", q:"In a recursive function to calculate the factorial of n, what is the essential base case?",
+ correct:["A","C"],
+ explanation:"A Stack is Last-In-First-Out (LIFO). Therefore, push() adds to the end, and pop() removes from the end of the array."},
+
+{sec:"prog", type:"mcq",
+ q:"In a recursive function to calculate the factorial of n, what is the essential base case?",
  opts:["if (n == 0) return 0;","if (n <= 1) return 1;","if (n < 0) return -1;","if (n == 2) return 2;"],
- correct:["B"]},
- 
-// ---------------- SECTION 2: QUANTITATIVE APTITUDE ----------------
-{sec:"quant", type:"mcq", q:"A train running at a uniform speed of 72 km/hr crosses a telegraph pole in exactly 12 seconds. What is the total length of the train in meters?",
- opts:["180 meters","200 meters","240 meters","280 meters"], correct:["C"]},
-{sec:"quant", type:"mcq", q:"An item is sold for 2400 after allowing a flat discount of 20% on its marked price. What was the original marked price of the item?",
- opts:["2800","2880","3000","3200"], correct:["C"]},
-{sec:"quant", type:"mcq", q:"Worker A can complete a piece of coding work in 12 days, while Worker B takes 24 days to finish the same task. If they collaborate, how many days will it take them to complete the project?",
- opts:["6 days","8 days","9 days","18 days"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"The ratio of two numbers is 3:4. If their Least Common Multiple (LCM) is 180, what is the value of the smaller number?",
- opts:["30","45","60","90"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"A merchant buys a computer component for 1400 and sells it to a client at a net loss of 15%. What is the final selling price of the component?",
- opts:["1150","1190","1210","1250"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"Calculate the total simple interest earned on a principal sum of 5000 at an interest rate of 8% per annum over a duration of 3 years.",
- opts:["1000","1200","1400","1500"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"The average age of a class consisting of 20 students is 15 years. If the teacher's age is included, the overall average increases by exactly 1 year. What is the age of the teacher?",
- opts:["35 years","36 years","37 years","40 years"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"If the cost price of 15 identical articles is equal to the selling price of 12 of those articles, what is the net gain percentage?",
- opts:["15%","20%","25%","30%"], correct:["C"]},
-{sec:"quant", type:"mcq", q:"A vehicle travels at a steady speed of 45 km/hr for the first 2 hours of a journey, and accelerates to 60 km/hr for the next 3 hours. What is its average speed across the entire trip?",
- opts:["52.5 km/hr","54 km/hr","55 km/hr","56 km/hr"], correct:["B"]},
-{sec:"quant", type:"mcq", q:"Pipe A can fill a water tank in 20 minutes, while Pipe B can fill the same tank in 30 minutes. If both water pipes are opened simultaneously, how long will it take to fill the empty tank completely?",
- opts:["10 minutes","12 minutes","15 minutes","25 minutes"], correct:["B"]},
- 
-// ---------------- SECTION 3: VERBAL & COMMUNICATION ----------------
-{sec:"verbal", type:"mcq", q:'Identify the specific grammatical error in the following sentence: "Each of the software engineering students have completed their assignment before the morning deadline."',
- opts:['"software engineering students" should be singular.','"have completed" should be "has completed".','"before the morning deadline" is grammatically incorrect.','There is no error in the sentence.'], correct:["B"]},
-{sec:"verbal", type:"mcq", q:'Fill in the blank with the most appropriate preposition: "The development team was completely independent ______ external funding for their open-source web project."',
- opts:["from","of","with","on"], correct:["B"]},
-{sec:"verbal", type:"mcq", q:"Choose the most accurate synonym for the word: Meticulous.",
- opts:["Careless","Detailed","Swift","Sloppy"], correct:["B"]},
-{sec:"verbal", type:"mcq", q:"Choose the most accurate antonym for the word: Ambiguous.",
- opts:["Obscure","Precise","Vague","Complex"], correct:["B"]},
-{sec:"verbal", type:"mcq", q:'Select the correct passive voice version of: "The lead software engineer fixed the critical database bug."',
- opts:["The critical database bug is fixed by the lead software engineer.","The critical database bug was fixed by the lead software engineer.","The critical database bug has been fixed by the lead software engineer.","The lead software engineer was fixing the critical database bug."], correct:["B"]},
-{sec:"verbal", type:"mcq", q:'Fill in the blank with the correct verb form: "Neither the project manager nor the backend developers ______ present at the morning sprint meeting yesterday."',
- opts:["was","were","is","are"], correct:["B"]},
-{sec:"verbal", type:"mcq", q:"Identify which of the following choices represents the correct spelling:",
- opts:["Accommodate","Accomodate","Acommodate","Acomodate"], correct:["A"]},
-{sec:"verbal", type:"mcq", q:"Complete the verbal analogy: Compiler : Source Code :: Translator : _______",
- opts:["Novel","Target Language","Hardware","Logic"], correct:["B"]},
-{sec:"verbal", type:"msq", q:'Read the following statement and select the most logical inferences: "Company X noticed a sharp 40% drop in daily website traffic immediately after changing its primary user interface design."',
- opts:["The new website layout successfully optimized user workflows.","Users preferred the older interface.","The new navigation was potentially confusing to existing users.","Server maintenance costs decreased due to the layout change."], correct:["C"]},
-{sec:"verbal", type:"mcq", q:'Select the correct meaning for the common business idiom "to touch base":',
- opts:["To physically return to the office.","To briefly make contact or update someone.","To hit a baseline performance metric.","To terminate a contract prematurely."], correct:["B"]},
+ correct:["B"],
+ explanation:"The factorial of 0 and 1 is 1. Stopping at n <= 1 and returning 1 prevents infinite recursion."},
+
+// ═══════════════ ADDITIONAL QUANTITATIVE APTITUDE ═══════════════
+{sec:"quant", type:"mcq",
+ q:"A train running at a uniform speed of 72 km/hr crosses a telegraph pole in exactly 12 seconds. What is the total length of the train in meters?",
+ opts:["180 meters","200 meters","240 meters","280 meters"],
+ correct:["C"],
+ explanation:"72 km/hr = 72 * (5/18) = 20 m/s. Length = Speed * Time = 20 m/s * 12s = 240 meters."},
+
+{sec:"quant", type:"mcq",
+ q:"An item is sold for 2400 after allowing a flat discount of 20% on its marked price. What was the original marked price of the item?",
+ opts:["2800","2880","3000","3200"],
+ correct:["C"],
+ explanation:"SP = MP * (1 - 0.20) -> 2400 = 0.8 * MP -> MP = 2400 / 0.8 = 3000."},
+
+{sec:"quant", type:"mcq",
+ q:"Worker A can complete a piece of coding work in 12 days, while Worker B takes 24 days to finish the same task. If they collaborate, how many days will it take them to complete the project?",
+ opts:["6 days","8 days","9 days","18 days"],
+ correct:["B"],
+ explanation:"Rate of A = 1/12, Rate of B = 1/24. Combined rate = 1/12 + 1/24 = 3/24 = 1/8. So it takes 8 days together."},
+
+{sec:"quant", type:"mcq",
+ q:"The ratio of two numbers is 3:4. If their Least Common Multiple (LCM) is 180, what is the value of the smaller number?",
+ opts:["30","45","60","90"],
+ correct:["B"],
+ explanation:"Let the numbers be 3x and 4x. Their LCM is 12x. 12x = 180, so x = 15. The smaller number is 3x = 45."},
+
+{sec:"quant", type:"mcq",
+ q:"A merchant buys a computer component for 1400 and sells it to a client at a net loss of 15%. What is the final selling price of the component?",
+ opts:["1150","1190","1210","1250"],
+ correct:["B"],
+ explanation:"Loss = 15% of 1400 = 210. Selling Price = 1400 - 210 = 1190."},
+
+{sec:"quant", type:"mcq",
+ q:"Calculate the total simple interest earned on a principal sum of 5000 at an interest rate of 8% per annum over a duration of 3 years.",
+ opts:["1000","1200","1400","1500"],
+ correct:["B"],
+ explanation:"Simple Interest = (P * R * T) / 100 = (5000 * 8 * 3) / 100 = 1200."},
+
+{sec:"quant", type:"mcq",
+ q:"The average age of a class consisting of 20 students is 15 years. If the teacher's age is included, the overall average increases by exactly 1 year. What is the age of the teacher?",
+ opts:["35 years","36 years","37 years","40 years"],
+ correct:["B"],
+ explanation:"Total age of 20 students = 20 * 15 = 300. Average of 21 people = 16. Total age = 21 * 16 = 336. Teacher's age = 336 - 300 = 36."},
+
+{sec:"quant", type:"mcq",
+ q:"If the cost price of 15 identical articles is equal to the selling price of 12 of those articles, what is the net gain percentage?",
+ opts:["15%","20%","25%","30%"],
+ correct:["C"],
+ explanation:"Let CP of 1 item be 1. CP of 15 = 15. SP of 12 = 15. SP of 1 item = 15/12 = 1.25. Profit = 0.25 on CP 1, which is 25%."},
+
+{sec:"quant", type:"mcq",
+ q:"A vehicle travels at a steady speed of 45 km/hr for the first 2 hours of a journey, and accelerates to 60 km/hr for the next 3 hours. What is its average speed across the entire trip?",
+ opts:["52.5 km/hr","54 km/hr","55 km/hr","56 km/hr"],
+ correct:["B"],
+ explanation:"Total Distance = (45*2) + (60*3) = 90 + 180 = 270 km. Total Time = 5 hours. Average Speed = 270 / 5 = 54 km/hr."},
+
+{sec:"quant", type:"mcq",
+ q:"Pipe A can fill a water tank in 20 minutes, while Pipe B can fill the same tank in 30 minutes. If both water pipes are opened simultaneously, how long will it take to fill the empty tank completely?",
+ opts:["10 minutes","12 minutes","15 minutes","25 minutes"],
+ correct:["B"],
+ explanation:"Rate of A = 1/20, Rate of B = 1/30. Combined rate = 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12. Time = 12 minutes."},
+
+// ═══════════════ ADDITIONAL VERBAL & COMMUNICATION ═══════════════
+{sec:"verbal", type:"mcq",
+ q:"Identify the specific grammatical error in the following sentence: 'Each of the software engineering students have completed their assignment before the morning deadline.'",
+ opts:["'software engineering students' should be singular.","'have completed' should be 'has completed'.","'before the morning deadline' is grammatically incorrect.","There is no error in the sentence."],
+ correct:["B"],
+ explanation:"'Each' is a singular subject. Therefore, the verb must be singular ('has completed' instead of 'have completed')."},
+
+{sec:"verbal", type:"mcq",
+ q:"Fill in the blank with the most appropriate preposition: 'The development team was completely independent ______ external funding for their open-source web project.'",
+ opts:["from","of","with","on"],
+ correct:["B"],
+ explanation:"The correct preposition to follow the adjective 'independent' in this context is 'of'."},
+
+{sec:"verbal", type:"mcq",
+ q:"Choose the most accurate synonym for the word: Meticulous.",
+ opts:["Careless","Detailed","Swift","Sloppy"],
+ correct:["B"],
+ explanation:"Meticulous means showing great attention to detail, making 'Detailed' the closest synonym."},
+
+{sec:"verbal", type:"mcq",
+ q:"Choose the most accurate antonym for the word: Ambiguous.",
+ opts:["Obscure","Precise","Vague","Complex"],
+ correct:["B"],
+ explanation:"Ambiguous means open to multiple interpretations or unclear. Precise is its direct opposite."},
+
+{sec:"verbal", type:"mcq",
+ q:"Select the correct passive voice version of: 'The lead software engineer fixed the critical database bug.'",
+ opts:["The critical database bug is fixed by the lead software engineer.","The critical database bug was fixed by the lead software engineer.","The critical database bug has been fixed by the lead software engineer.","The lead software engineer was fixing the critical database bug."],
+ correct:["B"],
+ explanation:"The original sentence is simple past tense ('fixed'). The passive voice conversion is 'was fixed'."},
+
+{sec:"verbal", type:"mcq",
+ q:"Fill in the blank with the correct verb form: 'Neither the project manager nor the backend developers ______ present at the morning sprint meeting yesterday.'",
+ opts:["was","were","is","are"],
+ correct:["B"],
+ explanation:"In 'Neither/Nor' constructions, the verb agrees with the subject closest to it. 'developers' is plural, and the context is past tense, so 'were' is correct."},
+
+{sec:"verbal", type:"mcq",
+ q:"Identify which of the following choices represents the correct spelling:",
+ opts:["Accommodate","Accomodate","Acommodate","Acomodate"],
+ correct:["A"],
+ explanation:"The correct spelling requires double 'c' and double 'm': Accommodate."},
+
+{sec:"verbal", type:"mcq",
+ q:"Complete the verbal analogy: Compiler : Machine Code :: Translator : _______",
+ opts:["Novel","Target Language","Hardware","Logic"],
+ correct:["B"],
+ explanation:"A compiler outputs Machine Code. A translator outputs a Target Language. This creates a perfect Agent : Output analogy."},
+
+{sec:"verbal", type:"msq",
+ q:"Read the following statement and select the most logical inferences: 'Company X noticed a sharp 40% drop in daily website traffic immediately after changing its primary user interface design.'",
+ opts:["The new website layout successfully optimized user workflows.","Users preferred the older interface.","The new navigation was potentially confusing to existing users.","Server maintenance costs decreased due to the layout change."],
+ correct:["B","C"],
+ explanation:"A sharp drop in traffic following a UI change logically implies the new UI negatively impacted user experience, making B and C sound inferences. Maintenance costs are unrelated to frontend UI changes."},
+
+{sec:"verbal", type:"mcq",
+ q:"Select the correct meaning for the common business idiom 'to touch base':",
+ opts:["To physically return to the office.","To briefly make contact or update someone.","To hit a baseline performance metric.","To terminate a contract prematurely."],
+ correct:["B"],
+ explanation:"'Touching base' is a common idiom meaning to briefly check in, make contact, or update someone on a situation."},
+
+// ═══════════════ ADDITIONAL JAVASCRIPT (BEGINNER TO ADVANCED) ═══════════════
+{sec:"js", type:"mcq",
+ q:"What is the output of typeof null in JavaScript?",
+ opts:['"null"','"undefined"','"object"','"string"'],
+ correct:["C"],
+ explanation:"In JavaScript, typeof null returns 'object'. This is a well-known historical bug in the language that has been kept for backward compatibility."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following values are considered 'falsy' in JavaScript?",
+ opts:["0",'"false"',"undefined",'"" (Empty string)'],
+ correct:["A","C","D"],
+ explanation:"Falsy values in JavaScript include 0, -0, 0n, '', null, undefined, and NaN. The string 'false' is truthy because it is a non-empty string."},
+
+{sec:"js", type:"mcq",
+ q:"Which array method is used to remove the first element from an array and return that element?",
+ opts:["pop()","shift()","unshift()","splice()"],
+ correct:["B"],
+ explanation:"shift() removes the first element and returns it. pop() removes the last element. unshift() adds to the beginning."},
+
+{sec:"js", type:"mcq",
+ q:"What is the correct syntax for an arrow function that takes one parameter and returns its square?",
+ opts:["x => return x * x;","(x) => x * x;","x -> x * x;","function(x) => x * x;"],
+ correct:["B"],
+ explanation:"(x) => x * x; or x => x * x; implicitly returns the evaluated expression. 'return' can only be used within curly braces {}."},
+
+{sec:"js", type:"mcq",
+ q:"What will console.log(typeof NaN) output?",
+ opts:['"NaN"','"number"','"undefined"','"error"'],
+ correct:["B"],
+ explanation:"NaN (Not-a-Number) is technically a numeric data type in JavaScript. Therefore, typeof NaN returns 'number'."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following are valid ways to create an object in JavaScript?",
+ opts:["const obj = {};","const obj = new Object();","const obj = Object.create(null);","const obj = Object.make();"],
+ correct:["A","B","C"],
+ explanation:"Object literals {}, new Object(), and Object.create() are all valid object creation patterns. Object.make() does not exist."},
+
+{sec:"js", type:"mcq",
+ q:"What is the difference between let and const?",
+ opts:["let is function-scoped; const is block-scoped.","Variables declared with let can be reassigned; variables declared with const cannot be reassigned.","const variables are automatically hoisted, while let variables are not.","There is no functional difference."],
+ correct:["B"],
+ explanation:"Both let and const are block-scoped, but variables declared with const cannot be reassigned after initialization, whereas let variables can."},
+
+{sec:"js", type:"mcq",
+ q:"How do you correctly embed a variable name inside a template literal?",
+ opts:['"Hello, ${name}"','Hello, ${name}',"'Hello, ${name}'",'`Hello, ${name}`'],
+ correct:["D"],
+ explanation:"Template literals are enclosed by backticks (` `) and use the ${expression} syntax for string interpolation."},
+
+{sec:"js", type:"mcq",
+ q:"What does the isNaN() function check for?",
+ opts:["If the given value is an object.","If the given value is undefined.","If the given value is Not-a-Number.","If the given value is negative."],
+ correct:["C"],
+ explanation:"isNaN() attempts to convert the given value to a number and returns true if the result is NaN (Not-a-Number)."},
+
+{sec:"js", type:"mcq",
+ q:"Which operator is used to concatenate strings in JavaScript?",
+ opts:["&",".","+","concat"],
+ correct:["C"],
+ explanation:"The addition operator (+) is used to concatenate strings in JavaScript. The .concat() method also exists but + is the operator."},
+
+{sec:"js", type:"mcq",
+ q:"What is the primary difference between the map() and forEach() array methods?",
+ opts:["map() modifies the original array; forEach() does not.","map() returns a new array of the same length; forEach() returns undefined.","forEach() can be chained with other methods like filter(); map() cannot.","map() is synchronous, while forEach() is asynchronous."],
+ correct:["B"],
+ explanation:"map() transforms each element and returns a brand new array. forEach() simply iterates over the array, performing side effects, and returns undefined."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following are valid use cases for the spread operator (...)?",
+ opts:["Copying an array or object.","Merging two arrays into a new array.","Passing an array of numbers as individual arguments to Math.max().","Forcing synchronous execution of an async function."],
+ correct:["A","B","C"],
+ explanation:"The spread operator expands iterables into individual elements. It is widely used for copying arrays/objects, merging them, and spreading arguments into functions."},
+
+{sec:"js", type:"mcq",
+ q:"Given const user = { name: 'Alice', age: 25 };, how do you extract name and rename it to userName using object destructuring?",
+ opts:["const { name: userName } = user;","const { userName = name } = user;","const userName = { name } from user;","const { name as userName } = user;"],
+ correct:["A"],
+ explanation:"Object destructuring allows aliasing a property using a colon, e.g., const { originalName: newName } = object;."},
+
+{sec:"js", type:"mcq",
+ q:"How does the this keyword behave differently in an arrow function compared to a regular function?",
+ opts:["Arrow functions do not have their own this; they inherit it from the surrounding lexical scope.","Arrow functions bind this to the global window object unconditionally.","Arrow functions bind this to the object that called the function.","There is no difference; this behaves identically in both."],
+ correct:["A"],
+ explanation:"Arrow functions use lexical scoping for 'this', meaning they capture the 'this' value of the enclosing execution context, unlike regular functions which dynamically bind 'this' based on how they are called."},
+
+{sec:"js", type:"mcq",
+ q:"What is a Closure in JavaScript?",
+ opts:["A function that takes another function as an argument.","A function bundled together with its lexical environment, allowing it to remember variables from its outer scope even after the outer function has finished executing.","The process of hiding object properties from the global scope.","A method used to immediately invoke a function expression."],
+ correct:["B"],
+ explanation:"A closure is created every time a function is defined, granting it access to its lexical scope (variables declared outside of it) indefinitely."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following are valid states of a JavaScript Promise?",
+ opts:["Pending","Fulfilled","Resolved","Rejected"],
+ correct:["A","B","D"],
+ explanation:"A Promise is in one of these strictly defined states: pending, fulfilled, or rejected. ('Resolved' is a colloquial term often used to mean fulfilled or settled, but the official spec state is 'fulfilled'.)"},
+
+{sec:"js", type:"mcq",
+ q:"What is the difference between || (Logical OR) and ?? (Nullish Coalescing Operator)?",
+ opts:["They are identical in functionality.","|| returns the right side for any falsy value (like 0 or ''), while ?? only returns the right side if the left side is null or undefined.","?? returns the right side for any falsy value, while || only checks for null.","?? is used exclusively for evaluating boolean expressions."],
+ correct:["B"],
+ explanation:"|| treats 0, '', and false as falsy and will fall back to the right operand. ?? specifically targets null or undefined, preserving intentional 0 or '' values."},
+
+{sec:"js", type:"mcq",
+ q:"Which built-in method would you use to reduce an array of numbers down to a single sum?",
+ opts:["Array.prototype.map()","Array.prototype.filter()","Array.prototype.reduce()","Array.prototype.concat()"],
+ correct:["C"],
+ explanation:"reduce() executes a reducer callback function on each element of the array, passing in the return value from the calculation on the preceding element, ultimately resulting in a single output value."},
+
+{sec:"js", type:"mcq",
+ q:"What does the bind() method do in JavaScript?",
+ opts:["It immediately executes a function with a specific this context.","It creates and returns a new function that, when called, has its this keyword set to the provided value.","It merges two objects together into a single instance.","It attaches an event listener to a DOM element."],
+ correct:["B"],
+ explanation:"bind() returns a new bound function. call() and apply() execute the function immediately."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following statements about Variable Hoisting are TRUE?",
+ opts:["var declarations are hoisted and initialized with undefined.","let and const declarations are not hoisted at all.","let and const are hoisted but remain in the Temporal Dead Zone (TDZ) until their declaration line is executed.","Function declarations (function myFunc() {}) are fully hoisted along with their definitions."],
+ correct:["A","C","D"],
+ explanation:"let and const ARE technically hoisted, but they remain uninitialized in the Temporal Dead Zone (TDZ). Function declarations and var are hoisted, but only var is initialized as undefined immediately."},
+
+{sec:"js", type:"mcq",
+ q:"What does Promise.all() do?",
+ opts:["It resolves as soon as the first promise in an array resolves.","It takes an iterable of promises and resolves only when all of the promises have resolved, returning an array of their results.","It rejects only if all promises in the array are rejected.","It pauses code execution until all promises resolve globally."],
+ correct:["B"],
+ explanation:"Promise.all() waits for all promises in an iterable to fulfill, or immediately rejects if any single promise rejects."},
+
+{sec:"js", type:"mcq",
+ q:"What is the purpose of the Optional Chaining operator (?.)?",
+ opts:["It allows reading the value of a property located deep within an object chain without having to explicitly validate that each reference in the chain is valid.","It converts a non-boolean value into a boolean.","It forces an object to become immutable.","It provides a default fallback value for undefined variables."],
+ correct:["A"],
+ explanation:"Optional chaining (?.) safely attempts to access deep object properties, short-circuiting and returning undefined instead of throwing a TypeError if a reference is nullish."},
+
+{sec:"js", type:"mcq",
+ q:"What will console.log(0 == false) and console.log(0 === false) output, respectively?",
+ opts:["false, false","true, true","true, false","false, true"],
+ correct:["C"],
+ explanation:"0 == false is true because of type coercion (both evaluate to 0). 0 === false is false because strict equality checks type, and a number is not a boolean."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following methods create a shallow copy of an object or array?",
+ opts:["JSON.parse(JSON.stringify(obj))","The Spread Operator (...)","Object.assign()","Array.prototype.slice()"],
+ correct:["B","C","D"],
+ explanation:"Spread, Object.assign(), and slice() create shallow copies. JSON.parse(JSON.stringify()) creates a deep copy (though it strips functions/symbols)."},
+
+{sec:"js", type:"mcq",
+ q:"What is an IIFE (Immediately Invoked Function Expression)?",
+ opts:["A function that is executed automatically as soon as it is defined.","A function that is called by a setTimeout method.","A recursive function that calls itself immediately.","A built-in JavaScript engine optimization technique."],
+ correct:["A"],
+ explanation:"An IIFE is a function wrapped in parentheses and immediately followed by invoking parentheses (e.g., (function() { ... })();), executing immediately upon definition."},
+
+{sec:"js", type:"mcq",
+ q:"In DOM manipulation, what is Event Delegation?",
+ opts:["Triggering a custom event on a specific element.","Attaching a single event listener to a parent element to manage events triggered by its child elements, leveraging event bubbling.","Preventing an event from bubbling up the DOM tree.","Removing an event listener completely from the DOM."],
+ correct:["B"],
+ explanation:"Event delegation is a pattern that uses event bubbling to handle events at a higher level in the DOM, reducing the number of total event listeners required."},
+
+{sec:"js", type:"mcq",
+ q:"What does Object.freeze() do?",
+ opts:["It prevents new properties from being added to an object, but allows modifying existing ones.","It deep freezes an object and all nested child objects permanently.","It prevents new properties from being added, existing properties from being removed, and existing properties from being changed.","It pauses the execution of an object's methods."],
+ correct:["C"],
+ explanation:"Object.freeze() makes an object entirely immutable at the top level. Nested objects are not automatically frozen (it is a shallow freeze by default)."},
+
+{sec:"js", type:"msq",
+ q:"What are the key differences between call() and apply()?",
+ opts:["call() takes arguments separately (comma-separated).","apply() takes arguments as an array.","call() binds this permanently, while apply() only binds it temporarily.","Both immediately invoke the function."],
+ correct:["A","B","D"],
+ explanation:"Both immediately invoke the function with a given 'this'. The only difference is how they accept arguments: call() uses Comma-separated arguments, apply() uses an Array."},
+
+{sec:"js", type:"mcq",
+ q:"What does the Rest Parameter (...args) do in a function definition?",
+ opts:["It expands an array into individual arguments.","It pauses the function execution for a rest period.","It collects all remaining arguments passed to a function into an array.","It forces the function to ignore extra arguments."],
+ correct:["C"],
+ explanation:"The Rest parameter syntax allows a function to accept an indefinite number of arguments as a true Array."},
+
+{sec:"js", type:"mcq",
+ q:"If you have setTimeout(() => console.log('A'), 0); console.log('B');, what is the output sequence and why?",
+ opts:["'A' then 'B', because setTimeout is set to 0 milliseconds.","'B' then 'A', because setTimeout is a Web API and its callback is placed in the task queue, executing only after the main call stack is empty.","It will throw an error.","Both execute exactly simultaneously."],
+ correct:["B"],
+ explanation:"JavaScript is single-threaded. Synchronous code ('B') runs first on the call stack. The setTimeout callback ('A') goes to the macrotask queue and waits for the stack to clear."},
+
+{sec:"js", type:"mcq",
+ q:"In the JavaScript Event Loop, how are Microtasks and Macrotasks prioritized?",
+ opts:["Macrotasks (like setTimeout) are executed before Microtasks (like Promise .then() callbacks).","The event loop completely empties the Microtask queue immediately after the current operation and before processing the next Macrotask.","They are executed sequentially in the exact order they were added to the stack, regardless of type.","Microtasks are only processed when the browser is idle."],
+ correct:["B"],
+ explanation:"Microtasks (Promises, MutationObserver) have higher priority than Macrotasks (setTimeout, setInterval). The microtask queue is fully drained before moving to the next macrotask."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following statements about WeakMap are TRUE?",
+ opts:["Keys in a WeakMap must be objects (or non-registered Symbols as of ES2023).","WeakMap is highly useful for managing memory and avoiding memory leaks because references to key objects are held 'weakly'.","You can iterate over a WeakMap using forEach or for...of.","If there are no other references to an object acting as a key, it will be garbage collected."],
+ correct:["A","B","D"],
+ explanation:"WeakMaps prevent memory leaks because their keys do not block garbage collection. Because of this weak referencing, their keys are not enumerable, so you cannot iterate over a WeakMap."},
+
+{sec:"js", type:"mcq",
+ q:"What is the primary purpose of the Reflect API in JavaScript?",
+ opts:["To create deep copies of highly nested objects.","To provide methods for interceptable JavaScript operations (like property lookup, assignment, enumeration), heavily used alongside Proxy objects.","To analyze code performance at runtime.","To dynamically generate HTML based on state changes."],
+ correct:["B"],
+ explanation:"Reflect provides static methods corresponding to Proxy handler traps, offering a standardized way to forward operations and handle low-level object manipulations."},
+
+{sec:"js", type:"mcq",
+ q:"What is Currying in functional JavaScript?",
+ opts:["Converting a function that takes an array of arguments into a function that takes separate arguments.","Transforming a function that takes multiple arguments into a sequence of functions that each take a single argument.","Binding a specific this context to a function globally.","Creating an infinite recursive loop intentionally."],
+ correct:["B"],
+ explanation:"Currying transforms a function like f(a, b, c) into f(a)(b)(c). It's a foundational functional programming concept for creating specialized functions."},
+
+{sec:"js", type:"msq",
+ q:"When dealing with Prototypal Inheritance, which statements are correct?",
+ opts:["Every object in JavaScript has a built-in property, often referred to as its prototype (__proto__).","The prototype chain ends when an object's prototype is null.","Class syntax in ES6 introduced a completely new object-oriented inheritance model that replaces the prototype chain.","Modifying Object.prototype is generally considered a bad practice because it affects all objects in the application."],
+ correct:["A","B","D"],
+ explanation:"ES6 classes are 'syntactic sugar' over the existing prototype-based inheritance model; they do not introduce a new underlying inheritance engine."},
+
+{sec:"js", type:"mcq",
+ q:"What is the fundamental difference between Promise.all() and Promise.allSettled()?",
+ opts:["Promise.allSettled() rejects immediately if any promise fails; Promise.all() waits for all to fail.","Promise.all() resolves only if all promises resolve and rejects if any promise rejects. Promise.allSettled() waits for all promises to finish (either resolved or rejected) and returns an array describing the outcome of each.","There is no difference; allSettled() is just a deprecated alias.","Promise.allSettled() only works with asynchronous generators."],
+ correct:["B"],
+ explanation:"Promise.all() 'fails fast' on the first rejection. Promise.allSettled() guarantees execution of all promises regardless of success or failure."},
+
+{sec:"js", type:"mcq",
+ q:"What does a JavaScript Generator function (function*) yield when called?",
+ opts:["It immediately returns the final value of the function execution.","It returns a Generator Object (an iterator) that can be used to manually step through the function's execution using .next().","It returns a standard Promise that resolves automatically.","It returns the yield keyword itself as a string."],
+ correct:["B"],
+ explanation:"A generator function does not execute its body immediately. Instead, it returns an iterator (Generator object) allowing you to manually pause and resume execution."},
+
+{sec:"js", type:"msq",
+ q:"Which of the following are unique characteristics of the Symbol primitive data type?",
+ opts:["Every Symbol value created is guaranteed to be unique.","Symbols are often used to add hidden or private properties to objects without colliding with existing string keys.","Symbols will show up automatically when iterating over an object using a for...in loop.","Symbol.iterator is a well-known symbol used to define custom iterable behavior for objects."],
+ correct:["A","B","D"],
+ explanation:"Symbols are unique, non-enumerable primitives (they do not show up in for...in loops or Object.keys), often used for defining hidden object properties and customizing iteration."},
+
+{sec:"js", type:"mcq",
+ q:"What is the distinction between Object.seal() and Object.freeze()?",
+ opts:["Object.seal() allows modification of existing properties but prevents adding/removing properties. Object.freeze() prevents all changes, including modifications.","Object.freeze() allows modification of existing properties, while Object.seal() strictly forbids it.","Object.seal() only applies to arrays, while Object.freeze() applies to standard objects.","Object.seal() makes an object permanently invisible to garbage collection."],
+ correct:["A"],
+ explanation:"Object.seal() locks the object's structure (no add/delete) but allows value mutations. Object.freeze() locks both the structure and the values."},
+
+{sec:"js", type:"mcq",
+ q:"Under the hood, how are async/await functions processed in modern JavaScript?",
+ opts:["They spawn separate background OS threads to run code parallel to the main thread.","They are syntactic sugar built on top of standard Promises and Generators, pausing the execution context of the function without blocking the main event loop.","They enforce synchronous execution by forcefully blocking the main thread until the network request completes.","They bypass the Microtask queue entirely and execute instantly."],
+ correct:["B"],
+ explanation:"async/await simplifies Promise chaining by using generator-like pausing (suspending the function's execution context) while allowing the main Event Loop to continue processing other tasks."}
 ];
- 
+
 const SECTIONS = {
-  tech:   {label:"Technical &amp; Coding", emoji:"💻", color:"var(--tech)"},
-  quant:  {label:"Quantitative Aptitude", emoji:"🧮", color:"var(--quant)"},
-  verbal: {label:"Verbal &amp; Communication", emoji:"🗣️", color:"var(--verbal)"}
+  quant:  {label:"Quantitative Aptitude & Logical Reasoning", emoji:"🧮", color:"var(--quant)", short:"Quant & Logic"},
+  verbal: {label:"Verbal Ability", emoji:"🗣️", color:"var(--verbal)", short:"Verbal"},
+  cs:     {label:"Computer Science Fundamentals", emoji:"💻", color:"var(--cs)", short:"CS Fundamentals"},
+  prog:   {label:"Programming & Modern Web Technologies", emoji:"🚀", color:"var(--prog)", short:"Programming"},
+  js:     {label:"JavaScript Fundamentals & Advanced", emoji:"🟨", color:"var(--js)", short:"JavaScript"},
+  hr:     {label:"Situational Judgment & Behavioral", emoji:"🤝", color:"var(--hr)", short:"HR & Behavioral"},
 };
- 
+
 const LETTERS = ["A","B","C","D"];
-const state = DATA.map(() => new Set()); // selected letters per question
+const STORAGE_KEY = "proctor_assessment_state_v1";
+let state = DATA.map(() => new Set());
+let submittedQuestions = new Set(); // tracks per-question submissions
 let submitted = false;
- 
+let timerEndTime = null;
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.dataLength === DATA.length && !parsed.submitted) {
+        state = parsed.answers.map(arr => new Set(arr));
+        if (parsed.submittedQuestions) {
+          submittedQuestions = new Set(parsed.submittedQuestions);
+        }
+        if (parsed.endTime) timerEndTime = parsed.endTime;
+        return true;
+      }
+    }
+  } catch (e) { console.warn(e); }
+  return false;
+}
+
+function saveState() {
+  if (submitted) {
+    localStorage.removeItem(STORAGE_KEY);
+    return;
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    dataLength: DATA.length,
+    endTime: timerEndTime,
+    submitted: submitted,
+    submittedQuestions: Array.from(submittedQuestions),
+    answers: state.map(set => Array.from(set))
+  }));
+}
+
+// Timer
+let timerInterval;
+
+function startTimer() {
+  const display = document.getElementById("timerDisplay");
+  const pill = document.getElementById("timerPill");
+  
+  if (!timerEndTime) {
+    timerEndTime = Date.now() + (60 * 60 * 1000); // 60 minutes
+    saveState();
+  }
+
+  function tick() {
+    const remainingMs = timerEndTime - Date.now();
+    if (remainingMs <= 0) {
+      clearInterval(timerInterval);
+      display.textContent = "00:00";
+      submitQuiz();
+      return;
+    }
+    
+    const totalSeconds = Math.floor(remainingMs / 1000);
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    display.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    
+    if (totalSeconds <= 300) pill.className = "timer-pill danger";
+    else if (totalSeconds <= 600) pill.className = "timer-pill warning";
+    else pill.className = "timer-pill";
+  }
+  
+  tick();
+  timerInterval = setInterval(tick, 1000);
+}
+
+// Section nav
+function buildSectionNav() {
+  const nav = document.getElementById("sectionNav");
+  const secOrder = [...new Set(DATA.map(d => d.sec))];
+  nav.innerHTML = secOrder.map(key => {
+    const s = SECTIONS[key];
+    const count = DATA.filter(d => d.sec === key).length;
+    return `<button class="nav-pill" data-sec="${key}" onclick="scrollToSection('${key}')">${s.emoji} ${s.short}<span class="pill-count">${count}</span></button>`;
+  }).join('');
+  // Set first active
+  nav.querySelector('.nav-pill').classList.add('active');
+}
+
+function scrollToSection(secKey) {
+  const el = document.getElementById(`sec-${secKey}`);
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.toggle('active', p.dataset.sec === secKey));
+}
+
+// Intersection observer for nav pills
+function setupScrollSpy() {
+  const secHeads = document.querySelectorAll('.section-block');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const secKey = entry.target.dataset.sec;
+        document.querySelectorAll('.nav-pill').forEach(p => p.classList.toggle('active', p.dataset.sec === secKey));
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  secHeads.forEach(s => observer.observe(s));
+}
+
+// Render
 const quizMain = document.getElementById("quizMain");
- 
-function render(){
+
+function render() {
   let html = "";
   let lastSec = null;
+  let secQCount = {};
+  DATA.forEach((item) => {
+    if (!secQCount[item.sec]) secQCount[item.sec] = 0;
+    secQCount[item.sec]++;
+  });
+
   DATA.forEach((item, qi) => {
-    if(item.sec !== lastSec){
+    if (item.sec !== lastSec) {
+      if (lastSec !== null) html += `</div>`; // close previous section-block
       const s = SECTIONS[item.sec];
-      html += `<div class="section-head"><span class="emoji">${s.emoji}</span><h2 style="color:${s.color}">${s.label}</h2><div class="rule"></div></div>`;
+      const count = secQCount[item.sec];
+      html += `<div class="section-block" id="sec-${item.sec}" data-sec="${item.sec}">
+        <div class="section-head">
+          <div class="sec-icon">${s.emoji}</div>
+          <div class="sec-info">
+            <h2 style="color:${s.color}">${s.label}</h2>
+            <span class="sec-meta">${count} question${count>1?'s':''} · ${item.sec === 'quant' ? 'Section 1 of 5' : item.sec === 'verbal' ? 'Section 2 of 5' : item.sec === 'cs' ? 'Section 3 of 5' : item.sec === 'prog' ? 'Section 4 of 5' : 'Section 5 of 5'}</span>
+          </div>
+        </div>`;
       lastSec = item.sec;
     }
-    html += `<div class="q-block" id="q-${qi}">
-      <div class="q-num">Question ${qi+1} <span class="tag ${item.type}">${item.type.toUpperCase()}${item.type==='msq' ? ' · select all' : ''}</span></div>
-      <p class="q-text">${escapeHtml(item.q)}</p>
-      <div class="options" id="opts-${qi}">
-        ${item.opts.map((o,oi) => {
+    const animDelay = (qi % 10) * 0.04;
+    html += `<div class="q-card" id="q-${qi}" style="animation-delay:${animDelay}s">
+      <div class="q-header">
+        <span class="q-num">Q${qi+1}</span>
+        <span class="tag ${item.type}">${item.type.toUpperCase()}${item.type==='msq' ? ' · select all' : ''}</span>
+      </div>
+      <p class="q-text">${item.q}</p>
+      <fieldset class="options" id="opts-${qi}" style="border:none; padding:0; margin:0;">
+        <legend class="sr-only" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0);">Options for Q${qi+1}</legend>
+        ${item.opts.map((o, oi) => {
           const letter = LETTERS[oi];
           const inputType = item.type === "msq" ? "checkbox" : "radio";
           return `<label class="opt" data-qi="${qi}" data-letter="${letter}">
-            <input type="${inputType}" name="q${qi}" value="${letter}">
+            <input type="${inputType}" name="q${qi}" value="${letter}" aria-label="Option ${letter}">
             <span class="letter">${letter}.</span>
             <span class="opt-text">${escapeHtml(o)}</span>
           </label>`;
         }).join("")}
+      </fieldset>
+      <div class="q-actions" style="margin-top:16px;">
+        <button type="button" class="primary small" id="submit-q-${qi}" onclick="checkAnswer(${qi})" disabled style="padding:8px 16px; font-size:12px; border-radius:8px;">Submit Answer</button>
       </div>
-      <div class="verdict" id="verdict-${qi}" style="display:none;"></div>
+      <div class="verdict" id="verdict-${qi}" style="display:none; margin-top:16px; padding:12px; border-radius:8px; font-size:14px; background: rgba(255,255,255,0.05); line-height: 1.5;"></div>
     </div>`;
   });
+  if (lastSec !== null) html += `</div>`;
   quizMain.innerHTML = html;
   attachHandlers();
+  setupScrollSpy();
 }
- 
-function escapeHtml(str){
+
+function escapeHtml(str) {
+  // Don't escape HTML tags for code elements
+  if (str.includes('<code>')) return str;
   return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
- 
-function attachHandlers(){
+
+function attachHandlers() {
   document.querySelectorAll(".opt").forEach(label => {
     label.addEventListener("click", (e) => {
-      if(submitted) { e.preventDefault(); return; }
       const qi = parseInt(label.dataset.qi);
+      if (submitted || submittedQuestions.has(qi)) { e.preventDefault(); return; }
       const letter = label.dataset.letter;
       const item = DATA[qi];
       const sel = state[qi];
-      if(item.type === "mcq"){
+      if (item.type === "mcq") {
         sel.clear();
         sel.add(letter);
       } else {
-        if(sel.has(letter)) sel.delete(letter); else sel.add(letter);
+        if (sel.has(letter)) sel.delete(letter); else sel.add(letter);
       }
       updateOptionVisuals(qi);
       updateProgress();
+      saveState();
+      // Mark card as answered
+      const card = document.getElementById(`q-${qi}`);
+      card.classList.toggle('answered', sel.size > 0);
+      
+      const submitBtn = document.getElementById(`submit-q-${qi}`);
+      if (submitBtn) submitBtn.disabled = (sel.size === 0);
     });
   });
 }
- 
-function updateOptionVisuals(qi){
+
+function updateOptionVisuals(qi) {
   const sel = state[qi];
+  const item = DATA[qi];
+  const isSubmitted = submittedQuestions.has(qi);
+  
   document.querySelectorAll(`#opts-${qi} .opt`).forEach(label => {
     const letter = label.dataset.letter;
     const input = label.querySelector("input");
     input.checked = sel.has(letter);
-    label.classList.toggle("selected", sel.has(letter));
+    if (isSubmitted) {
+      input.disabled = true;
+      label.classList.remove("selected", "correct", "incorrect");
+      if (item.correct.includes(letter)) {
+        label.classList.add('correct');
+        label.style.background = "rgba(46, 213, 115, 0.1)";
+        label.style.border = "1px solid var(--success)";
+      } else if (sel.has(letter)) {
+        label.classList.add('incorrect');
+        label.style.background = "rgba(255, 71, 87, 0.1)";
+        label.style.border = "1px solid var(--danger)";
+      }
+    } else {
+      label.classList.toggle("selected", sel.has(letter));
+      label.style.background = "";
+      label.style.border = "";
+    }
   });
+  
+  if (isSubmitted) {
+    const submitBtn = document.getElementById(`submit-q-${qi}`);
+    if (submitBtn) submitBtn.style.display = "none";
+    
+    const verdict = document.getElementById(`verdict-${qi}`);
+    if (verdict) {
+      verdict.style.display = "block";
+      const userAns = Array.from(sel).sort().join("");
+      const correctAns = [...item.correct].sort().join("");
+      const isCorrect = userAns === correctAns;
+      const headerHtml = isCorrect 
+        ? `<strong style="color:var(--success);">✅ Correct!</strong>` 
+        : `<strong style="color:var(--danger);">❌ Incorrect.</strong>`;
+      const expText = item.explanation || "No explanation provided for this question.";
+      verdict.innerHTML = `
+        <div style="margin-bottom:8px;">${headerHtml} <span style="color:var(--text-dim); font-size:12px; margin-left:8px;">Correct Answer: ${item.correct.join(", ")}</span></div>
+        <div style="color:var(--text-dim); font-size:13px;">${expText}</div>
+      `;
+    }
+  }
 }
- 
-function updateProgress(){
+
+function checkAnswer(qi) {
+  if (submittedQuestions.has(qi) || submitted) return;
+  if (state[qi].size === 0) return;
+  submittedQuestions.add(qi);
+  saveState();
+  updateOptionVisuals(qi);
+}
+
+function updateProgress() {
   const answered = state.filter(s => s.size > 0).length;
-  document.getElementById("answeredCount").textContent = `${answered} / ${DATA.length} answered`;
-  document.getElementById("progressFill").style.width = `${(answered / DATA.length) * 100}%`;
+  document.getElementById("answeredCount").textContent = answered;
+  const pct = Math.round((answered / DATA.length) * 100);
+  document.getElementById("progressPct").textContent = `${pct}%`;
+  document.getElementById("progressFill").style.width = `${pct}%`;
+  
+  const submitBtn = document.getElementById("submitBtn");
+  if (answered === 0) {
+    document.getElementById("statusText").textContent = "Answer questions to enable submission";
+    submitBtn.style.opacity = "0.5";
+    submitBtn.style.pointerEvents = "none";
+  } else if (answered === DATA.length) {
+    document.getElementById("statusText").textContent = "All questions answered — ready to submit!";
+    submitBtn.style.opacity = "1";
+    submitBtn.style.pointerEvents = "auto";
+  } else {
+    document.getElementById("statusText").textContent = `${answered} of ${DATA.length} answered`;
+    submitBtn.style.opacity = "1";
+    submitBtn.style.pointerEvents = "auto";
+  }
 }
- 
+
+// Clear
 document.getElementById("clearBtn").addEventListener("click", () => {
-  if(submitted) return;
+  if (submitted) return;
+  if (!confirm("Are you sure you want to clear all your answers?")) return;
   state.forEach(s => s.clear());
-  DATA.forEach((_, qi) => updateOptionVisuals(qi));
+  submittedQuestions.clear();
+  saveState();
+  DATA.forEach((_, qi) => {
+    updateOptionVisuals(qi);
+    const card = document.getElementById(`q-${qi}`);
+    card.classList.remove('answered');
+    const verdict = document.getElementById(`verdict-${qi}`);
+    if (verdict) verdict.style.display = "none";
+    const submitBtn = document.getElementById(`submit-q-${qi}`);
+    if (submitBtn) submitBtn.style.display = "inline-block";
+  });
   updateProgress();
 });
- 
+
+// Submit
 document.getElementById("submitBtn").addEventListener("click", submitQuiz);
 document.getElementById("retakeBtn").addEventListener("click", () => location.reload());
- 
-function setsEqual(a, b){
-  if(a.size !== b.size) return false;
-  for(const x of a) if(!b.has(x)) return false;
+
+function setsEqual(a, b) {
+  if (a.size !== b.size) return false;
+  for (const x of a) if (!b.has(x)) return false;
   return true;
 }
- 
-function submitQuiz(){
+
+function submitQuiz() {
+  if (submitted) return;
   submitted = true;
+  saveState();
+  clearInterval(timerInterval);
   document.getElementById("submitBtn").disabled = true;
   document.getElementById("clearBtn").disabled = true;
- 
+
   let correctCount = 0;
-  const sectionTally = {tech:{c:0,t:0}, quant:{c:0,t:0}, verbal:{c:0,t:0}};
+  const sectionTally = {};
+  Object.keys(SECTIONS).forEach(k => sectionTally[k] = {c:0, t:0});
   const perQuestionResult = [];
- 
+
   DATA.forEach((item, qi) => {
     sectionTally[item.sec].t++;
     const correctSet = new Set(item.correct);
     const isRight = setsEqual(state[qi], correctSet);
-    if(isRight){ correctCount++; sectionTally[item.sec].c++; }
+    if (isRight) { correctCount++; sectionTally[item.sec].c++; }
     perQuestionResult.push(isRight);
- 
-    // lock options & reveal answers
-    document.querySelectorAll(`#opts-${qi} .opt`).forEach(label => {
-      label.classList.add("locked");
-      const letter = label.dataset.letter;
-      const wasPicked = state[qi].has(letter);
-      const isCorrectOpt = correctSet.has(letter);
-      if(isCorrectOpt) label.classList.add("correct-answer");
-      if(wasPicked && !isCorrectOpt) label.classList.add("wrong-picked");
-    });
- 
-    const verdictEl = document.getElementById(`verdict-${qi}`);
-    verdictEl.style.display = "flex";
-    if(isRight){
-      verdictEl.className = "verdict right";
-      verdictEl.innerHTML = `<span class="dot right"></span> Correct — answer: ${item.correct.join(", ")}`;
-    } else {
-      verdictEl.className = "verdict wrong";
-      const yours = state[qi].size ? [...state[qi]].join(", ") : "no answer";
-      verdictEl.innerHTML = `<span class="dot wrong"></span> Incorrect — your answer: ${yours} · correct: ${item.correct.join(", ")}`;
-    }
+
+    // Force grading visualization for any unsubmitted questions
+    submittedQuestions.add(qi);
+    updateOptionVisuals(qi);
   });
- 
-  // Header/progress
-  document.getElementById("progressLabel").innerHTML = `<span>${correctCount} / ${DATA.length} correct</span><span>Assessment complete</span>`;
-  document.getElementById("progressFill").style.width = "100%";
- 
-  // Results panel
+
+  // Progress
   const pct = Math.round((correctCount / DATA.length) * 100);
-  const ring = document.getElementById("scoreRing");
-  ring.style.setProperty("--pct", pct);
+
+  // Hide bottom bar
+  document.getElementById("actionsBar").style.transform = "translateY(100%)";
+
+  // Show results
+  const circumference = 2 * Math.PI * 58; // r=58
+  const offset = circumference - (pct / 100) * circumference;
+  document.getElementById("ringFill").style.strokeDashoffset = offset;
   document.getElementById("scorePct").textContent = `${pct}%`;
   document.getElementById("scoreSub").textContent = `${correctCount} of ${DATA.length} correct`;
   document.getElementById("scoreHeadline").textContent = headlineFor(pct);
- 
+
+  // Section scores
   const sectionScoresEl = document.getElementById("sectionScores");
   sectionScoresEl.innerHTML = Object.keys(SECTIONS).map(key => {
     const s = SECTIONS[key];
     const tally = sectionTally[key];
-    return `<div class="sec-score">
-      <div class="label" style="color:${s.color}">${s.emoji} ${s.label}</div>
-      <div class="val">${tally.c} / ${tally.t}</div>
+    const secPct = tally.t > 0 ? Math.round((tally.c / tally.t) * 100) : 0;
+    return `<div class="sec-score-card">
+      <div class="sec-emoji">${s.emoji}</div>
+      <div class="sec-label">${s.short}</div>
+      <div class="sec-val" style="color:${s.color}">${tally.c}/${tally.t}</div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width:${secPct}%;background:${s.color}"></div></div>
     </div>`;
-  }).join("");
- 
+  }).join('');
+
+  // OMR Grid
   const omrGrid = document.getElementById("omrGrid");
   omrGrid.innerHTML = perQuestionResult.map((isRight, qi) => {
-    return `<div class="bubble ${isRight ? 'right' : 'wrong'}" data-target="q-${qi}">${qi+1}</div>`;
-  }).join("");
-  omrGrid.querySelectorAll(".bubble").forEach(b => {
-    b.addEventListener("click", () => {
-      document.getElementById(b.dataset.target).scrollIntoView({behavior:"smooth", block:"center"});
+    const wasAnswered = state[qi].size > 0;
+    let cls = wasAnswered ? (isRight ? 'right' : 'wrong') : 'unanswered';
+    return `<div class="bubble ${cls}" data-target="q-${qi}">${qi+1}</div>`;
+  }).join('');
+  omrGrid.querySelectorAll('.bubble').forEach(b => {
+    b.addEventListener('click', () => {
+      document.getElementById(b.dataset.target).scrollIntoView({behavior:'smooth', block:'center'});
     });
   });
- 
+
   document.getElementById("resultsPanel").style.display = "block";
-  document.querySelector(".score-hero").scrollIntoView({behavior:"smooth", block:"start"});
+  document.querySelector(".results-hero").scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Confetti for high scores
+  if (pct >= 70) launchConfetti();
 }
- 
-function headlineFor(pct){
-  if(pct >= 90) return "Outstanding";
-  if(pct >= 75) return "Strong performance";
-  if(pct >= 60) return "Solid effort";
-  if(pct >= 40) return "Room to grow";
-  return "Keep practicing";
+
+function headlineFor(pct) {
+  if (pct >= 90) return "🏆 Outstanding Performance!";
+  if (pct >= 75) return "🌟 Strong Performance";
+  if (pct >= 60) return "💪 Solid Effort";
+  if (pct >= 40) return "📈 Room to Grow";
+  return "📚 Keep Practicing";
 }
- 
+
+// ===========================
+// CONFETTI
+// ===========================
+function launchConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#7c6aef','#56b4f9','#f59e42','#e74f7a','#f4d03f','#3ecf8e','#fff'];
+  const particles = [];
+
+  for (let i = 0; i < 150; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      w: Math.random() * 8 + 4,
+      h: Math.random() * 4 + 2,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      vy: Math.random() * 3 + 2,
+      vx: (Math.random() - 0.5) * 2,
+      rot: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 10,
+      opacity: 1
+    });
+  }
+
+  let frame = 0;
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = false;
+    particles.forEach(p => {
+      p.y += p.vy;
+      p.x += p.vx;
+      p.rot += p.rotSpeed;
+      if (frame > 60) p.opacity -= 0.008;
+      if (p.opacity <= 0) return;
+      alive = true;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+      ctx.restore();
+    });
+    frame++;
+    if (alive && frame < 300) requestAnimationFrame(animate);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  animate();
+}
+
+// ===========================
+// INIT
+// ===========================
+window.addEventListener("beforeunload", (e) => {
+  const answered = state.filter(s => s.size > 0).length;
+  if (answered > 0 && !submitted) {
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});
+
+loadState();
 render();
+buildSectionNav();
 updateProgress();
+startTimer();
+
+// Pre-fill visual states if loaded from storage
+DATA.forEach((_, qi) => {
+  if (state[qi].size > 0) {
+    updateOptionVisuals(qi);
+    document.getElementById(`q-${qi}`).classList.add('answered');
+  }
+});
 </script>
- 
+
 </body>
 </html>
- 
